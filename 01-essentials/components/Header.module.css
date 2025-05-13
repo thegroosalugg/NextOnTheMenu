@@ -1,0 +1,26 @@
+.header {
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  overflow-x: scroll;
+  font-family: var(--font-gluten);
+  background: var(--bg);
+
+  > a {
+    display: flex;
+    align-items: center;
+
+     h1 {
+      font-weight: 500;
+      font-size: 1.4rem;
+    }
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
