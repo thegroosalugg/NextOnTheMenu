@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <Link href='/'>
-        <Image src='/icon.png' alt='a buffet' width='40' height='40' />
+        <Image src='/logo.png' alt='a buffet' width='40' height='40' />
         <h1>FoodHouse</h1>
       </Link>
       <nav>
