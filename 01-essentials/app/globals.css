@@ -9,6 +9,12 @@
   --gray-800: #333333;
   --gray-900: #1a1a1a;
 
+  --orange-100: #ffc905;
+  --orange-200: #f9b241;
+  --orange-300: #ff9b05;
+  --orange-400: #f9572a;
+  --orange-500: #fd4715;
+
   --green: #668139;
   --purple: #2e1470;
   --accent: var(--green);
