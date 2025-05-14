@@ -10,7 +10,7 @@ if (!routeName) {
 // path/slug becomes path/[slug] automatically when dir name ends with 'slug'
 const dir = path.join('app', routeName).replace(/slug$/, '[slug]');
 if (fs.existsSync(dir)) {
-  console.error('❌ Route already exists');
+  console.error(`❌ ${routeName} already exists`);
   process.exit(1);
 }
 
@@ -50,5 +50,5 @@ export default ${async}function ${component}(${params}) {${slug}
 }
 `);
 
-console.log(`✅ Created /app/${dir}/page.tsx`);
-console.log(`✅ Created /app/${dir}/page.module.css`);
+console.log(`✅ Created ${pagePath}`);
+console.log(`✅ Created ${cssPath}`);
