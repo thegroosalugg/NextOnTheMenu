@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Header.module.css';
+import NavLink from './NavLink';
 
 export default function Header() {
   return (
@@ -10,9 +11,9 @@ export default function Header() {
         <h1>FoodHouse</h1>
       </Link>
       <nav>
-        <Link href='/meals'>Meals</Link>
-        <Link href='/meals/share'>Share</Link>
-        <Link href='/community'>Community</Link>
+        <NavLink href='/meals'>Meals</NavLink>
+        <NavLink href='/meals/share'>Share</NavLink>
+        <NavLink href='/community'>Community</NavLink>
       </nav>
     </header>
   );
