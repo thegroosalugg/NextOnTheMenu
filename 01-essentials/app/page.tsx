@@ -23,7 +23,7 @@ export default function Home() {
       <header>
         <Slideshow />
         <div className={styles['banner']}>
-          <h1>NextLevel Food for NextLevel Foodies</h1>
+          <h1 className='highlight light'>NextLevel Food for NextLevel Foodies</h1>
           <p>Taste & share food from all over the world.</p>
           <div className={styles['links']}>
             <Link href='/community'>Join the Community</Link>
