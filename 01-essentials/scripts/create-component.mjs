@@ -2,8 +2,18 @@ import fs from 'fs';
 import path from 'path';
 
 // 0: Node, 1: Script, 2: args (anything written in CLI after script)
-const fcName = process.argv[2]?.toLowerCase();
-if (!fcName) {
+const arg1 = process.argv[2]?.toLowerCase();
+const arg2 = process.argv[3]?.toLowerCase();
+
+// fcName should be separated with - or / for pascal casing: my-component => MyComponent
+// fcDir should be path/nested/foders/optional
+let fcDir, fcName = null;
+if (arg1 && arg2) {
+  fcDir  = arg1;
+  fcName = arg2;
+} else if (arg1 && !arg2) {
+  fcName = arg1;
+} else {
   console.error('❌ Component name required');
   process.exit(1);
 }
@@ -19,10 +29,16 @@ function kebabCase(str) {
   return str.replace(/[_/]/g, '-'); // replace all _ / with -
 }
 
+let finalDir = 'components';
+if (fcDir) {
+  finalDir = path.join(finalDir, fcDir);
+  fs.mkdirSync(finalDir, { recursive: true });
+}
+
 const className = kebabCase(fcName);
 const component = pascalCase(fcName);
-const    fcPath = path.join('components', component + '.tsx');
-const   cssPath = path.join('components', component + '.module.css');
+const    fcPath = path.join(finalDir, component + '.tsx');
+const   cssPath = path.join(finalDir, component + '.module.css');
 
 if (fs.existsSync(fcPath)) {
   console.error(`❌ ${fcPath} already exists`);
