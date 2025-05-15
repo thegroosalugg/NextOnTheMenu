@@ -1,14 +1,13 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
-import { getMeals } from '@/lib/Meals';
 import List from '@/components/List';
 import MealItem from '@/components/MealItem';
 import Meal from '@/models/Meal';
 
 // nextJS functions are server functions and can be async
 const Meals = async () => {
-  const meals = await getMeals();
+  const meals = await Meal.fetchAll();
   return (
     <List<Meal> keyFn={({ id }) => id} items={meals}>
       {(meal) => <MealItem {...meal} />}
