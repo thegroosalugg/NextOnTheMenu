@@ -1,10 +1,12 @@
 type Meal = {
-       id: string;
-    title: string;
-    image: string;
-  creator: string;
-  summary: string;
-     slug: string;
+             id: string;
+           slug: string;
+          title: string;
+          image: string;
+        creator: string;
+  creator_email: string;
+        summary: string;
+   instructions: string[];
 };
 
 export default Meal;
