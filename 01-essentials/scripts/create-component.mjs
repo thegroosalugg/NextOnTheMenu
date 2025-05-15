@@ -1,11 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
-// 0: Node, 1: Script, 2: args (anything written in CLI after script)
+// 0: Node, 1: Script, 2++: args (anything written in CLI after script, separated by ' ')
 const arg1 = process.argv[2]?.toLowerCase();
 const arg2 = process.argv[3]?.toLowerCase();
 
-// fcName should be separated with - or / for pascal casing: my-component => MyComponent
+// fcName should be separated with - or / for PascalCasing: my-component => MyComponent
 // fcDir should be path/nested/foders/optional
 let fcDir, fcName = null;
 if (arg1 && arg2) {

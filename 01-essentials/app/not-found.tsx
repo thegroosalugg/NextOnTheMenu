@@ -1,4 +1,4 @@
-import ErrorComponent from '@/components/Error';
+import ErrorComponent from '@/components/boundary/Error';
 
 export default function NotFound() {
   return (

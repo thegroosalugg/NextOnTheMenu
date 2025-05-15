@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
-import List from '@/components/List';
-import MealItem from '@/components/MealItem';
+import List from '@/components/list/List';
+import MealItem from '@/components/list/MealItem';
 import Meal from '@/models/Meal';
 
 // nextJS functions are server functions and can be async

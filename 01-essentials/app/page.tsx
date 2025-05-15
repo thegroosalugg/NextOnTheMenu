@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from './page.module.css';
-import Slideshow from '@/components/Slideshow';
+import Slideshow from '@/components/image/Slideshow';
 
 const Section = ({
     children,

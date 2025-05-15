@@ -1,5 +1,5 @@
 'use client'; // error.tsx must use client so it can catch server & client side errors
-import ErrorComponent from '@/components/Error';
+import ErrorComponent from '@/components/boundary/Error';
 
 // error.tsx can be defined at page nest to display an all current & segemented routes
 export default function Error({ error }: { error: Error }) {
