@@ -1,0 +1,14 @@
+.error {
+  margin: 5% auto;
+  text-align: center;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+
+  p {
+    font: var(--font-gluten);
+    font-weight: 600;
+  }
+}

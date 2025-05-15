@@ -1,14 +1,22 @@
+import { Suspense } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
-import List from '@/components/List';
 import { getMeals } from '@/lib/Meals';
+import List from '@/components/List';
 import MealItem from '@/components/MealItem';
 import Meal from '@/models/Meal';
 
 // nextJS functions are server functions and can be async
-export default async function Meals() {
+const Meals = async () => {
   const meals = await getMeals();
+  return (
+    <List<Meal> keyFn={({ id }) => id} items={meals}>
+      {(meal) => <MealItem {...meal} />}
+    </List>
+  );
+};
 
+export default function MealsPage() {
   return (
     <div className={styles['meals']}>
       <header>
@@ -19,11 +27,10 @@ export default async function Meals() {
         <Link href='/meals/share'>Share your recipe</Link>
       </header>
       <main>
-        <List<Meal> keyFn={({ id }) => id} items={meals}>
-          {(meal) => (
-            <MealItem {...meal} />
-          )}
-        </List>
+        {/* displays fallback until promise in <Meals /> is resolved */}
+        <Suspense fallback={<p className={styles['loading']}>Loading data...</p>}>
+          <Meals />
+        </Suspense>
       </main>
     </div>
   );
