@@ -53,12 +53,13 @@ export default class Meal {
     return db.prepare('SELECT * FROM meals').all() as Meal[];
   }
 
-  static async find(slug: string): Promise<Meal> {
+  static async find(slug: string): Promise<Meal | void> {
     await new Promise((resolve) => setTimeout(resolve, 1500)); // dummy promise
     // SQL ? placeholder to avoid injection attacks
     const meal = db.prepare('SELECT * FROM meals WHERE slug = ?').get(slug) as Meal & {
       instructions: string; // SQL can't hold arrays - temp casting as string to it can be parsed
     };
+    if (!meal) return; // void
     // pasrse JSON string to array. Type inferred so client only knows string[]
     meal.instructions = JSON.parse(meal.instructions);
     return meal;

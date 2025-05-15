@@ -10,11 +10,7 @@ export default function NavLink({
   children: React.ReactNode;
 }) {
   const path = usePathname();
-  const isActive =
-    path === href ||
-    (path.startsWith('/meals/') && path !== '/meals/share' && href === '/meals')
-      ? 'highlight'
-      : '';
+  const isActive = path.startsWith(href) ? 'highlight' : '';
 
   return (
     <Link href={href} className={isActive}>

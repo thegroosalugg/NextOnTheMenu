@@ -12,7 +12,6 @@ export default function Header() {
       </Link>
       <nav>
         <NavLink href='/meals'>Meals</NavLink>
-        <NavLink href='/meals/share'>Share</NavLink>
         <NavLink href='/community'>Community</NavLink>
       </nav>
     </header>
