@@ -30,7 +30,7 @@
     margin: 1rem;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    background: var(--gradient-300);
+    background: var(--gradient-mid);
     color: var(--gray-100);
     font-weight: 900;
   }
@@ -50,7 +50,7 @@
     a {
       transition: 0.5s ease;
       &:hover {
-        background: linear-gradient(90deg, var(--orange-500), var(--orange-200));
+        background: var(--gradient-max);
         box-shadow: 0 0 12px var(--orange-400);
       }
     }

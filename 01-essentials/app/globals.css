@@ -22,7 +22,8 @@
   --bg: var(--gray-200);
   --fg: var(--gray-900);
 
-  --gradient-300: linear-gradient(90deg, var(--orange-400), var(--orange-300));
+  --gradient-mid: linear-gradient(90deg, var(--orange-400), var(--orange-300));
+  --gradient-max: linear-gradient(90deg, var(--orange-500), var(--orange-200));
 }
 
 /* detects browser/OS settings */
