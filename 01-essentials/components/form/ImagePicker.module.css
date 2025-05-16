@@ -14,4 +14,9 @@
   input {
     display: none;
   }
+
+  &.error {
+    border-color: var(--orange-500);
+    color: var(--orange-500);
+  }
 }
