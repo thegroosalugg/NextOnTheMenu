@@ -11,10 +11,10 @@ export default function Input({
      type?: 'text' | 'number' | 'email' | 'password';
   children: React.ReactNode;
 }) {
-  let input = <input type={type} id={control} name={control} required />;
+  let input = <input type={type} id={control} name={control} />;
 
   if (rows) {
-    input = <textarea id={control} name={control} rows={rows} required />;
+    input = <textarea id={control} name={control} rows={rows} />;
   }
 
   return (

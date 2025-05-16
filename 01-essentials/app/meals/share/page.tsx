@@ -1,8 +1,19 @@
+'use client'; // required to pass event to function
 import Input from '@/components/form/Input';
 import styles from './page.module.css';
 import ImagePicker from '@/components/form/ImagePicker';
+import { shareMeal } from '@/lib/shareMeal';
 
 export default function MealsShare() {
+  // Next Server actions pass formData directly to function => no submitHandler needed
+  // BUT: React 19 now resets forms onSubmit, losing client's formData even when form invalid
+  async function submitHandler(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault(); // therefore must use client to prevent this event
+    const formData = new FormData(e.currentTarget); // get formData manually
+    const result = await shareMeal(formData); // call server action, pass formData manually
+    console.log(result);
+  };
+
   return (
     <div className={styles['meals-share']}>
       <header>
@@ -11,7 +22,9 @@ export default function MealsShare() {
         </h1>
         <p>Or any other meal you feel needs sharing!</p>
       </header>
-      <form className={styles['form']}>
+      {/* if React 19 didn't reset forms onSubmission, you could call action */}
+      {/* <form className={styles['form']} action={shareMeal}> */}
+      <form className={styles['form']} onSubmit={submitHandler}>
         <ImagePicker />
         <div className={styles['row']}>
           <Input control='name'>Your name</Input>

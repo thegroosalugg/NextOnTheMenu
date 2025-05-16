@@ -32,7 +32,6 @@ export default function ImagePicker() {
             name='image'
           accept='image/png, image/jpeg, image/jpg'
         onChange={changeHandler}
-        required
       />
       {image ? (
         <Image src={image} alt='user select image' fill sizes='100%' />
