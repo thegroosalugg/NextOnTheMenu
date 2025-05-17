@@ -1,21 +1,25 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './ImagePicker.module.css';
 import Image from 'next/image';
 
 const fileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
-export default function ImagePicker() {
+export default function ImagePicker({ formErr, count }: { formErr: string, count: number }) {
   const [image, setImage] = useState('');
   const [error, setError] = useState('');
   const classes = `${styles['image-picker']} ${error ? styles['error'] : ''}`
+
+  useEffect(() => {
+    if (formErr) setError(formErr);
+  }, [formErr, count]); // submit count
 
   function changeHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     let errMsg;
 
     if (!file)                               errMsg = 'No file selected';
-    else if (!fileTypes.includes(file.type)) errMsg = 'Invalid file type';
+    else if (!fileTypes.includes(file.type)) errMsg = 'Must be jpg, jpeg or png';
     else if (file.size > 1024 * 1024)        errMsg = 'File size over 1mb';
 
     if (errMsg) {

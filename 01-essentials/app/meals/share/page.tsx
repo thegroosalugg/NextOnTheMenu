@@ -6,15 +6,17 @@ import ImagePicker from '@/components/form/ImagePicker';
 import { shareMeal } from '@/lib/shareMeal';
 
 export default function MealsShare() {
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [count,   setCount] = useState(0);
   // Next Server actions pass formData directly to function => no submitHandler needed
   // BUT: React 19 now resets forms onSubmit, losing client's formData even when form invalid
   async function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); // therefore must use client to prevent this event
     const formData = new FormData(e.currentTarget); // get formData manually
-    const result = await shareMeal(formData); // call server action, pass formData manually
-    setErrors(result);
-    console.log(result);
+    const response = await shareMeal(formData); // call server action, pass formData manually
+    setErrors(response);
+    setCount(n => n += 1); // trigger <ImagePicker /> effect
+    console.log(response);
   };
 
   return (
@@ -28,7 +30,7 @@ export default function MealsShare() {
       {/* if React 19 didn't reset forms onSubmission, you could call action */}
       {/* <form className={styles['form']} action={shareMeal}> */}
       <form className={styles['form']} onSubmit={submitHandler}>
-        <ImagePicker />
+        <ImagePicker {...{ formErr: errors['image'], count }} />
         <div className={styles['row']}>
           <Input {...{ control: 'name',         errors }}>  Your name  </Input>
           <Input {...{ control: 'email',        errors }}>  Your email </Input>
