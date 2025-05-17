@@ -4,13 +4,17 @@ export default function Input({
    control,
       rows,
       type = 'text',
+    errors,
   children,
 }: {
    control: string;
      rows?: number;
      type?: 'text' | 'number' | 'email' | 'password';
+    errors: Record<string, string>;
   children: React.ReactNode;
 }) {
+  const error = errors[control];
+  const classes = `${styles['control']} ${error ? styles['error'] : ''}`
   let input = <input type={type} id={control} name={control} />;
 
   if (rows) {
@@ -18,8 +22,8 @@ export default function Input({
   }
 
   return (
-    <p className={styles['control']}>
-      <label htmlFor={control}>{children}</label>
+    <p className={classes}>
+      <label htmlFor={control}>{children} {error && error}</label>
       {input}
     </p>
   );

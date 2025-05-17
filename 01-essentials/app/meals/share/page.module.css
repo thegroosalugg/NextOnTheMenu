@@ -57,7 +57,7 @@
     button {
       &:hover:not(:disabled), &:focus:not(:disabled) {
         background: var(--gradient-max);
-        box-shadow: 0 0 12px var(--orange-400);
+        box-shadow: 0 0 12px var(--orange-500);
       }
     }
   }

@@ -16,7 +16,7 @@
   }
 
   &.error {
-    border-color: var(--orange-500);
-    color: var(--orange-500);
+    border-color: var(--orange-600);
+    color: var(--orange-600);
   }
 }

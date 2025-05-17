@@ -1,16 +1,19 @@
 'use client'; // required to pass event to function
-import Input from '@/components/form/Input';
 import styles from './page.module.css';
+import { useState } from 'react';
+import Input from '@/components/form/Input';
 import ImagePicker from '@/components/form/ImagePicker';
 import { shareMeal } from '@/lib/shareMeal';
 
 export default function MealsShare() {
+  const [errors, setErrors] = useState({});
   // Next Server actions pass formData directly to function => no submitHandler needed
   // BUT: React 19 now resets forms onSubmit, losing client's formData even when form invalid
   async function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); // therefore must use client to prevent this event
     const formData = new FormData(e.currentTarget); // get formData manually
     const result = await shareMeal(formData); // call server action, pass formData manually
+    setErrors(result);
     console.log(result);
   };
 
@@ -27,12 +30,12 @@ export default function MealsShare() {
       <form className={styles['form']} onSubmit={submitHandler}>
         <ImagePicker />
         <div className={styles['row']}>
-          <Input control='name'>Your name</Input>
-          <Input control='email'>Your email</Input>
+          <Input {...{ control: 'name',         errors }}>  Your name  </Input>
+          <Input {...{ control: 'email',        errors }}>  Your email </Input>
         </div>
-        <Input control='title'>Title</Input>
-        <Input control='summary'>Short Summary</Input>
-        <Input control='instructions' rows={10}>
+        <Input   {...{ control: 'title',        errors }}>    Title    </Input>
+        <Input   {...{ control: 'summary',      errors }}>Short Summary</Input>
+        <Input   {...{ control: 'instructions', errors, rows: 10 }}>
           Instructions
         </Input>
         <button>Share Meal</button>

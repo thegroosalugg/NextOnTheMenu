@@ -51,7 +51,7 @@
       transition: 0.5s ease;
       &:hover {
         background: var(--gradient-max);
-        box-shadow: 0 0 12px var(--orange-400);
+        box-shadow: 0 0 12px var(--orange-500);
       }
     }
   }

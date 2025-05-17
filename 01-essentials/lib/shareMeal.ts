@@ -16,7 +16,7 @@ const validate = (formData: FormData) => {
   const errors = data.flatMap(([key, value]) => {
     if (value instanceof File) {
       if (value.size > 0) return []; // ignore files
-      return [[key, 'is required']]; // file required
+      return [[key, 'Image required']]; // file required
     }
     const sanitized = value.replaceAll(/\s+/g, ' ').trim(); // flatten whitespaces & trim
     const minLength = lengths[key as keyof typeof lengths];
