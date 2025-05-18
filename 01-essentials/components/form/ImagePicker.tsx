@@ -24,7 +24,7 @@ export default function ImagePicker({ formErr, count }: { formErr: string, count
     const file = input.current?.files?.[0];
     let errMsg;
 
-    if (!file)                               errMsg = 'No file selected';
+         if (!file)                          errMsg = 'No file selected';
     else if (!fileTypes.includes(file.type)) errMsg = 'Must be jpg, jpeg or png';
     else if (file.size > 1024 * 1024)        errMsg = 'File size over 1mb';
 

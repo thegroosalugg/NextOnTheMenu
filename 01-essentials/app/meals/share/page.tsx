@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Input from '@/components/form/Input';
 import ImagePicker from '@/components/form/ImagePicker';
 import { shareMeal } from '@/lib/shareMeal';
+import { redirect } from 'next/navigation';
 
 export default function MealsShare() {
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -16,7 +17,7 @@ export default function MealsShare() {
     const response = await shareMeal(formData); // call server action, pass formData manually
     setErrors(response);
     setCount(n => n += 1); // trigger <ImagePicker /> effect
-    console.log(response);
+    if (response.ok) redirect('/meals');
   };
 
   return (

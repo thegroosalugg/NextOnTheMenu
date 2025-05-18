@@ -14,6 +14,8 @@ const lengths = {
          image: 1
 };
 
+const sanitize = (str: string) => str.replace(/\s+/g, ' ').trim();
+
 const validate = (formData: FormData) => {
   const data = Array.from(formData.entries()); // create 2d array from FormData
   const errorsArray = data.flatMap(([key, value]) => {
@@ -21,7 +23,7 @@ const validate = (formData: FormData) => {
       if (value.size > 0) return []; // ignore files
       return [[key, 'Image required']]; // file required
     }
-    const sanitized = value.replaceAll(/\s+/g, ' ').trim(); // flatten whitespaces & trim
+    const sanitized = sanitize(value); // flatten whitespaces & trim
     const minLength = lengths[key as keyof typeof lengths];
     // 2d array will be flattended
     if (sanitized.length < minLength) return [[key, `requires ${minLength} chars`]];
@@ -37,11 +39,11 @@ const validate = (formData: FormData) => {
 };
 
 const saveFile = async (name: string, file: File) => {
-  const date = new Date().toISOString().replace(/[.:]/g, '-');
-  const slug = slugify(`${name}-${date}`, { lower: true, strict: true, replacement: '-' });
-  const ext = file.name.split('.').pop(); // strict removes all non alphanumeric chars
+  const     date = new Date().toISOString().replace(/[.:]/g, '-');
+  const     slug = slugify(`${name}-${date}`, { lower: true, strict: true, replacement: '-' });
+  const      ext = file.name.split('.').pop(); // strict removes all non alphanumeric chars
   const fileName = `${slug}.${ext}`;
-  const image = `/images/${fileName}`;
+  const    image = `/images/${fileName}`;
 
   const stream = fs.createWriteStream(`public${image}`); // allows writing to this path
   const bufferedImage = await file.arrayBuffer();
@@ -59,14 +61,14 @@ export async function shareMeal(formData: FormData) {
   if (!(file instanceof File)) return { image: 'Image is missing', ok: false };
 
   for (const [key, value] of formData.entries()) {
-    if (!(value instanceof File)) data[key] = value.toString();
+    if (!(value instanceof File)) data[key] = sanitize(value.toString());
   }
 
   const { name, email, title, summary, instructions } = data;
   const { slug, image, error } = await saveFile(title, file);
   if (error) return { image: "Image couldn't be saved", ok: false };
 
-  const meal = new Meal({
+  await new Meal({
           creator: name,
     creator_email: email,
             title,
@@ -74,7 +76,7 @@ export async function shareMeal(formData: FormData) {
      instructions,
              slug,
             image,
-  });
-  console.log(meal);
+  }).save();
+
   return { ok: true };
 }

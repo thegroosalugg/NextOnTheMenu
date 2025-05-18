@@ -64,4 +64,15 @@ export default class Meal {
     meal.instructions = JSON.parse(meal.instructions);
     return meal;
   }
+
+  async save() {
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // dummy promise
+
+    db.prepare(`
+      INSERT INTO meals
+        (title, summary, instructions, creator, creator_email, image, slug)
+      VALUES
+        (@title, @summary, @instructions, @creator, @creator_email, @image, @slug)
+    `).run({ ...this, instructions: JSON.stringify(this.instructions) });
+  }
 }
