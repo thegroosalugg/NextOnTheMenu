@@ -10,7 +10,7 @@ const Meals = async () => {
   const meals = await Meal.fetchAll();
   return (
     <List<Meal> keyFn={({ id }) => id} items={meals}>
-      {(meal) => <MealItem {...meal} />}
+      {(meal) => <MealItem {...{ meal }} />}
     </List>
   );
 };

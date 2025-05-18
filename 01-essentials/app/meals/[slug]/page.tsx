@@ -24,11 +24,14 @@ export default async function MealsSlug({ params }: { params: Promise<{ slug: st
           <p>{meal.summary}</p>
         </div>
       </header>
-      <ul className={styles['instructions']}>
-        {meal.instructions.map((instruction, i) => (
-          <li key={i}>{instruction}</li>
-        ))}
-      </ul>
+      <ol className={styles['instructions']}>
+        {meal.instructions
+          .split('.')
+          .filter((v) => v)
+          .map((instruction, i) => (
+            <li key={i}>{instruction}.</li>
+          ))}
+      </ol>
     </div>
   );
 }

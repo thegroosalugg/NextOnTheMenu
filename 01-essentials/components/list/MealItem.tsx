@@ -3,7 +3,9 @@ import styles from './MealItem.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function MealItem({ title, image, creator, summary, slug }: Meal) {
+export default function MealItem({ meal }: { meal: Meal }) {
+  const { title, image, creator, summary, slug } = meal;
+
   return (
     <article className={styles['meal']}>
       <div className={styles['image']}>

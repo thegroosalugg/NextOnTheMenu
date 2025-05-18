@@ -3,16 +3,17 @@ import sql from 'better-sqlite3';
 const db = sql('meals.db');
 
 export default class Meal {
-            id!: string;
+             id: string;
            slug: string;
           title: string;
           image: string;
         creator: string;
   creator_email: string;
         summary: string;
-   instructions: string[];
+   instructions: string;
 
   constructor({
+    id,
     slug,
     title,
     image,
@@ -21,6 +22,7 @@ export default class Meal {
     summary,
     instructions,
   }: {
+              id?: string
              slug: string,
             title: string,
             image: string,
@@ -29,13 +31,14 @@ export default class Meal {
           summary: string,
      instructions: string
   }) {
+    this.id            = id ?? '';
     this.slug          = slug;
     this.title         = title;
     this.image         = image;
     this.creator       = creator;
     this.creator_email = creator_email;
     this.summary       = summary;
-    this.instructions  = instructions.split('.');
+    this.instructions  = instructions;
   }
 
   static async fetchAll(): Promise<Meal[]> {
@@ -50,19 +53,16 @@ export default class Meal {
         }, 1500) // simulate data fetching
     );
 
-    return db.prepare('SELECT * FROM meals').all() as Meal[];
+    const rows = db.prepare('SELECT * FROM meals').all() as Meal[];
+    return rows.map(row => new Meal(row));
   }
 
   static async find(slug: string): Promise<Meal | void> {
     await new Promise((resolve) => setTimeout(resolve, 1500)); // dummy promise
     // SQL ? placeholder to avoid injection attacks
-    const meal = db.prepare('SELECT * FROM meals WHERE slug = ?').get(slug) as Meal & {
-      instructions: string; // SQL can't store arrays - asserted as string for parsing to array
-    };
-    if (!meal) return; // void
-    // pasrse JSON string to array. Type inferred so client only knows string[]
-    meal.instructions = JSON.parse(meal.instructions);
-    return meal;
+    const row = db.prepare('SELECT * FROM meals WHERE slug = ?').get(slug) as Meal;
+    if (!row) return; // void
+    return new Meal(row);
   }
 
   async save() {
@@ -73,6 +73,6 @@ export default class Meal {
         (title, summary, instructions, creator, creator_email, image, slug)
       VALUES
         (@title, @summary, @instructions, @creator, @creator_email, @image, @slug)
-    `).run({ ...this, instructions: JSON.stringify(this.instructions) });
+    `).run({ ...this });
   }
 }
