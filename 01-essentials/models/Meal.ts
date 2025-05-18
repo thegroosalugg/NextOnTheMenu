@@ -3,7 +3,7 @@ import sql from 'better-sqlite3';
 const db = sql('meals.db');
 
 export default class Meal {
-             id = crypto.randomUUID();
+            id!: string;
            slug: string;
           title: string;
           image: string;
@@ -27,7 +27,7 @@ export default class Meal {
           creator: string,
     creator_email: string,
           summary: string,
-     instructions: string[]
+     instructions: string
   }) {
     this.slug          = slug;
     this.title         = title;
@@ -35,7 +35,7 @@ export default class Meal {
     this.creator       = creator;
     this.creator_email = creator_email;
     this.summary       = summary;
-    this.instructions  = instructions;
+    this.instructions  = instructions.split('.');
   }
 
   static async fetchAll(): Promise<Meal[]> {
@@ -57,7 +57,7 @@ export default class Meal {
     await new Promise((resolve) => setTimeout(resolve, 1500)); // dummy promise
     // SQL ? placeholder to avoid injection attacks
     const meal = db.prepare('SELECT * FROM meals WHERE slug = ?').get(slug) as Meal & {
-      instructions: string; // SQL can't hold arrays - temp casting as string to it can be parsed
+      instructions: string; // SQL can't store arrays - asserted as string for parsing to array
     };
     if (!meal) return; // void
     // pasrse JSON string to array. Type inferred so client only knows string[]

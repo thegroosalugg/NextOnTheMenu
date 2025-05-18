@@ -14,7 +14,7 @@ export default function Input({
   children: React.ReactNode;
 }) {
   const error = errors[control];
-  const classes = `${styles['control']} ${error ? styles['error'] : ''}`
+  const classes = `${styles['control']} ${error ? styles['error'] : ''}`;
   let input = <input type={type} id={control} name={control} />;
 
   if (rows) {

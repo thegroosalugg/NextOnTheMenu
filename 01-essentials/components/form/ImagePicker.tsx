@@ -8,7 +8,7 @@ const fileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 export default function ImagePicker({ formErr, count }: { formErr: string, count: number }) {
   const [image, setImage] = useState('');
   const [error, setError] = useState('');
-  const classes = `${styles['image-picker']} ${error ? styles['error'] : ''}`
+  const classes = `${styles['image-picker']} ${error ? styles['error'] : ''}`;
 
   useEffect(() => {
     if (formErr) setError(formErr);
