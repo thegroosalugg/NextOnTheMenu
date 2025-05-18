@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './ImagePicker.module.css';
 import Image from 'next/image';
 
@@ -8,17 +8,20 @@ const fileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 export default function ImagePicker({ formErr, count }: { formErr: string, count: number }) {
   const [image, setImage] = useState('');
   const [error, setError] = useState('');
+  const input = useRef<HTMLInputElement | null>(null);
   const classes = `${styles['image-picker']} ${error ? styles['error'] : ''}`;
+  const removeFile = () => { if (input.current) input.current.value = ''; };
 
   useEffect(() => {
     if (formErr) {
       setImage('');
       setError(formErr);
+      removeFile();
     }
   }, [formErr, count]); // submit count
 
-  function changeHandler(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
+  function changeHandler() {
+    const file = input.current?.files?.[0];
     let errMsg;
 
     if (!file)                               errMsg = 'No file selected';
@@ -26,7 +29,7 @@ export default function ImagePicker({ formErr, count }: { formErr: string, count
     else if (file.size > 1024 * 1024)        errMsg = 'File size over 1mb';
 
     if (errMsg) {
-      e.target.value = ''; // remove invalid file
+      removeFile();
       setError(errMsg);
       setImage('');
     } else if (file) {
@@ -47,6 +50,7 @@ export default function ImagePicker({ formErr, count }: { formErr: string, count
   return (
     <label htmlFor='image' className={classes}>
       <input
+             ref={input}
             type='file'
               id='image'
             name='image'
