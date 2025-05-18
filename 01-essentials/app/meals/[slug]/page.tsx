@@ -14,7 +14,7 @@ export default async function MealsSlug({ params }: { params: Promise<{ slug: st
       <header>
         <div className={styles['image']}>
           {/* fill must have parent div with position: relative */}
-          <Image src={meal.image} alt={meal.title} fill sizes='100%' />
+          <Image src={meal.image} alt={meal.title} fill sizes='100%' priority />
         </div>
         <div className={styles['summary']}>
           <h1>{meal.title}</h1>
