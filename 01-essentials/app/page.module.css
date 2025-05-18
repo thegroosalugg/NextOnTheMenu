@@ -1,0 +1,78 @@
+.home-page {
+  max-width: 75rem;
+  margin: 2rem auto;
+
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 0.5rem;
+  }
+}
+
+.banner {
+  flex: 1 1 0;
+  max-width: 100%;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+  }
+
+  p {
+    color: var(--fg);
+    font-size: 1.5rem;
+  }
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.2rem 0.5rem;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  a {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: var(--gradient-mid);
+    color: var(--gray-100);
+    font-size: 1.5rem;
+    font-weight: 900;
+
+    &:first-child {
+      background: none;
+      font-weight: 500;
+      color: var(--orange-300);
+      padding-left: 0;
+    }
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  color: var(--fg);
+  font-size: 1.5rem;
+  max-width: 45rem;
+  width: 100%;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  .links {
+    a {
+      transition: 0.3s ease;
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}

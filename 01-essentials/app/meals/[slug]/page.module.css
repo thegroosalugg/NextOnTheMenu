@@ -1,0 +1,75 @@
+.meals-slug {
+  padding: 1rem;
+  margin: 2rem auto 5rem;
+  max-width: 75rem;
+
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+.summary {
+  flex: 1 1 0;
+  max-width: 100%; /* enables overflow-wrap: break-word; set in CSS reset */
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--fg);
+  animation: fade-slide-in-from-right 1s ease-out forwards;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+  }
+
+  a {
+    font-style: italic;
+  }
+}
+
+.image {
+  position: relative;
+  width: 30rem;
+  height: 20rem;
+
+  img {
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 5px 5px 10px #000;
+    animation: fade-slide-in-from-left 1s ease-out forwards;
+  }
+}
+
+.instructions {
+  padding: 1.5rem 2rem 1.5rem 3rem; /* additional left padding for numbers list */
+  margin: 2rem auto;
+  max-width: 60rem;
+  overflow-wrap: break-word;
+  list-style: decimal;
+  font-size: 1.2rem;
+  background: #6e6464;
+  color: var(--gray-200);
+  border-radius: 8px;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+  animation: fade-slide-in-from-bottom 1s ease-out forwards;
+}
+
+@keyframes fade-slide-in-from-left {
+  0%   { opacity: 0; transform: translateX(-1rem); }
+  100% { opacity: 1; transform: translateX(0);     }
+}
+
+@keyframes fade-slide-in-from-right {
+  0%   { opacity: 0; transform: translateX(1rem); }
+  100% { opacity: 1; transform: translateX(0);    }
+}
+
+@keyframes fade-slide-in-from-bottom {
+  0%   { opacity: 0; transform: translateY(1rem); }
+  100% { opacity: 1; transform: translateY(0);    }
+}

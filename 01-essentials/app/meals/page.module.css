@@ -1,0 +1,35 @@
+.meals {
+  padding: 1rem;
+  margin: 2rem auto 5rem;
+  max-width: 75rem;
+
+  header {
+    color: var(--fg);
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: var(--gradient-mid);
+    color: var(--gray-100);
+    font-weight: 900;
+  }
+}
+
+.loading {
+  margin-top: 1rem;
+  text-align: center;
+  animation: loading 1.2s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0%   { color: var(--fg); }
+  50%  { color: #b89b84; }
+  100% { color: var(--fg); }
+}
