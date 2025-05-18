@@ -4,6 +4,7 @@ import styles from './page.module.css';
 import List from '@/components/list/List';
 import MealItem from '@/components/list/MealItem';
 import Meal from '@/models/Meal';
+import { Metadata } from 'next';
 
 // nextJS functions are server functions and can be async
 const Meals = async () => {
@@ -13,6 +14,11 @@ const Meals = async () => {
       {(meal) => <MealItem {...{ meal }} />}
     </List>
   );
+};
+
+export const metadata: Metadata = {
+        title: 'Meals',
+  description: 'List of meal recipes',
 };
 
 export default function MealsPage() {

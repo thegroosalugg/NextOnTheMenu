@@ -4,6 +4,7 @@ import Image from 'next/image';
 import mealIcon from '@/assets/icons/meal.png';
 import communityIcon from '@/assets/icons/community.png';
 import eventsIcon from '@/assets/icons/events.png';
+import { Metadata } from 'next';
 
 const images = [
   { src: mealIcon, alt: 'A delicious meal', text: 'Share & discover recipes' },
@@ -18,6 +19,11 @@ const images = [
     text: 'Participate in exclusive events',
   },
 ];
+
+export const metadata: Metadata = {
+        title: 'Community',
+  description: 'Community page',
+};
 
 export default function Community() {
   return (

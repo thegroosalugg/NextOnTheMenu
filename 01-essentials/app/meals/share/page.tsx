@@ -1,5 +1,11 @@
 import MealForm from '@/components/form/MealForm';
 import styles from './page.module.css';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+        title: 'Share your recipe',
+  description: 'Submit recipe form',
+};
 
 export default function MealsShare() {
   return (

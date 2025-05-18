@@ -4,6 +4,7 @@
 import fs from 'fs';
 import slugify from 'slugify';
 import Meal from '@/models/Meal';
+import { revalidatePath } from 'next/cache';
 
 const lengths = {
           name: 2,
@@ -78,5 +79,7 @@ export async function shareMeal(formData: FormData) {
             image,
   }).save();
 
+  // add 'layout' as 2nd arg to revalidate nested pages too
+  revalidatePath('/meals'); // discards cached pages and rebuilds. Must be on server
   return { ok: true };
 }

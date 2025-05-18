@@ -3,11 +3,25 @@ import styles from './page.module.css';
 import Meal from '@/models/Meal';
 import Image from 'next/image';
 
-// params is now aync, for the Functional component must be async
-export default async function MealsSlug({ params }: { params: Promise<{ slug: string }> }) {
+type Params = { params: Promise<{ slug: string }> };
+
+// reserved function names allows Next to locate dynamic metadata
+export const generateMetadata = async ({ params }: Params) => {
   const { slug } = await params;
-  const meal = await Meal.find(slug);
-  if (!meal) notFound(); // searches for closest not-found.tsx
+  const   meal   = await Meal.find(slug);
+  if    (!meal) notFound(); // ensures correct data displayed
+
+  return {
+          title: meal.title,
+    description: meal.summary,
+  };
+};
+
+// params is now aync, for the Functional component must be async
+export default async function MealsSlug({ params }: Params) {
+  const { slug } = await params;
+  const   meal   = await Meal.find(slug);
+  if    (!meal) notFound(); // searches for closest not-found.tsx
 
   return (
     <div className={styles['meals-slug']}>
