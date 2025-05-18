@@ -8,7 +8,7 @@
   }
 
   p {
-    font: var(--font-gluten);
+    font-family: var(--font-gluten);
     font-weight: 600;
   }
 }

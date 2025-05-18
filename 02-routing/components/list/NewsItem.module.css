@@ -1,0 +1,12 @@
+.news-item {
+  padding: 1rem;
+}
+
+.image {
+  position: relative;
+  height: 10rem;
+
+  img {
+    object-fit: cover;
+  }
+}

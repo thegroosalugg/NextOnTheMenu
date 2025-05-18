@@ -1,0 +1,10 @@
+.news {
+  margin: 1rem auto;
+  max-width: 80rem;
+
+  > h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-family: var(--font-tinos);
+  }
+}
