@@ -11,7 +11,10 @@ export default function ImagePicker({ formErr, count }: { formErr: string, count
   const classes = `${styles['image-picker']} ${error ? styles['error'] : ''}`;
 
   useEffect(() => {
-    if (formErr) setError(formErr);
+    if (formErr) {
+      setImage('');
+      setError(formErr);
+    }
   }, [formErr, count]); // submit count
 
   function changeHandler(e: React.ChangeEvent<HTMLInputElement>) {

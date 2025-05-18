@@ -1,15 +1,16 @@
 'use server'; // creates server action that ensures this function is only called on server
 // when exported, all functions will be treated as server actions
 // when called inside an FC, use server lives inside the function
-import Meal from '@/models/Meal';
+import fs from 'fs';
 import slugify from 'slugify';
+import Meal from '@/models/Meal';
 
 const lengths = {
           name: 2,
          email: 6,
          title: 10,
-       summary: 20,
-  instructions: 100,
+       summary: 15,
+  instructions: 50,
          image: 1
 };
 
@@ -35,13 +36,18 @@ const validate = (formData: FormData) => {
   return Object.keys(errors).length > 0 ? errors : null; // returns null when valid
 };
 
-const saveFile = (name: string, file: File) => {
+const saveFile = async (name: string, file: File) => {
   const date = new Date().toISOString().replace(/[.:]/g, '-');
-  const slug = slugify(`${name}-${date}`, { lower: true });
-  const ext = file.name.split('.').pop();
+  const slug = slugify(`${name}-${date}`, { lower: true, strict: true, replacement: '-' });
+  const ext = file.name.split('.').pop(); // strict removes all non alphanumeric chars
   const fileName = `${slug}.${ext}`;
   const image = `/images/${fileName}`;
-  return { slug, image };
+
+  const stream = fs.createWriteStream(`public${image}`); // allows writing to this path
+  const bufferedImage = await file.arrayBuffer();
+  let error;
+  stream.write(Buffer.from(bufferedImage), (err) => error = err);
+  return { slug, image, error };
 };
 
 export async function shareMeal(formData: FormData) {
@@ -57,7 +63,8 @@ export async function shareMeal(formData: FormData) {
   }
 
   const { name, email, title, summary, instructions } = data;
-  const { slug, image } = saveFile(title, file);
+  const { slug, image, error } = await saveFile(title, file);
+  if (error) return { image: "Image couldn't be saved", ok: false };
 
   const meal = new Meal({
           creator: name,
