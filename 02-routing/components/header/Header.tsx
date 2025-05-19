@@ -12,6 +12,7 @@ export default function Header() {
       </Link>
       <nav>
         <NavLink href='/news'>News</NavLink>
+        <NavLink href='/articles'>Articles</NavLink>
       </nav>
     </header>
   );

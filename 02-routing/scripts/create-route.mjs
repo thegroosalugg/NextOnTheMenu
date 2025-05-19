@@ -24,13 +24,13 @@ if (routeName.endsWith('slug')) {
 
 function pascalCase(str) {
   return str
-    .split(/[-/]/) // Split on '-' or '/'
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // capitalise
+    .split(/[-/@]/) // Split on -/@
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalise
     .join('');
 }
 
-function kebabCase(str) {
-  return str.replace(/[_/]/g, '-'); // replace all _ / with -
+function kebabCase(str) { // replace [special chars] then collapse multiple --
+  return str.replace(/[_/@]/g, '-').replace(/--+/g, '-');
 }
 
 const  pagePath = path.join(dir, 'page.tsx');
@@ -38,13 +38,22 @@ const   cssPath = path.join(dir, 'page.module.css');
 const className = kebabCase(routeName);
 const component = pascalCase(routeName);
 fs.mkdirSync(dir, { recursive: true });
-fs.writeFileSync(cssPath, `.${className} {\n  padding: 1rem;\n}\n`);
+
+fs.writeFileSync(cssPath, `.${className} {
+  max-width: 80rem;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+`);
+
 fs.writeFileSync(pagePath, `import styles from './page.module.css';
 
 export default ${async}function ${component}(${params}) {${slug}
   return (
     <div className={styles['${className}']}>
-      <h1>${component} page</h1>${slugId}
+      <h1>${component} Page</h1>${slugId}
     </div>
   );
 }
