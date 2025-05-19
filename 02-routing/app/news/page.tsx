@@ -1,9 +1,10 @@
-import News from '@/models/News';
 import styles from './page.module.css';
-import { Suspense } from 'react';
 import { Metadata } from 'next';
-import NewsItem from '@/components/list/NewsItem';
+import { Suspense } from 'react';
+import News from '@/models/News';
 import List from '@/components/list/List';
+import NewsItem from '@/components/list/NewsItem';
+import Loader from '@/components/boundary/Loader';
 
 const NewsFeed = async () => {
   const news = await News.getAll();
@@ -23,7 +24,7 @@ export default function NewsPage() {
   return (
     <div className={styles['news']}>
       <h1>News Page</h1>
-      <Suspense fallback={<p className={styles['loading']}>Loading data...</p>}>
+      <Suspense fallback={<Loader />}>
         <NewsFeed />
       </Suspense>
     </div>
