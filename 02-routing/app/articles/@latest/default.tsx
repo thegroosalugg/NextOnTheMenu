@@ -1,5 +1,4 @@
 import styles from './default.module.css';
-import { Metadata } from 'next';
 import { Suspense } from 'react';
 import News from '@/models/News';
 import List from '@/components/list/List';
@@ -14,12 +13,6 @@ const NewsFeed = async () => {
     </List>
   );
 };
-
-export const metadata: Metadata = {
-        title: 'Latest News',
-  description: 'List of latest articles',
-};
-
 
 // default.tsx is a reserved name. Allows parallel routes to have nested slug routes
 export default function ArticlesLatest() {

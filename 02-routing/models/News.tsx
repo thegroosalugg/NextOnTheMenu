@@ -69,6 +69,16 @@ export default class News {
     return new News(row);
   }
 
+  static async getYears() {
+    await this.promise();
+    const rows = db.prepare(
+     `SELECT DISTINCT strftime('%Y', date) AS year
+      FROM news
+      ORDER BY year DESC`
+    ).all();
+    return rows as { year: string }[];
+  }
+
   getDate() {
     return new Date(this.date).toLocaleDateString('en-GB', {
        year: 'numeric',

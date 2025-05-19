@@ -1,8 +1,38 @@
 .articles {
+  > nav {
+    display: flex;
+    justify-content: center;
+    overflow-x: scroll;
+
+    a {
+      border-right: 1px solid var(--fg);
+      padding: 0.2rem 1rem;
+
+      &:last-child {
+        border: 0;
+      }
+    }
+  }
+
   > h1 {
     text-align: center;
     font-size: 2rem;
     font-family: var(--font-tinos);
     color: var(--accent);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .articles {
+    > nav {
+      a {
+        transition: 0.5s ease;
+
+        &:hover {
+          color: var(--blue-500);
+          text-shadow: 0 0 4px var(--blue-500);
+        }
+      }
+    }
   }
 }
