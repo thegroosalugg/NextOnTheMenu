@@ -8,7 +8,7 @@ export default function Header() {
     <header className={styles.header}>
       <Link href='/'>
         <Image src='/logo.png' alt='a newspaper' width='30' height='28' />
-        <h1>The Looking Glass</h1>
+        <h1>Looking <span>Glass</span></h1>
       </Link>
       <nav>
         <NavLink href='/news'>News</NavLink>

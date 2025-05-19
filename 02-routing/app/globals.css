@@ -9,22 +9,19 @@
   --gray-800: #333333;
   --gray-900: #1a1a1a;
 
-  --orange-100: #ffc905;
-  --orange-200: #f9b241;
-  --orange-300: #ff9b05;
-  --orange-400: #df6629;
-  --orange-500: #f9572a;
-  --orange-600: #fd4715;
+  --blue-100: #c2e0f9;
+  --blue-200: #99c9ef;
+  --blue-300: #66afe7;
+  --blue-400: #2488e0;
+  --blue-500: #1e6fc2;
+  --blue-600: #1857a4;
+  --blue-700: #123f86;
+  --blue-800: #0c2968;
+  --blue-900: #06144a;
 
-  --green: #668139;
-  --purple: #2e1470;
-  --accent: var(--green);
-
-  --bg: var(--gray-200);
+  --bg: var(--gray-300);
   --fg: var(--gray-900);
-
-  --gradient-mid: linear-gradient(90deg, var(--orange-500), var(--orange-300));
-  --gradient-max: linear-gradient(90deg, var(--orange-600), var(--orange-200));
+  --accent: var(--blue-600);
 }
 
 /* detects browser/OS settings */
@@ -32,7 +29,7 @@
   :root {
     --bg: var(--gray-900);
     --fg: var(--gray-100);
-    --accent: var(--purple);
+    --accent: var(--gray-100);
   }
 }
 
@@ -80,13 +77,15 @@ a, p, h1, h2, h3, h4, h5, h6, button, label, input, textarea, select, option {
 
 /* text highlighting */
 .highlight {
-  --end: var(--orange-300);
-  background: linear-gradient(90deg, var(--orange-500), var(--end));
+  background-image: linear-gradient(90deg, var(--blue-600), var(--blue-500));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
 
-  &.light {
-    --end: var(--orange-100);
+
+@media (prefers-color-scheme: dark) {
+  .highlight {
+    background-image: linear-gradient(90deg, var(--blue-200), var(--blue-300));
   }
 }

@@ -1,12 +1,18 @@
 .news-item {
-  padding: 1rem;
-}
+  time {
+    display: block;
+    text-align: end;
+    color: var(--gray-500);
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
 
-.image {
-  position: relative;
-  height: 10rem;
-
-  img {
-    object-fit: cover;
+  h1 {
+    padding: 0.5rem;
+    text-align: center;
+    color: var(--accent);
+    font-family: var(--font-tinos);
+    font-weight: 700;
+    font-size: 1.5rem;
   }
 }

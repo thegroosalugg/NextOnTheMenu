@@ -51,4 +51,19 @@ export default class News {
     const rows = db.prepare('SELECT * FROM news').all() as News[];
     return rows.map(row => new News(row));
   }
+
+  static async find(slug: string) {
+    await this.promise();
+    const row = db.prepare('SELECT * FROM news WHERE slug = ?').get(slug) as News;
+    if (!row) return; // void
+    return new News(row);
+  }
+
+  getDate() {
+    return new Date(this.date).toLocaleDateString('en-GB', {
+       year: 'numeric',
+      month: 'long',
+        day: 'numeric',
+    });
+  }
 }

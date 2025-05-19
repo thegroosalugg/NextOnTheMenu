@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function NewsPage() {
   return (
     <div className={styles['news']}>
-      <h1>News page</h1>
+      <h1>News Page</h1>
       <Suspense fallback={<p className={styles['loading']}>Loading data...</p>}>
         <NewsFeed />
       </Suspense>

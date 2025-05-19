@@ -1,9 +1,9 @@
-import styles from "./page.module.css";
+import styles from './page.module.css';
 
 export default function Home() {
   return (
     <div className={styles.home}>
-      page 1
+      <h1>World News</h1>
     </div>
   );
 }

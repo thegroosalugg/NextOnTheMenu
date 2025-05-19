@@ -1,17 +1,15 @@
-import News from '@/models/News';
 import styles from './NewsItem.module.css';
-import Image from 'next/image';
+import Link from 'next/link';
+import News from '@/models/News';
+import DynamicImage from '../image/DynamicImage';
 
 export default function NewsItem({ news }: { news: News }) {
-  const { title, image, date, content } = news;
+  const { title, image, slug } = news;
   return (
-    <article className={styles['news-item']}>
+    <Link href={'/news/' + slug} className={styles['news-item']}>
+      <time>{news.getDate()}</time>
+      <DynamicImage src={`/news/${image}`} alt={title} rounded />
       <h1>{title}</h1>
-      <time>{date}</time>
-      <div className={styles['image']}>
-        <Image src={'/news/' + image} alt={title} fill sizes='100%' />
-      </div>
-      <p>{content}</p>
-    </article>
+    </Link>
   );
 }
