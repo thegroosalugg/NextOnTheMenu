@@ -52,10 +52,20 @@ export default class News {
     return rows.map(row => new News(row));
   }
 
+  static async getLatest() {
+    await this.promise();
+    const rows = db.prepare(
+     `SELECT * FROM news
+      ORDER BY date DESC
+      LIMIT 3`
+    ).all() as News[];
+    return rows.map(row => new News(row));
+  }
+
   static async find(slug: string) {
     await this.promise();
     const row = db.prepare('SELECT * FROM news WHERE slug = ?').get(slug) as News;
-    if (!row) return; // void
+    if (!row) return;
     return new News(row);
   }
 
