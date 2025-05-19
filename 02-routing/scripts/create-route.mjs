@@ -7,30 +7,32 @@ if (!routeName) {
   console.error('❌ Route name required');
   process.exit(1);
 }
-// path/slug becomes path/[slug] automatically when dir name ends with 'slug'
-const dir = path.join('app', routeName).replace(/slug$/, '[slug]');
+// stop at ':' => capture 'A-z, 0-9, _-' => $1 interpolates with '[]'
+const slugified = routeName.replace(/:([\w-]+)/g, '[$1]');
+const dir = path.join('app', slugified);
 if (fs.existsSync(dir)) {
   console.error(`❌ ${routeName} already exists`);
   process.exit(1);
 }
 
-let [async, params, slug, slugId] = ['', '', '', ''];
-if (routeName.endsWith('slug')) {
-   async = 'async '; // with exact spacing for correct print
-  params = '{\n  params,\n}: {\n  params: Promise<{ slug: string }>;\n}';
-    slug = '\n  const { slug } = await params;';
-  slugId = '\n      <p>ID: {slug}</p>';
+let [async, params, getSlug, slugId] = ['', '', '', ''];
+if (dir.endsWith(']')) {
+  const slug = dir.split('/').pop().slice(1, -1);
+    async = 'async '; // exact spacing for correct print
+   params = `{\n  params,\n}: {\n  params: Promise<{ ${slug}: string }>;\n}`;
+  getSlug = `\n  const { ${slug} } = await params;`;
+   slugId = `\n      <p>ID: {${slug}}</p>`;
 }
 
 function pascalCase(str) {
   return str
-    .split(/[-/@]/) // Split on -/@
+    .split(/[-/@:]/) // Split on -/@:
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalise
     .join('');
 }
 
 function kebabCase(str) { // replace [special chars] then collapse multiple --
-  return str.replace(/[_/@]/g, '-').replace(/--+/g, '-');
+  return str.replace(/[_/@:]/g, '-').replace(/--+/g, '-');
 }
 
 const  pagePath = path.join(dir, 'page.tsx');
@@ -50,7 +52,7 @@ fs.writeFileSync(cssPath, `.${className} {
 
 fs.writeFileSync(pagePath, `import styles from './page.module.css';
 
-export default ${async}function ${component}(${params}) {${slug}
+export default ${async}function ${component}(${params}) {${getSlug}
   return (
     <div className={styles['${className}']}>
       <h1>${component} Page</h1>${slugId}

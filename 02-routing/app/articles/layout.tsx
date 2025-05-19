@@ -1,7 +1,6 @@
 import styles from './layout.module.css';
 import type { Metadata } from 'next';
 
-
 export const metadata: Metadata = {
         title: 'Archives',
   description: 'Collection of articles',

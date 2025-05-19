@@ -1,4 +1,4 @@
-import styles from './page.module.css';
+import styles from './default.module.css';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 import News from '@/models/News';
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 };
 
 
+// default.tsx is a reserved name. Allows parallel routes to have nested slug routes
 export default function ArticlesLatest() {
   return (
     <div className={styles['articles-latest']}>
