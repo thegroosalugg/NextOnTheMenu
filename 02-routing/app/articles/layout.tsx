@@ -3,17 +3,15 @@ import styles from './layout.module.css';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import Loader from '@/components/boundary/Loader';
-import Link from 'next/link';
+import NavLink from '@/components/header/NavLink';
 
 const ArchiveYears = async () => {
   const years = await News.getYears();
-  return (
-    <nav>
-      {years.map(({ year }) =>
-        <Link key={year} href={`/articles/${year}`}>{year}</Link>
-      )}
-    </nav>
-  );
+  return years.map(({ year }) => (
+    <NavLink key={year} href={`/articles/${year}`}>
+      {year}
+    </NavLink>
+  ));
 };
 
 export const metadata: Metadata = {
@@ -32,10 +30,12 @@ export default function RootLayout({
   return (
     <div className={styles['articles']}>
       <h1>List of Archives</h1>
-      <Suspense fallback={<Loader size='xs' />}>
-        <ArchiveYears />
-      </Suspense>
-      <div>{archive}</div>
+      <nav>
+        <Suspense fallback={<Loader size='xs' />}>
+          <ArchiveYears />
+        </Suspense>
+      </nav>
+      <div className={styles['archives']}>{archive}</div>
       <div>{latest}</div>
     </div>
   );

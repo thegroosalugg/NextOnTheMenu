@@ -10,7 +10,7 @@
   position: relative;
   width: var(--size-wrapper);
   height: var(--size-wrapper);
-  margin: 5% auto; /* change top margin as needed */
+  margin: 0 auto;
 
   > div {
     position: absolute;

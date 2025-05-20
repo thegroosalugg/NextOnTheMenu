@@ -37,11 +37,9 @@ export default class News {
   private static async promise(delay: number = 500, chance: number = 0) {
     await new Promise<void>((resolve, reject) =>
       setTimeout(() => {
-        if (Math.random() > chance) {
-          resolve();
-        } else {
-          reject(new Error('Fetching meals failed'));
-        }
+        const success = Math.random() > chance;
+        if (success) resolve();
+        else         reject(new Error('500: Async request failed'));
       }, delay)
     );
   }
@@ -59,6 +57,16 @@ export default class News {
       ORDER BY date DESC
       LIMIT 3`
     ).all() as News[];
+    return rows.map(row => new News(row));
+  }
+
+  static async findByYear(year: string) {
+    await this.promise();
+    const rows = db.prepare(
+     `SELECT * FROM news
+      WHERE strftime('%Y', date) = ?
+      ORDER BY date DESC`
+    ).all(year) as News[];
     return rows.map(row => new News(row));
   }
 

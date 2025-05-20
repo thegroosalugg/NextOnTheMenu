@@ -3,10 +3,11 @@
     display: flex;
     justify-content: center;
     overflow-x: scroll;
+    padding: 0.2rem 0;
 
     a {
       border-right: 1px solid var(--fg);
-      padding: 0.2rem 1rem;
+      padding: 0 1rem;
 
       &:last-child {
         border: 0;
@@ -20,6 +21,11 @@
     font-family: var(--font-tinos);
     color: var(--accent);
   }
+}
+
+.archives {
+  height: 332px;
+  padding: 1rem;
 }
 
 @media (hover: hover) and (pointer: fine) {

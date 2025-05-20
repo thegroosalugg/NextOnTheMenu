@@ -45,7 +45,13 @@ if (fs.existsSync(fcPath)) {
   process.exit(1);
 }
 
-fs.writeFileSync(cssPath, `.${className} {\n  padding: 1rem;\n}  \n`);
+fs.writeFileSync(cssPath, `.${className} {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+`);
+
 fs.writeFileSync(fcPath, `import styles from './${component}.module.css';
 
 export default function ${component}() {
