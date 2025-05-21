@@ -13,7 +13,7 @@ export default async function ArticlesArchiveYear({
 
   const { segments } = await params;
   if (segments) {
-    const [year] = segments;
+    const [year, month] = segments;
     const news = await News.findByYear(year);
     if (news.length < 1) notFound();
     content = (

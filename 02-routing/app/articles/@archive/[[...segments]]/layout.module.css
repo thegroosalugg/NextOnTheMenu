@@ -1,4 +1,11 @@
-.articles {
+.articles-archive {
+  > h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-family: var(--font-tinos);
+    color: var(--accent);
+  }
+  
   > nav {
     display: flex;
     justify-content: center;
@@ -15,21 +22,14 @@
     }
   }
 
-  > h1 {
-    text-align: center;
-    font-size: 2rem;
-    font-family: var(--font-tinos);
-    color: var(--accent);
+  main {
+    height: 332px;
+    padding: 1rem;
   }
 }
 
-.archives {
-  height: 332px;
-  padding: 1rem;
-}
-
 @media (hover: hover) and (pointer: fine) {
-  .articles {
+  .articles-archive {
     > nav {
       a {
         transition: 0.5s ease;
