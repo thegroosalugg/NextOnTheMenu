@@ -10,8 +10,8 @@
     margin: 0 auto;
     width: fit-content;
     max-width: 100%;
-    overflow-x: scroll;
     white-space: nowrap;
+    overflow-x: scroll;
 
     a {
       border-right: 1px solid var(--fg);
@@ -24,8 +24,8 @@
   }
 
   main {
-    height: 332px;
-    padding: 1rem;
+    height: 368px;
+    padding: 0 1rem 1rem;
   }
 }
 

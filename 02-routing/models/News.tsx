@@ -87,6 +87,11 @@ export default class News {
     return rows as { year: string }[];
   }
 
+  static getMonths(news: News[]) {
+    const months = new Set(news.map(({ date }) => new Date(date).getMonth()));
+    return Array.from(months).sort();
+  }
+
   static filterByMonth(news: News[], month: string) {
     return news.filter(({ date }) => new Date(date).getMonth() === +month);
   }

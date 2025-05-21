@@ -7,7 +7,6 @@
     font-size: 2rem;
     font-family: var(--font-tinos);
     color: var(--accent);
-    margin-bottom: -0.5rem; /* cancel 1rem padding from <ul> below*/
   }
 }
 
