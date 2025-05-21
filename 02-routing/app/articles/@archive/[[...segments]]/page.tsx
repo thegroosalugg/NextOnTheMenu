@@ -12,10 +12,13 @@ export default async function ArticlesArchiveYear({
   let content = <p>Select an archive</p>;
 
   const { segments } = await params;
+
   if (segments) {
     const [year, month] = segments;
-    const news = await News.findByYear(year);
+    let news = await News.getByYear(year);
+    news = month ? News.filterByMonth(news, month) : news;
     if (news.length < 1) notFound();
+
     content = (
       <>
         <h1>

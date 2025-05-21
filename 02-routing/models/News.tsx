@@ -60,7 +60,7 @@ export default class News {
     return rows.map(row => new News(row));
   }
 
-  static async findByYear(year: string) {
+  static async getByYear(year: string) {
     await this.promise();
     const rows = db.prepare(
      `SELECT * FROM news
@@ -87,7 +87,11 @@ export default class News {
     return rows as { year: string }[];
   }
 
-  getDate() {
+  static filterByMonth(news: News[], month: string) {
+    return news.filter(({ date }) => new Date(date).getMonth() === +month);
+  }
+
+  formatDate() {
     return new Date(this.date).toLocaleDateString('en-GB', {
        year: 'numeric',
       month: 'long',

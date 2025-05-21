@@ -5,12 +5,13 @@
     font-family: var(--font-tinos);
     color: var(--accent);
   }
-  
   > nav {
-    display: flex;
-    justify-content: center;
-    overflow-x: scroll;
     padding: 0.2rem 0;
+    margin: 0 auto;
+    width: fit-content;
+    max-width: 100%;
+    overflow-x: scroll;
+    white-space: nowrap;
 
     a {
       border-right: 1px solid var(--fg);

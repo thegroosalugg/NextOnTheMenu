@@ -26,7 +26,7 @@ export default async function NewsSlug({ params }: Params) {
   return (
     <article className={styles['news-slug']}>
       <h1>{title}</h1>
-      <time>{news.getDate()}</time>
+      <time>{news.formatDate()}</time>
       <DynamicImage src={`/news/${image}`} alt={title} maxWidth={500} height={400} />
       <p>{content}</p>
     </article>
