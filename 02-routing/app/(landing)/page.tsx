@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className={styles.home}>
+    <div className={styles['home']}>
       <Image src='/logo.png' alt='A newspaper' width={100} height={100} />
       <h1>A News Site For The Next Generation</h1>
       <p>Next News is here to deliver you all the latest news - concise & unbiased!</p>

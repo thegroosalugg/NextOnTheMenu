@@ -10,9 +10,7 @@
   cursor: pointer;
   transition: 0.5s ease;
 
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.55);
-  }
+  &:hover { background-color: rgba(0, 0, 0, 0.55); }
 }
 
 .modal {
@@ -26,4 +24,9 @@
   overflow: auto;
   border: none;
   background: none;
+
+  /* set direct child scrollbar to white instead of b/w */
+  > div::-webkit-scrollbar-thumb, &::-webkit-scrollbar-thumb {
+    background: var(--gray-100);
+  }
 }

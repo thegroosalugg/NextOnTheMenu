@@ -1,8 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Montserrat, Tinos } from 'next/font/google';
-import Header from '@/components/header/Header';
-import Footer from '@/components/footer/Footer';
 
 const montserrat = Montserrat({
   variable: '--font-montserrat',
@@ -28,9 +26,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${montserrat.variable} ${tinos.variable}`}>
-        <Header />
-        <main id='main'>{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
