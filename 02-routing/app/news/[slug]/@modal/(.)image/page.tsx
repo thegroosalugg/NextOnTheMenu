@@ -1,8 +1,7 @@
-import styles from './page.module.css';
 import { notFound } from 'next/navigation';
 import News from '@/models/News';
 import ImageView from '@/components/image/ImageView';
-import Link from 'next/link';
+import Modal from '@/components/modal/Modal';
 
 // interceptered routes - take name of route to intercept, prepend with (),
 // add amount of (.) to get to route from current directory
@@ -18,13 +17,8 @@ export default async function InterceptedImagePage({
   const { image, title } = news;
 
   return (
-    <>
-      <Link href={`/news/${slug}`}>
-        <div className={styles['backdrop']} />
-      </Link>
-      <dialog open className={styles['modal']}>
-        <ImageView src={`/news/${image}`} alt={title} />
-      </dialog>
-    </>
+    <Modal>
+      <ImageView src={`/news/${image}`} alt={title} />
+    </Modal>
   );
 }
