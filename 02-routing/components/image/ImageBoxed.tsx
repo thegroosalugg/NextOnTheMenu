@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from './DynamicImage.module.css';
+import styles from './ImageBoxed.module.css';
 
 interface ImageProps {
         src: string;
@@ -9,14 +9,14 @@ interface ImageProps {
    rounded?: boolean;
 }
 
-export default function DynamicImage({
+export default function ImageBoxed({
       src,
       alt,
   maxWidth = '100%',
     height = 240,
    rounded,
 }: ImageProps) {
-  let classes = styles['image'];
+  let classes = styles['image-boxed'];
   if (rounded) classes += ` ${styles['rounded']}`;
 
   return (

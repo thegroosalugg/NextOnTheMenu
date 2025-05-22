@@ -1,7 +1,8 @@
 import News from '@/models/News';
 import styles from './page.module.css';
 import { notFound } from 'next/navigation';
-import DynamicImage from '@/components/image/DynamicImage';
+import Link from 'next/link';
+import ImageBoxed from '@/components/image/ImageBoxed';
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -27,7 +28,9 @@ export default async function NewsSlug({ params }: Params) {
     <article className={styles['news-slug']}>
       <h1>{title}</h1>
       <time>{news.formatDate()}</time>
-      <DynamicImage src={`/news/${image}`} alt={title} maxWidth={500} height={400} />
+      <Link href={`/news/${slug}/image`}>
+        <ImageBoxed src={`/news/${image}`} alt={title} maxWidth={500} height={400} />
+      </Link>
       <p>{content}</p>
     </article>
   );
