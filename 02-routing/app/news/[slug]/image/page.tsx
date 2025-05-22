@@ -8,5 +8,5 @@ export default async function ImagePage({ params }: { params: Promise<{ slug: st
   if (!news) notFound();
   const { image, title } = news;
 
-  return <ImageView src={`/news/${image}`} alt={title} />;
+  return <ImageView src={`/news/${image}`} alt={title} priority />;
 }
