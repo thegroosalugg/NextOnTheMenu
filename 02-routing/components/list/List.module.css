@@ -1,0 +1,17 @@
+.list {
+  padding: 0.2rem 1rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1rem;
+  overflow-x: scroll;
+
+  &.row {
+    display: flex;
+    max-width: 100%;
+
+    li {
+      flex: 1 0 auto;
+    }
+  }
+}

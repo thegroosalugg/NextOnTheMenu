@@ -1,0 +1,12 @@
+.image-boxed {
+  position: relative;
+  height: 15rem; /* override with inline styles if needed */
+
+  img {
+    object-fit: cover;
+  }
+
+  &.rounded {
+    img { border-radius: 8px; }
+  }
+}

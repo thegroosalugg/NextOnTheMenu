@@ -1,0 +1,45 @@
+.articles-archive {
+  > h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-family: var(--font-tinos);
+    color: var(--accent);
+  }
+  > nav {
+    padding: 0.2rem 0;
+    margin: 0 auto;
+    width: fit-content;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow-x: scroll;
+
+    a {
+      border-right: 1px solid var(--fg);
+      padding: 0 1rem;
+
+      &:last-child {
+        border: 0;
+      }
+    }
+  }
+
+  main {
+    height: 368px;
+    padding: 0 1rem 1rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .articles-archive {
+    > nav {
+      a {
+        transition: 0.5s ease;
+
+        &:hover {
+          color: var(--blue-500);
+          text-shadow: 0 0 4px var(--blue-500);
+        }
+      }
+    }
+  }
+}

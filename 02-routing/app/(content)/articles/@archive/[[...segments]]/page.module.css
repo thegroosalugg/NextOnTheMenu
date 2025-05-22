@@ -1,0 +1,50 @@
+.articles-archive-year {
+  max-width: 80rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > nav {
+    padding: 0.2rem 0;
+    margin: 0 auto;
+    width: fit-content;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow-x: scroll;
+
+    a {
+      display: inline-block; /* allow text transform to work */
+      text-transform: capitalize;
+      border-right: 1px solid var(--fg);
+      padding: 0 1rem;
+
+      &:last-child {
+        border: 0;
+      }
+    }
+  }
+
+  h2 {
+    margin-top: 0.25rem;
+
+    span {
+      text-transform: capitalize;
+    }
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .articles-archive-year {
+    > nav {
+      a {
+        transition: 0.5s ease;
+
+        &:hover {
+          color: var(--blue-500);
+          text-shadow: 0 0 4px var(--blue-500);
+        }
+      }
+    }
+  }
+}
