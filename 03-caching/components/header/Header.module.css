@@ -23,8 +23,8 @@
       transition: 0.5s ease;
 
       &:hover {
-        color: var(--blue-600);
-        text-shadow: 0 0 4px var(--blue-700);
+        color: var(--red-500);
+        text-shadow: 0 0 4px var(--red-500);
       }
     }
   }

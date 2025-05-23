@@ -12,9 +12,9 @@
   --red-100: #ffc905;
   --red-200: #f9b241;
   --red-300: #ff9b05;
-  --red-400: #f18a2a;
-  --red-500: #dd6a21;
-  --red-600: #c05f2e;
+  --red-400: #df6629;
+  --red-500: #f9572a;
+  --red-600: #fd4715;
   --red-700: #a13228;
   --red-800: #85291b;
   --red-900: #5c290f;
@@ -41,7 +41,7 @@
 
   --bg: var(--gray-200);
   --fg: var(--gray-900);
-  --accent: var(--blue-600);
+  --accent: var(--green-500);
 }
 
 /* detects browser/OS settings */
@@ -96,14 +96,17 @@ a, p, h1, h2, h3, h4, h5, h6, button, label, input, textarea, select, option {
 
 /* text highlighting */
 .highlight {
-  background-image: linear-gradient(90deg, var(--blue-600), var(--blue-500));
+  --from: var(--red-600);
+  --to:   var(--red-300);
+  background-image: linear-gradient(90deg, var(--from), var(--to));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  &.blue  { --from: var(--blue-600);  --to: var(--blue-500);  }
+  &.green { --from: var(--green-500); --to: var(--green-300); }
 }
 
 @media (prefers-color-scheme: dark) {
-  .highlight {
-    background-image: linear-gradient(90deg, var(--blue-200), var(--blue-300));
-  }
+  .highlight { --from: var(--blue-200);  --to: var(--blue-300); }
 }
