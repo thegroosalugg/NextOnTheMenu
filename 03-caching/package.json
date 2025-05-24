@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "new:route": "node scripts/create-route.mjs",
-    "new:fc": "node scripts/create-component.mjs",
-    "server": "clear && concurrently  \"next dev --turbopack\" \"node server/app.js\""
+    "route": "node scripts/create-route.mjs",
+    "fc": "node scripts/create-component.mjs",
+    "server": "clear && concurrently \"next dev --turbopack\" \"node server/app.js\"",
+    "server:build": "clear && concurrently \"next build\" \"node server/app.js\"",
+    "server:preview": "clear && concurrently \"next start\" \"node server/app.js\""
   },
   "dependencies": {
     "concurrently": "^9.1.2",
