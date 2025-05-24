@@ -1,13 +1,16 @@
-import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Header.module.css';
 import NavLink from './NavLink';
 
 export default function Header() {
   return (
     <header className={styles.header}>
-      <NavLink href='/'>Caching</NavLink>
+      <NavLink href='/'>
+        <Image src='/icon.png' alt='a server' width={25} height={25} />
+        <span>Cache</span>
+      </NavLink>
       <nav>
-        <NavLink href='/'>Link 1</NavLink>
+        <NavLink href='/messages'>Messages</NavLink>
         <NavLink href='/'>Link 2</NavLink>
       </nav>
     </header>

@@ -8,6 +8,17 @@
   font-family: var(--font-tinos);
   background: var(--bg);
 
+  > a {
+    display: flex;
+    gap: 0.1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    span {
+      margin-top: 0.4rem; /* align text with img */
+    }
+  }
+
   nav {
     display: flex;
     align-items: center;
@@ -23,8 +34,8 @@
       transition: 0.5s ease;
 
       &:hover {
-        color: var(--red-500);
-        text-shadow: 0 0 4px var(--red-500);
+        color: var(--accent);
+        text-shadow: 0 0 4px var(--accent);
       }
     }
   }
