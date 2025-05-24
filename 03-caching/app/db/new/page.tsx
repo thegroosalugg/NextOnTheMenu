@@ -1,16 +1,17 @@
 import Input from '@/components/form/Input';
 import styles from './page.module.css';
 import { redirect } from 'next/navigation';
+import { addMessage } from '@/lib/messages';
 import { revalidateTag } from 'next/cache';
 
 export default function MessagesNew() {
   async function createMessage(formData: FormData) {
     'use server';
 
-    const message = formData.get('message');
-    console.log(message);
-    revalidateTag('msg'); // *6 programatically revalidate all linked tags
-    redirect('/messages');
+    const message = formData.get('message') as string;
+    addMessage(message || new Date().toISOString() + ' Message');
+    revalidateTag('msgs');
+    redirect('/db');
   }
 
   return (

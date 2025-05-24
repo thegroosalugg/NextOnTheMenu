@@ -9,13 +9,13 @@ export default async function MessagesLayout({ children }: { children: React.Rea
 
   return (
     <div className={styles['message-layout']}>
-      <h1>Important Messages</h1>
+      <h1>Fetching from an API</h1>
       <p>
         <strong className='highlight'>{msgs.length}</strong> messages found
       </p>
       <nav>
-        <NavLink href='/messages/new'>New</NavLink>
-        <NavLink href='/messages'>All</NavLink>
+        <NavLink href='/api/new'>New</NavLink>
+        <NavLink href='/api'>All</NavLink>
       </nav>
       <hr />
       {children}

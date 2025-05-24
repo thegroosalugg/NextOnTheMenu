@@ -3,9 +3,9 @@ import express from 'express';
 const app = express();
 
 app.get('/messages', (req, res) => {
-  const requestSource = req.headers['x-id'];
+  const reqSource = req.headers['x-id'];
   console.log(
-    `${new Date().toISOString()}: EXECUTING /messages on backend from ${requestSource}`
+    `${new Date().toISOString()}: EXECUTING /messages on backend from ${reqSource || 'API'}`
   );
   res.json([
     { id: 1, text: 'Hudson River'  },

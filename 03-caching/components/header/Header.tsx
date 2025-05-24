@@ -10,7 +10,8 @@ export default function Header() {
         <span>Cache</span>
       </NavLink>
       <nav>
-        <NavLink href='/messages'>Messages</NavLink>
+        <NavLink href='/api'>API</NavLink>
+        <NavLink href='/db'>DB</NavLink>
       </nav>
     </header>
   );
