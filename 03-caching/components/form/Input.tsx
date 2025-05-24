@@ -4,13 +4,13 @@ export default function Input({
    control,
       rows,
       type = 'text',
-    errors,
+    errors = {},
   children,
 }: {
    control: string;
      rows?: number;
      type?: 'text' | 'number' | 'email' | 'password';
-    errors: Record<string, string>;
+   errors?: Record<string, string>;
   children: React.ReactNode;
 }) {
   const error = errors[control];

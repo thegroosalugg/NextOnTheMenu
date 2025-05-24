@@ -23,7 +23,7 @@
     transition: 0.5s ease;
 
     &:focus {
-      outline-color: var(--red-500);
+      outline-color: var(--accent);
       background-color: var(--gray-900);
     }
   }

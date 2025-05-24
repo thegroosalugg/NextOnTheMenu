@@ -11,7 +11,6 @@ export default function Header() {
       </NavLink>
       <nav>
         <NavLink href='/messages'>Messages</NavLink>
-        <NavLink href='/'>Link 2</NavLink>
       </nav>
     </header>
   );

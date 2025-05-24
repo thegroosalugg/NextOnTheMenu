@@ -1,3 +1,4 @@
+import NavLink from '@/components/header/NavLink';
 import styles from './layout.module.css';
 
 export default async function MessagesLayout({ children }: { children: React.ReactNode }) {
@@ -10,8 +11,12 @@ export default async function MessagesLayout({ children }: { children: React.Rea
     <div className={styles['message-layout']}>
       <h1>Important Messages</h1>
       <p>
-        <span className='highlight'>{msgs.length}</span> messages found
+        <strong className='highlight'>{msgs.length}</strong> messages found
       </p>
+      <nav>
+        <NavLink href='/messages/new'>New</NavLink>
+        <NavLink href='/messages'>All</NavLink>
+      </nav>
       <hr />
       {children}
     </div>
