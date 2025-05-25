@@ -8,8 +8,9 @@ export default function MessagesNew() {
   async function createMessage(formData: FormData) {
     'use server';
 
-    const message = formData.get('message') as string;
-    addMessage(message || new Date().toISOString() + ' Message');
+    const message =
+      (formData.get('message') as string) || new Date().toISOString() + ' Message';
+    addMessage(message);
     revalidateTag('msgs');
     redirect('/db');
   }

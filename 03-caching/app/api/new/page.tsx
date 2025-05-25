@@ -7,10 +7,17 @@ export default function MessagesNew() {
   async function createMessage(formData: FormData) {
     'use server';
 
-    const message = formData.get('message');
-    console.log('[message]:', message);
-    revalidateTag('msg'); // *6 programatically revalidate all linked tags
-    redirect('/api');
+    const message = formData.get('message') || new Date().toISOString() + ' Message';
+    const response = await fetch('http://localhost:8080/new-message', {
+       method: 'POST',
+         body: JSON.stringify({ message }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.ok) {
+      revalidateTag('msg'); // *6 programatically revalidate all linked tags
+      redirect('/api');
+    }
   }
 
   return (
