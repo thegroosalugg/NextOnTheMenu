@@ -8,7 +8,7 @@ export default async function MessagesLayout({ children }: { children: React.Rea
   const msgs = await response.json();
 
   return (
-    <div className={styles['message-layout']}>
+    <div className={styles['messages-layout']}>
       <h1>Fetching from an API</h1>
       <p>
         <strong className='highlight'>{msgs.length}</strong> messages found

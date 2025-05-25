@@ -7,13 +7,13 @@ export default async function MessagesLayout({ children }: { children: React.Rea
 
   return (
     <div className={styles['messages-layout']}>
-      <h1>Internal DB</h1>
+      <h1>Using various Form hooks and actions</h1>
       <p>
         <strong className='highlight'>{msgs.length}</strong> messages found
       </p>
       <nav>
-        <NavLink href='/db/new'>New</NavLink>
-        <NavLink href='/db'>All</NavLink>
+        <NavLink href='/actions/new'>New</NavLink>
+        <NavLink href='/actions'>All</NavLink>
       </nav>
       <hr />
       {children}

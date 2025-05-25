@@ -12,6 +12,7 @@ export default function Header() {
       <nav>
         <NavLink href='/api'>API</NavLink>
         <NavLink href='/db'>DB</NavLink>
+        <NavLink href='/actions'>Actions</NavLink>
       </nav>
     </header>
   );
