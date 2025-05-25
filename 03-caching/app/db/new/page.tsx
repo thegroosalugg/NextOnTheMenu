@@ -3,6 +3,7 @@ import styles from './page.module.css';
 import { redirect } from 'next/navigation';
 import { addMessage } from '@/lib/messages';
 import { revalidateTag } from 'next/cache';
+import Submit from '@/components/form/Submit';
 
 export default function MessagesNew() {
   async function createMessage(formData: FormData) {
@@ -11,7 +12,7 @@ export default function MessagesNew() {
     const message =
       (formData.get('message') as string) || new Date().toISOString() + ' Message';
     addMessage(message);
-    revalidateTag('msgs');
+    revalidateTag('msg');
     redirect('/db');
   }
 
@@ -20,7 +21,7 @@ export default function MessagesNew() {
       <Input control='message' rows={4}>
         Your Message
       </Input>
-      <button>Send</button>
+      <Submit />
     </form>
   );
 }

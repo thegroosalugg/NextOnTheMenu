@@ -28,6 +28,6 @@ export const getMessages = nextCache(
   ['messages'], // unstable_cache uses this as an internal key
   {
     revalidate: 3, // like fetch { next } - only works on refresh
-    tags: ['msgs'], // just like fetch tags - can call revalidateTags()
+    tags: ['msg'], // just like fetch tags - can call revalidateTags()
   }
 );
