@@ -6,17 +6,28 @@
   flex-direction: column;
   align-items: center;
   gap: 0.2rem;
-  list-style: decimal;
   overflow-x: scroll;
   overflow-y: hidden;
 
   li {
-    list-style-position: inside; /* force decimal to render when LI overflow also enabled */
     padding: 0.5rem;
     width: 90%;
-    max-height: 4rem;
-    overflow-y: scroll;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
     border: 1px solid var(--accent);
     color: var(--accent);
+
+    p {
+      max-height: 4rem;
+      line-height: 1.5;
+      overflow-y: scroll;
+    }
+
+    svg {
+      flex-shrink: 0;
+      cursor: pointer;
+    }
   }
 }
