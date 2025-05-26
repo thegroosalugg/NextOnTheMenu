@@ -1,24 +1,18 @@
-import NavLink from '@/components/header/NavLink';
-import styles from './layout.module.css';
+import MessagesLayout from "@/components/shared/MessagesLayout";
 
-export default async function MessagesLayout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: React.ReactNode }) {
   const response = await fetch('http://localhost:8080/messages', {
     // headers: { 'X-ID': 'layout' }, // *1 requests with the identical config will be memoized
   });
   const msgs = await response.json();
 
   return (
-    <div className={styles['messages-layout']}>
-      <h1>Fetching from an API</h1>
-      <p>
-        <strong className='highlight'>{msgs.length}</strong> messages found
-      </p>
-      <nav>
-        <NavLink href='/api/new'>New</NavLink>
-        <NavLink href='/api'>All</NavLink>
-      </nav>
-      <hr />
+    <MessagesLayout
+      header='Fetching from a 3rd party API'
+       count={msgs.length}
+       navTo='/api'
+    >
       {children}
-    </div>
+    </MessagesLayout>
   );
 }

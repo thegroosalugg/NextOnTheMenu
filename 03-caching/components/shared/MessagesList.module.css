@@ -1,0 +1,22 @@
+.messages-list {
+  max-width: 80rem;
+  width: 100%;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  list-style: decimal;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  li {
+    list-style-position: inside; /* force decimal to render when LI overflow also enabled */
+    padding: 0.5rem;
+    width: 90%;
+    max-height: 4rem;
+    overflow-y: scroll;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+  }
+}

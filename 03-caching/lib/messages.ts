@@ -14,7 +14,14 @@ function initDb() {
 
 initDb();
 
-export function addMessage(message: string) {
+export type Message = {
+     id: string;
+   text: string;
+  liked: boolean;
+};
+
+export async function addMessage(message: string) {
+  await new Promise(res => setTimeout(res, 1000)); // dummy promise delay
   db.prepare('INSERT INTO messages (text) VALUES (?)').run(message);
 }
 
@@ -23,7 +30,8 @@ export const getMessages = nextCache(
   // *Cache (React) db ops (non fetch) manually. Stores request (deduplication)
   cache(async function getMessages() {
     console.log(new Date().toISOString(), 'Fetching messages from DB');
-    return await Promise.resolve(db.prepare('SELECT * FROM messages').all());
+    await new Promise(res => setTimeout(res, 1000)); // dummy promise delay
+    return db.prepare('SELECT * FROM messages').all() as Message[];
   }),
   ['messages'], // unstable_cache uses this as an internal key
   {

@@ -1,5 +1,5 @@
 // import { unstable_noStore } from 'next/cache';
-import styles from './page.module.css';
+import MessagesList from '@/components/shared/MessagesList';
 import { getMessages } from '@/lib/messages';
 
 export const dynamic = 'force-dynamic';
@@ -7,17 +7,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function MessagesPage() {
   // unstable_noStore();
-  const msgs = await getMessages() as { id: string; text: string }[];
+  const msgs = await getMessages();
 
-  if (msgs.length === 0) {
-    return <p>No messages found</p>;
-  }
-
-  return (
-    <ol className={styles['messages']}>
-      {msgs.map(({ id, text }) => (
-        <li key={id}>{text}</li>
-      ))}
-    </ol>
-  );
+  return <MessagesList {...{ msgs }} />;
 }

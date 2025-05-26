@@ -11,7 +11,7 @@ export async function createMessage(prevState: Record<string, string>, formData:
 
   const error = message.trim() ? null : 'missing';
   if (error) return { message: error }; // { controlName: errorMsg } format for <Input />
-  addMessage(message);
+  await addMessage(message);
   revalidateTag('msg');
   redirect('/actions');
 }

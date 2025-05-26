@@ -1,5 +1,5 @@
 import { unstable_noStore } from 'next/cache';
-import styles from './page.module.css';
+import MessagesList from '@/components/shared/MessagesList';
 
 // export const revalidate = 3; // *3 revalidate all requests in whole file (PROD ONLY)
 // export const dynamic = 'force-dynamic'; // *4 no-store - discards cache for whole file (PROD ONLY)
@@ -10,6 +10,7 @@ import styles from './page.module.css';
 // default next14 cache: 'force-cache', next15 cache: 'no-store' (DEV ONLY)
 export default async function MessagesPage() {
   unstable_noStore(); // *5 no-store - discards cache for this component only - still unstable
+
   const response = await fetch('http://localhost:8080/messages', {
     // headers: { 'X-ID': 'layout' }, // *1 requests with the identical config will be memoized
     next: {
@@ -18,17 +19,8 @@ export default async function MessagesPage() {
       },
     // cache: 'force-cache' // **dev: 'no-store', build: 'force-cache'
   });
-  const msgs: { id: string; text: string }[] = await response.json();
 
-  if (msgs.length === 0) {
-    return <p>No messages found</p>;
-  }
+  const msgs = await response.json();
 
-  return (
-    <ol className={styles['messages']}>
-      {msgs.map(({ id, text }) => (
-        <li key={id}>{text}</li>
-      ))}
-    </ol>
-  );
+  return <MessagesList {...{ msgs }} />;
 }
