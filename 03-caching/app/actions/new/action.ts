@@ -1,6 +1,6 @@
 'use server';
 
-import { addMessage } from '@/lib/messages';
+import { addMessage, likeMessage } from '@/lib/messages';
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -14,4 +14,9 @@ export async function createMessage(prevState: Record<string, string>, formData:
   await addMessage(message);
   revalidateTag('msg');
   redirect('/actions');
+}
+
+export async function like(id: string) {
+  await likeMessage(id);
+  revalidateTag('msg');
 }

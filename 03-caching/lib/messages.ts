@@ -8,7 +8,8 @@ function initDb() {
   db.exec(`
     CREATE TABLE IF NOT EXISTS messages (
       id INTEGER PRIMARY KEY,
-      text TEXT
+      text TEXT,
+      liked INTEGER DEFAULT 0
     )`);
 }
 
@@ -17,12 +18,17 @@ initDb();
 export type Message = {
      id: string;
    text: string;
-  liked: boolean;
+  liked: 0 | 1;
 };
 
 export async function addMessage(message: string) {
   await new Promise(res => setTimeout(res, 1000)); // dummy promise delay
   db.prepare('INSERT INTO messages (text) VALUES (?)').run(message);
+}
+
+export async function likeMessage(id: string) {
+  await new Promise(res => setTimeout(res, 1000)); // dummy promise delay
+  db.prepare('UPDATE messages SET liked = NOT liked WHERE id = ?').run(id);
 }
 
 // *unstable_cache (Next) stores the db res data

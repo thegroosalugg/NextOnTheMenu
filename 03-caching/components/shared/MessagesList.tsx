@@ -1,7 +1,14 @@
+'use client'; // required for onClick events
 import type { Message } from '@/lib/messages';
 import styles from './MessagesList.module.css';
 
-export default function MessagesList({ msgs }: { msgs: Message[] }) {
+export default function MessagesList({
+    msgs,
+  action = (id: string) => console.log('liked msg ID:', id),
+}: {
+     msgs: Message[];
+  action?: (id: string) => void;
+}) {
   if (msgs.length === 0) {
     return <p>No messages found</p>;
   }
@@ -13,10 +20,11 @@ export default function MessagesList({ msgs }: { msgs: Message[] }) {
           <span>{i + 1}</span>
           <p>{text}</p>
           <svg
-                  viewBox='0 0 24 24'
-                    width='24'
+                   onClick={() => action(id)}
+                   viewBox='0 0 24 24'
+                     width='24'
                     height='24'
-                      fill={liked ? 'currentColor' : 'none'}
+                      fill={liked > 0 ? 'currentColor' : 'none'}
                     stroke='currentColor'
                strokeWidth='2'
              strokeLinecap='round'
