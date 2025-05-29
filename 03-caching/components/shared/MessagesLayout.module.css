@@ -1,0 +1,33 @@
+.messages-layout {
+  max-width: 80rem;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > h1 {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  > nav {
+    width: 90%;
+    display: flex;
+    justify-content: end;
+    gap: 0.2rem;
+
+    > a {
+      width: 45px;
+      border-radius: 4px;
+      -webkit-text-fill-color: var(--gray-100); /* overwrite .highlight class in NavLink */
+      background: var(--accent);
+      text-align: center;
+    }
+  }
+
+  > hr {
+    width: 100%;
+    margin-top: 0.2rem;
+    border-color: var(--accent);
+  }
+}

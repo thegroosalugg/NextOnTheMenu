@@ -1,0 +1,38 @@
+.messages-list {
+  max-width: 80rem;
+  width: 100%;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  li {
+    padding: 0.5rem;
+    width: 90%;
+    display: flex; /* flex cancels list-style. Use JS index instead */
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+
+    p {
+      max-height: 4rem;
+      line-height: 1.5;
+      overflow-y: scroll;
+    }
+
+    button {
+      border: none;
+      background: none;
+    }
+
+    svg {
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+  }
+}
