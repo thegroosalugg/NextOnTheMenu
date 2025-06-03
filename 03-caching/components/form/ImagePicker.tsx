@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const fileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
-export default function ImagePicker({ formErr, count }: { formErr: string, count: number }) {
+export default function ImagePicker({ formErr, count }: { formErr?: string, count?: number }) {
   const [image, setImage] = useState('');
   const [error, setError] = useState('');
   const input = useRef<HTMLInputElement | null>(null);
@@ -18,7 +18,7 @@ export default function ImagePicker({ formErr, count }: { formErr: string, count
       setError(formErr);
       removeFile();
     }
-  }, [formErr, count]); // submit count
+  }, [formErr, count]);
 
   function changeHandler() {
     const file = input.current?.files?.[0];
@@ -34,16 +34,7 @@ export default function ImagePicker({ formErr, count }: { formErr: string, count
       setImage('');
     } else if (file) {
       setError('');
-      // Creates a temporary local URL to preview the file
-      setImage(URL.createObjectURL(file)); // URL is a global browser API.
-
-      // *Alternative approach - using FileReader()
-      // const fileReader = new FileReader();
-      // *onload is a callback that is called at the end of an operation
-      // *onload has no default value. You must set its value as a function to call
-      // fileReader.onload = () => setImage(fileReader.result as string);
-      // *readAsDataURL does not return anything, hence it can execute onload callback instead
-      // fileReader.readAsDataURL(file);
+      setImage(URL.createObjectURL(file));
     }
   }
 
@@ -59,10 +50,8 @@ export default function ImagePicker({ formErr, count }: { formErr: string, count
       />
       {image ? (
         <Image src={image} alt='user select image' fill sizes='100%' />
-      ) : error ? (
-        error
       ) : (
-        'No image selected'
+        <span>{error ? error : 'No image selected'}</span>
       )}
     </label>
   );
