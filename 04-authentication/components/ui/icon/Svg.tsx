@@ -1,16 +1,15 @@
+import type Icon from './icon';
 import styles from './Svg.module.css';
+import { lazy } from 'react';
 
-const icons = {
-  Shield,
-};
+export default function Svg({ icon, size = 36 }: { icon: Icon; size?: number }) {
+  const Icon = lazy(() => import(`./lib/${icon}.tsx`));
 
-export default function Svg({ icon }: { icon: keyof typeof icons }) {
-  const Icon = icons[icon];
   return (
     <svg
       className={styles['svg']}
-          width='36'
-         height='36'
+          width={size}
+         height={size}
         viewBox='0 0 24 24'
            fill='none'
           xmlns='http://www.w3.org/2000/svg'
@@ -20,15 +19,11 @@ export default function Svg({ icon }: { icon: keyof typeof icons }) {
   );
 }
 
-function Shield() {
-  return (
-    <>
-      <path d='M12 2L4 5V11C4 16.5 7.8 21.7 12 23C16.2 21.7 20 16.5 20 11V5L12 2Z' />
-      <rect x='9' y='11' width='6' height='5' rx='1' />
-      <path
-        d='M10 11V9.5C10 8.67 10.67 8 11.5 8H12.5C13.33 8 14 8.67 14 9.5V11'
-        strokeWidth='1.2'
-      />
-    </>
-  );
-}
+// ### LazyLoading with client hooks
+// const [Icon, setIcon] = useState<ComponentType | null>(null);
+
+// useEffect(() => {
+//   import(`./lib/${icon}.tsx`)
+//     .then((mod) => setIcon(() => mod.default))
+//     .catch(() => setIcon(null));
+// }, [icon]);

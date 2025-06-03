@@ -4,7 +4,7 @@
   color: var(--fill);
   transition: 0.6s ease;
 
-  path, rect {
+  g {
     transition: 0.6s ease;
     fill: var(--fill);
     stroke: var(--stroke);

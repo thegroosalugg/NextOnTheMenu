@@ -1,5 +1,5 @@
-import Svg from '../ui/icon/Svg';
 import styles from './Header.module.css';
+import Svg from '../ui/icon/Svg';
 import NavLink from './NavLink';
 
 export default function Header() {
