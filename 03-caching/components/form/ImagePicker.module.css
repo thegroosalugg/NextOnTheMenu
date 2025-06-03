@@ -9,7 +9,10 @@
   align-items: center;
   justify-content: center;
   position: relative; /* Image with fill must be relative to parent */
-  object-fit: cover; /* image fit */
+
+  img {
+    object-fit: cover;
+  }
 
   input {
     display: none;

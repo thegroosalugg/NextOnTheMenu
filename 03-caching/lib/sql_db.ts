@@ -2,7 +2,7 @@ import sql from 'better-sqlite3';
 import { unstable_cache as nextCache } from 'next/cache';
 import { cache } from 'react';
 
-const db = new sql('messages.db');
+const db = new sql('data.db');
 
 function initDb() {
   db.exec(`
@@ -10,10 +10,23 @@ function initDb() {
       id INTEGER PRIMARY KEY,
       text TEXT,
       liked INTEGER DEFAULT 0
-    )`);
+    );
+    CREATE TABLE IF NOT EXISTS images (
+      id INTEGER PRIMARY KEY,
+      url TEXT NOT NULL
+    );
+  `);
 }
 
 initDb();
+
+export function addImage(url: string) {
+  db.prepare('INSERT INTO images (url) VALUES (?)').run(url);
+}
+
+export function getImages() {
+  return db.prepare('SELECT * FROM images').all() as { id: string, url: string }[];
+}
 
 export type Message = {
      id: string;

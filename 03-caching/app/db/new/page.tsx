@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { addMessage } from '@/lib/messages';
+import { addMessage } from '@/lib/sql_db';
 import { revalidateTag } from 'next/cache';
 import MessageForm from '@/components/shared/MessageForm';
 

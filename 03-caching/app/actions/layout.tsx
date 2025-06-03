@@ -1,5 +1,5 @@
 import MessagesLayout from '@/components/shared/MessagesLayout';
-import { getMessages } from '@/lib/messages';
+import { getMessages } from '@/lib/sql_db';
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const msgs = await getMessages();

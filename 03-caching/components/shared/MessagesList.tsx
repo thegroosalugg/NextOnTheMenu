@@ -1,6 +1,6 @@
 'use client';
 import styles from './MessagesList.module.css';
-import type { Message } from '@/lib/messages';
+import type { Message } from '@/lib/sql_db';
 import { useOptimistic } from 'react';
 
 export default function MessagesList({

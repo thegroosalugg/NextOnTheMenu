@@ -1,6 +1,6 @@
 'use server';
 
-import { addMessage, likeMessage } from '@/lib/messages';
+import { addMessage, likeMessage } from '@/lib/sql_db';
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 
