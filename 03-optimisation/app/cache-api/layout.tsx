@@ -10,7 +10,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
     <MessagesLayout
       header='Fetching from a 3rd party API'
        count={msgs.length}
-       navTo='/api'
+       navTo='/cache-api'
     >
       {children}
     </MessagesLayout>

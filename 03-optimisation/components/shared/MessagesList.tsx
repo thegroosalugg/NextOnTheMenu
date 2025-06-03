@@ -4,7 +4,7 @@ import type { Message } from '@/lib/sql_db';
 import { useOptimistic } from 'react';
 
 export default function MessagesList({
-    msgs, // action only used in /action route of demo. /db && /api skip this demo
+    msgs, // action only used in /action route of demo. /cache-db && /cache-api skip this demo
   action = async (id: string) => console.log('liked msg ID:', id),
 }: {
      msgs: Message[];

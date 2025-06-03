@@ -7,11 +7,11 @@ export default function Header() {
     <header className={styles.header}>
       <NavLink href='/'>
         <Image src='/icon.png' alt='a server' width={25} height={25} />
-        <span>Cache</span>
+        <span>Optimisation</span>
       </NavLink>
       <nav>
-        <NavLink href='/api'>API</NavLink>
-        <NavLink href='/db'>DB</NavLink>
+        <NavLink href='/cache-api'>API</NavLink>
+        <NavLink href='/cache-db'>DB</NavLink>
         <NavLink href='/actions'>Actions</NavLink>
         <NavLink href='/images'>Images</NavLink>
       </nav>

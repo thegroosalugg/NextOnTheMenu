@@ -8,7 +8,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
     <MessagesLayout
       header='Caching with an internal DB'
        count={msgs.length}
-       navTo='/db'
+       navTo='/cache-db'
     >
       {children}
     </MessagesLayout>

@@ -11,7 +11,7 @@ export default function MessagesNew() {
       (formData.get('message') as string) || new Date().toISOString() + ' Message';
     await addMessage(message);
     revalidateTag('msg');
-    redirect('/db');
+    redirect('/cache-db');
   }
 
   return <MessageForm action={createMessage} />;

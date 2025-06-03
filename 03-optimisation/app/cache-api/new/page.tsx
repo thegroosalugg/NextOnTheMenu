@@ -15,7 +15,7 @@ export default function MessagesNew() {
 
     if (response.ok) {
       revalidateTag('msg'); // *6 programatically revalidate all linked tags
-      redirect('/api');
+      redirect('/cache-api');
     }
   }
 
