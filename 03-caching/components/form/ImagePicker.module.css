@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: center;
   position: relative; /* Image with fill must be relative to parent */
+  overflow: hidden; /* hide image borders */
 
   img {
     object-fit: cover;
