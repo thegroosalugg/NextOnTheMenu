@@ -6,7 +6,7 @@ interface ImageProps {
         alt: string;
   maxWidth?: number | '100%';
     height?: number;
-   rounded?: boolean;
+     round?: number;
 }
 
 export default function ImageBoxed({
@@ -14,14 +14,17 @@ export default function ImageBoxed({
       alt,
   maxWidth = '100%',
     height = 240,
-   rounded,
+     round = 0,
 }: ImageProps) {
-  let classes = styles['image-boxed'];
-  if (rounded) classes += ` ${styles['rounded']}`;
-
   return (
-    <div className={classes} style={{ maxWidth, height }}>
-      <Image {...{ src, alt }} fill sizes='100%' priority />
+    <div className={styles['image-boxed']} style={{ maxWidth, height }}>
+      <Image
+        {...{ src, alt }}
+            fill
+           sizes='100%'
+           style={{ borderRadius: round }}
+        priority
+      />
     </div>
   );
 }

@@ -22,7 +22,7 @@ db.exec(`
     id INTEGER PRIMARY KEY,
     title TEXT,
     image TEXT,
-    description TEXT
+    desc TEXT
   );
 `);
 
@@ -31,7 +31,7 @@ const hasTrainings =
 
 if (!hasTrainings) {
   db.exec(`
-    INSERT INTO trainings (title, image, description)
+    INSERT INTO trainings (title, image, desc)
     VALUES
     ('Yoga', '/yoga.jpg', 'A gentle way to improve flexibility and balance.'),
     ('Boxing', '/boxing.jpg', 'A high-energy workout that improves strength and speed.'),

@@ -14,4 +14,14 @@
     --fill: var(--bg);
     --stroke: var(--accent);
   }
+
+  /* no dark colors: remains white in dark mode for accented bgs */
+  &.light {
+    --stroke: var(--gray-100);
+
+    &:hover {
+      --fill: var(--gray-100);
+      --stroke: var(--accent);
+    }
+  }
 }

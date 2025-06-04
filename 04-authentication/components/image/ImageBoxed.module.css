@@ -5,8 +5,4 @@
   img {
     object-fit: cover;
   }
-
-  &.rounded {
-    img { border-radius: 8px; }
-  }
 }
