@@ -1,8 +1,12 @@
 'use server';
 
 import type { FormError } from "@/components/form/form.types";
+import { hashPassword } from "./password";
+import User from "@/models/user";
+import { redirect } from "next/navigation";
 
-const sanitize = (str: string) => str.replace(/\s+/g, ' ').trim().toLowerCase();
+// not relevant here but its a nice function to have for future reference
+// const sanitize = (str: string) => str.replace(/\s+/g, ' ').trim().toLowerCase();
 
 const validateEmail = (email: string) => {
   const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -34,9 +38,16 @@ export const signUp = async (formData: FormData) => {
 
   if (Object.keys(errors).length > 0) return errors;
 
-  const data = Object.fromEntries(formData.entries());
+  const data = Object.fromEntries(formData.entries()) as Record<string, string>;
   const { email, password } = data;
-  console.log(email, password);
-
-  return { valid: 'true' };
+  const hashedPw = hashPassword(password);
+  try {
+    new User(email.trim().toLowerCase(), hashedPw).save();
+  } catch (error) {
+    if (error instanceof Error) {
+      if (error.message.includes('UNIQUE')) return { email: 'is already in use' };
+    }
+    console.log(error);
+  }
+  redirect('/training');
 };

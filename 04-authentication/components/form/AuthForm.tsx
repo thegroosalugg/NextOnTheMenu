@@ -19,9 +19,6 @@ export default function AuthForm() {
     const formData = new FormData(e.currentTarget);
     const res = await signUp(formData);
     setErrors(res);
-    if (res.valid) {
-      console.log(res);
-    }
     setPending(false);
   }
 
