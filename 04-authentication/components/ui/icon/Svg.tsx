@@ -1,18 +1,20 @@
-import Icon from './icon';
+'use client';
+import Icon from './icon.model';
 import styles from './Svg.module.css';
-import { lazy } from 'react';
+import { getCachedIcon } from './icon.cache';
 
 interface SvgProps {
-    icon: keyof typeof Icon;
-   size?: number;
-  light?: boolean;
+     icon: keyof typeof Icon;
+    size?: number;
+  invert?: boolean;
 }
 
-export default function Svg({ icon, size = 36, light }: SvgProps) {
-  const  width = Icon[icon] ?? 24;
-  const IconFc = lazy(() => import(`./lib/${icon}.tsx`));
-  let  classes = styles['svg'];
-  if (light) classes += ` ${styles['light']}`;
+export default function Svg({ icon, size = 36, invert }: SvgProps) {
+  const width = Icon[icon] ?? 24;
+  const IconFc = getCachedIcon(icon);
+
+  let classes = styles['svg'];
+  if (invert) classes += ` ${styles['invert']}`;
 
   return (
     <svg
@@ -27,11 +29,20 @@ export default function Svg({ icon, size = 36, light }: SvgProps) {
   );
 }
 
-// ### LazyLoading with client hooks
-// const [Icon, setIcon] = useState<ComponentType | null>(null);
+// ### Lazy React (Has quirks with SSR)
+// const IconFc = lazy(() => import(`./lib/${icon}.tsx`));
+
+// ### next/dynamic with useMemo to memoize state re-renders
+// const IconFc = useMemo( // memo prevent useState re-renders
+//   () => dynamic(() => import(`./lib/${icon}.tsx`), { ssr: false }),
+//   [icon]
+// );
+
+// ### LazyLoading with useStateEffect (Slow)
+// const [IconFc, setIconFc] = useState<ComponentType | null>(null);
 
 // useEffect(() => {
 //   import(`./lib/${icon}.tsx`)
-//     .then((mod) => setIcon(() => mod.default))
-//     .catch(() => setIcon(null));
+//     .then((mod) => setIconFc(() => mod.default))
+//     .catch(() => setIconFc(null));
 // }, [icon]);

@@ -16,8 +16,8 @@ const tinos = Tinos({
 });
 
 export const metadata: Metadata = {
-        title: 'Cache',
-  description: 'Optimising Next Apps',
+        title: 'Auth',
+  description: 'Authentication',
 };
 
 export default function RootLayout({

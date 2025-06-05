@@ -41,7 +41,7 @@ const className = kebabCase(routeName);
 const component = pascalCase(routeName);
 fs.mkdirSync(dir, { recursive: true });
 
-fs.writeFileSync(cssPath, `.${className} {
+fs.writeFileSync(cssPath, `.${className}-page {
   max-width: 80rem;
   margin: 1rem auto;
   display: flex;
@@ -52,9 +52,9 @@ fs.writeFileSync(cssPath, `.${className} {
 
 fs.writeFileSync(pagePath, `import styles from './page.module.css';
 
-export default ${async}function ${component}(${params}) {${getSlug}
+export default ${async}function ${component}Page(${params}) {${getSlug}
   return (
-    <div className={styles['${className}']}>
+    <div className={styles['${className}-page']}>
       <h1>${component} Page</h1>${slugId}
     </div>
   );
