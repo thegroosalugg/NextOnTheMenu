@@ -1,3 +1,4 @@
+import { FormError } from './form.types';
 import styles from './Input.module.css';
 
 export default function Input({
@@ -10,7 +11,7 @@ export default function Input({
    control: string;
      rows?: number;
      type?: 'text' | 'number' | 'email' | 'password';
-   errors?: Record<string, string>;
+   errors?: FormError;
   children: React.ReactNode;
 }) {
   const error = errors[control];
