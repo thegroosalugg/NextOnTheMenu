@@ -1,9 +1,10 @@
 'use server';
 
-import type { FormError } from "@/components/form/form.types";
-import { hashPassword } from "./password";
-import User from "@/models/user";
+import type { MappedObject } from "@/models/shared-types";
 import { redirect } from "next/navigation";
+import { hashPassword, verifyPassword } from "./password";
+import { createAuthSession } from "./auth";
+import User from "@/models/user";
 
 // not relevant here but its a nice function to have for future reference
 // const sanitize = (str: string) => str.replace(/\s+/g, ' ').trim().toLowerCase();
@@ -27,7 +28,7 @@ const validators = {
 type FormEntry = keyof typeof validators;
 
 const validateForm = (formData: FormData) =>
-  Array.from(formData.entries()).reduce<FormError>((errors, [k, v]) => {
+  Array.from(formData.entries()).reduce<MappedObject>((errors, [k, v]) => {
     const error = validators[k as FormEntry](v.toString());
     if (error) errors[k] = error;
     return errors;
@@ -38,16 +39,35 @@ export const signUp = async (formData: FormData) => {
 
   if (Object.keys(errors).length > 0) return errors;
 
-  const data = Object.fromEntries(formData.entries()) as Record<string, string>;
+  const data = Object.fromEntries(formData.entries()) as MappedObject;
   const { email, password } = data;
+  const sanitized = email.trim().toLowerCase();
   const hashedPw = hashPassword(password);
+
   try {
-    new User(email.trim().toLowerCase(), hashedPw).save();
+    new User({ email: sanitized, password: hashedPw }).save();
+    const user = User.findByEmail(sanitized);
+    await createAuthSession(user.id);
   } catch (error) {
     if (error instanceof Error) {
       if (error.message.includes('UNIQUE')) return { email: 'is already in use' };
     }
     console.log(error);
   }
+
   redirect('/training');
+};
+
+export const login = async (formData: FormData) => {
+  const data = Object.fromEntries(formData.entries()) as MappedObject;
+  const { email, password } = data;
+  const user = User.findByEmail(email.trim().toLowerCase());
+  const isMatch = verifyPassword(user.password, password);
+
+  if (isMatch) {
+    await createAuthSession(user.id);
+    redirect('/training');
+  } else {
+    return { email: "doesn't match", password: "doesn't match" };
+  }
 };

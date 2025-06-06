@@ -1,4 +1,4 @@
-import { FormError } from './form.types';
+import { MappedObject } from '@/models/shared-types';
 import styles from './Input.module.css';
 
 export default function Input({
@@ -11,7 +11,7 @@ export default function Input({
    control: string;
      rows?: number;
      type?: 'text' | 'number' | 'email' | 'password';
-   errors?: FormError;
+   errors?: MappedObject;
   children: React.ReactNode;
 }) {
   const error = errors[control];
