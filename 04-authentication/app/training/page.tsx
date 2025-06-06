@@ -2,8 +2,13 @@ import styles from './page.module.css';
 import Training from '@/models/training';
 import List from '@/components/list/List';
 import ImageBoxed from '@/components/image/ImageBoxed';
+import { verifySession } from '@/lib/auth';
+import { redirect } from 'next/navigation';
 
-export default function TrainingPage() {
+export default async function TrainingPage() {
+  const { user } = await verifySession();
+  if (!user) redirect('/');
+
   const trainingSessions = Training.getAll();
 
   return (

@@ -34,13 +34,14 @@ const validateForm = (formData: FormData) =>
     return errors;
   }, {});
 
+const mapFormData = (formData: FormData) =>
+  Object.fromEntries(formData.entries()) as MappedObject;
+
 export const signUp = async (formData: FormData) => {
   const errors = validateForm(formData);
-
   if (Object.keys(errors).length > 0) return errors;
 
-  const data = Object.fromEntries(formData.entries()) as MappedObject;
-  const { email, password } = data;
+  const { email, password } = mapFormData(formData);
   const sanitized = email.trim().toLowerCase();
   const hashedPw = hashPassword(password);
 
@@ -59,8 +60,7 @@ export const signUp = async (formData: FormData) => {
 };
 
 export const login = async (formData: FormData) => {
-  const data = Object.fromEntries(formData.entries()) as MappedObject;
-  const { email, password } = data;
+  const { email, password } = mapFormData(formData);
   const user = User.findByEmail(email.trim().toLowerCase());
   const isMatch = verifyPassword(user.password, password);
 

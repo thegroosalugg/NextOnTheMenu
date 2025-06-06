@@ -19,8 +19,28 @@ const lucia = new Lucia(adapter, {
   },
 });
 
+const setCookie = async (sessionId?: string) => {
+  const { name, value, attributes } = sessionId
+    ? lucia.createSessionCookie(sessionId)
+    : lucia.createBlankSessionCookie();
+  (await cookies()).set(name, value, attributes);
+};
+
 export const createAuthSession = async (userId: string) => {
   const session = await lucia.createSession(userId, {});
-  const { name, value, attributes } = lucia.createSessionCookie(session.id);
-  (await cookies()).set(name, value, attributes);
+  await setCookie(session.id);
+};
+
+export const verifySession = async () => {
+  const sessionId = (await cookies()).get(lucia.sessionCookieName)?.value;
+  if (!sessionId) return { user: null, session: null };
+
+  const { user, session } = await lucia.validateSession(sessionId);
+
+  try { // Next.Js throws error when you set cookie as part of render process
+         if (!session)       await setCookie(); // blank
+    else if (session?.fresh) await setCookie(session.id); // refresh
+  } catch {} // error can be ignored
+
+  return { user, session };
 };
