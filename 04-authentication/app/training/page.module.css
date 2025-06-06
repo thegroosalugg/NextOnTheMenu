@@ -1,0 +1,25 @@
+.training {
+  max-width: 80rem;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    width: 100%;
+    text-align: center;
+    font-weight: 900;
+    font-size: 2rem;
+    color: var(--accent);
+  }
+
+  article {
+    text-align: center;
+
+    h2 {
+      margin-top: 0.2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+  }
+}
