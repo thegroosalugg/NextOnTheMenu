@@ -10,7 +10,7 @@
   border: 1px solid var(--accent);
   border-radius: 4px;
 
-  header {
+  > a {
     padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
