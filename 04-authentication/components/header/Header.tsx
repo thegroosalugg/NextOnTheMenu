@@ -1,6 +1,7 @@
 import styles from './Header.module.css';
 import Svg from '../ui/icon/Svg';
 import NavLink from './NavLink';
+import { logout } from '@/lib/actions';
 
 export default function Header() {
   return (
@@ -11,6 +12,9 @@ export default function Header() {
       </NavLink>
       <nav>
         <NavLink href='/training'>Training</NavLink>
+        <form action={logout}>
+          <button>Logout</button>
+        </form>
       </nav>
     </header>
   );

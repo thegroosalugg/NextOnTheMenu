@@ -3,7 +3,7 @@
 import type { MappedObject } from "@/models/shared-types";
 import { redirect } from "next/navigation";
 import { hashPassword, verifyPassword } from "./password";
-import { createAuthSession } from "./auth";
+import { createAuthSession, destroySession } from "./auth";
 import User from "@/models/user";
 
 // not relevant here but its a nice function to have for future reference
@@ -70,4 +70,9 @@ export const login = async (formData: FormData) => {
   } else {
     return { email: "doesn't match", password: "doesn't match" };
   }
+};
+
+export const logout = async () => {
+  await destroySession();
+  redirect('/');
 };
