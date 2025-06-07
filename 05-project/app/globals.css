@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+
+:root {
+  --light: #e5e5e5;
+  --dark: #1a1a1a;
+  --bg: var(--light);
+  --fg: var(--dark);
+  --accent: #325068;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-montserrat);
+  --font-mono: var(--font-poiret-one);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: var(--dark);
+    --fg: var(--light);
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-montserrat); /* Replace */
+  display: flex; /* Flex set on first available wrapper around header/main/footer */
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+button { cursor: pointer; }
+
+::-webkit-scrollbar       { width: 1px; height: 1px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--fg); border-radius: 5px; }
