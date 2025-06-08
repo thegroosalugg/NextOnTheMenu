@@ -8,7 +8,7 @@ interface SvgProps {
   invert?: boolean;
 }
 
-export default function Svg({ icon, size = 36, invert }: SvgProps) {
+export default function Svg({ icon, size = 16, invert }: SvgProps) {
   const width = Icon[icon] ?? 24;
   const IconFc = getCachedIcon(icon);
 
