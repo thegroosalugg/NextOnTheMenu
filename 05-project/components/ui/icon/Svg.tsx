@@ -1,6 +1,5 @@
 'use client';
 import Icon from './icon.model';
-import styles from './Svg.module.css';
 import { getCachedIcon } from './icon.cache';
 
 interface SvgProps {
@@ -13,8 +12,25 @@ export default function Svg({ icon, size = 36, invert }: SvgProps) {
   const width = Icon[icon] ?? 24;
   const IconFc = getCachedIcon(icon);
 
-  let classes = styles['svg'];
-  if (invert) classes += ` ${styles['invert']}`;
+  // tailWind keeps inverting all blacks to white in dark mode.
+  // have to use hacky invert mode and hard code inverted colors in dark mode to work
+  let classes = `
+    transition-all
+    duration-600
+
+    fill-sky-600
+    stroke-bg
+    hover:fill-bg
+    hover:stroke-sky-600
+
+    dark:fill-orange-500
+    dark:stroke-neutral-300
+    dark:hover:fill-neutral-300
+    dark:hover:stroke-orange-500
+    dark:invert
+  `;
+
+  if (invert) classes += ` `;
 
   return (
     <svg
@@ -28,21 +44,3 @@ export default function Svg({ icon, size = 36, invert }: SvgProps) {
     </svg>
   );
 }
-
-// ### Lazy React (Has quirks with SSR)
-// const IconFc = lazy(() => import(`./lib/${icon}.tsx`));
-
-// ### next/dynamic with useMemo to memoize state re-renders
-// const IconFc = useMemo( // memo prevent useState re-renders
-//   () => dynamic(() => import(`./lib/${icon}.tsx`), { ssr: false }),
-//   [icon]
-// );
-
-// ### LazyLoading with useStateEffect (Slow)
-// const [IconFc, setIconFc] = useState<ComponentType | null>(null);
-
-// useEffect(() => {
-//   import(`./lib/${icon}.tsx`)
-//     .then((mod) => setIconFc(() => mod.default))
-//     .catch(() => setIconFc(null));
-// }, [icon]);

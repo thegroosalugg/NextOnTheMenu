@@ -16,8 +16,8 @@ const poiret_one = Poiret_One({
 });
 
 export const metadata: Metadata = {
-        title: 'Auth',
-  description: 'Authentication',
+        title: 'Shopify',
+  description: 'Next JS project',
 };
 
 export default function RootLayout({
