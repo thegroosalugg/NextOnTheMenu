@@ -2,14 +2,7 @@ import Link from "next/link";
 import NavLink from "./NavLink";
 import SearchBar from "../form/SearchBar";
 import Svg from "../ui/icon/Svg";
-
-const btnClasses = `
-  flex
-  items-center
-  bg-stone-100 dark:bg-stone-700
-  border border-accent rounded-sm
-  p-1
-`
+import MenuButton from "../ui/button/MenuButton";
 
 export default function Header() {
   return (
@@ -24,9 +17,7 @@ export default function Header() {
       "
     >
       <div className="md:hidden basis-1/3">
-        <button className={btnClasses}>
-          <Svg icon="Hamburger" size={20} />
-        </button>
+        <MenuButton icon='Hamburger' />
       </div>
       <section
         className="
@@ -52,9 +43,7 @@ export default function Header() {
         <SearchBar />
       </div>
       <div className="flex basis-1/3 justify-end">
-        <button className={btnClasses}>
-          <Svg icon="ShoppingCart" size={20} />
-        </button>
+        <MenuButton icon='ShoppingCart' />
       </div>
     </header>
   );

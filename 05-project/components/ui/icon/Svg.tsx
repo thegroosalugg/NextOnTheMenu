@@ -1,9 +1,9 @@
 'use client';
-import Icon from './icon.model';
+import Icon, { IconType } from './icon.model';
 import { getCachedIcon } from './icon.cache';
 
 interface SvgProps {
-     icon: keyof typeof Icon;
+     icon: IconType;
     size?: number;
   invert?: boolean;
 }
