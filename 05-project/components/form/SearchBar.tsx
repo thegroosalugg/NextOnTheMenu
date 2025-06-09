@@ -4,6 +4,8 @@ export default function SearchBar() {
   return (
     <form
       className="
+        w-full
+        mx-auto
         relative
         [&>svg]:absolute
         [&>svg]:top-1.5
@@ -14,6 +16,7 @@ export default function SearchBar() {
     >
       <input
         className="
+          w-full
           border
           pl-2 py-1 pr-5
           rounded-lg

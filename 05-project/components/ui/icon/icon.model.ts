@@ -5,4 +5,5 @@ export default class Icon {
   static          Key = 18;
   static  ShoppingBag = 20;
   static ShoppingCart = 24;
+  static    Hamburger = 24;
 }
