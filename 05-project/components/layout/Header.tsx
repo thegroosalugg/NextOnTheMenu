@@ -1,8 +1,7 @@
-import Link from "next/link";
+import BrandLogo from "../ui/logo/BrandLogo";
 import NavLink from "./NavLink";
-import SearchBar from "../form/SearchBar";
-import Svg from "../ui/icon/Svg";
 import MenuButton from "../ui/button/MenuButton";
+import SearchBar from "../form/SearchBar";
 
 export default function Header() {
   return (
@@ -28,10 +27,7 @@ export default function Header() {
           font-mono
         "
       >
-        <Link href="/" className="mx-auto md:mx-0 flex items-center font-sans">
-          <Svg icon="ShoppingBag" size={20} />
-          <span className="md:hidden lg:block -ml-0.25 text-accent uppercase">Shopify</span>
-        </Link>
+        <BrandLogo compact />
         <nav className="hidden md:flex gap-2">
           <NavLink href="/shop">Shop</NavLink>
           <NavLink href="/">LinkTwo</NavLink>

@@ -3,12 +3,12 @@ import Icon, { IconType } from './icon.model';
 import { getCachedIcon } from './icon.cache';
 
 interface SvgProps {
-     icon: IconType;
-    size?: number;
-  invert?: boolean;
+    icon: IconType;
+   size?: number;
+  light?: boolean;
 }
 
-export default function Svg({ icon, size = 16, invert }: SvgProps) {
+export default function Svg({ icon, size = 16, light }: SvgProps) {
   const width = Icon[icon] ?? 24;
   const IconFc = getCachedIcon(icon);
 
@@ -23,7 +23,7 @@ export default function Svg({ icon, size = 16, invert }: SvgProps) {
     hover:stroke-accent
   `;
 
-  if (invert) classes += ` stroke-light hover:fill-light`;
+  if (light) classes += ` stroke-light hover:fill-light`;
 
   return (
     <svg
@@ -33,6 +33,7 @@ export default function Svg({ icon, size = 16, invert }: SvgProps) {
            fill='none'
           xmlns='http://www.w3.org/2000/svg'
     >
+      <title>{icon}</title>
       <IconFc />
     </svg>
   );
