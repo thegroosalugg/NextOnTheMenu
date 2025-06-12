@@ -3,10 +3,11 @@ import ProductTile from "./ProductTile";
 
 interface GridProps {
   products: Product[];
-   scroll?: boolean;
+  scroll?: boolean;
+  hero?: boolean;
 }
 
-export default function GridList({ products, scroll }: GridProps) {
+export default function GridList({ products, scroll, hero }: GridProps) {
   let styles = "grid gap-4 p-4 ";
 
   if (scroll) {
@@ -15,22 +16,14 @@ export default function GridList({ products, scroll }: GridProps) {
       overflow-x-scroll [&>li]:animate-scroll
     `;
   } else {
-    styles += `
-      max-w-screen-2xl
-      mx-auto
-      md:grid-cols-6 md:grid-rows-2
-    `;
+    styles += "mx-auto md:grid-cols-6 md:grid-rows-2 ";
+    styles += hero ? "max-w-screen-2xl" : "max-w-screen-md";
   }
 
   return (
     <ul className={styles}>
       {products.map((prod, i) => (
-        <ProductTile
-          key={prod._id}
-          {...prod}
-          full={scroll ? false : i === 0}
-          priority={!scroll}
-        />
+        <ProductTile key={prod._id} {...prod} hero={hero && i === 0} priority={!scroll} />
       ))}
     </ul>
   );

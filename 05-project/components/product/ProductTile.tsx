@@ -7,9 +7,9 @@ export default function ProductTile({
       name,
      price,
     images,
-      full,
+      hero,
   priority,
-}: Product & { full?: boolean, priority?: boolean }) {
+}: Product & { hero?: boolean, priority?: boolean }) {
   return (
     <li
       className={
@@ -19,7 +19,7 @@ export default function ProductTile({
         border border-transparent rounded-2xl
         group
         hover:border-sky-600 ` +
-        (full ? "md:col-span-4 md:row-span-2" : "md:col-span-2 md:row-span-1")
+        (hero ? "md:col-span-4 md:row-span-2" : "md:col-span-2 md:row-span-1")
       }
     >
       <Link href={`/shop/${_id}`} className="absolute inset-0">
@@ -38,7 +38,7 @@ export default function ProductTile({
           <span className="line-clamp-2">{name}</span>
           <span className="bg-sky-700 text-white py-1 px-2 rounded-3xl">
             ${price}
-            {full && <span className="hidden md:inline"> USD</span>}
+            {hero && <span className="hidden md:inline"> USD</span>}
           </span>
         </label>
         <Image
@@ -51,7 +51,7 @@ export default function ProductTile({
           "
           {...{ priority }}
           fill
-          sizes={full ? "(min-width: 768px) 66vw, 100vw" : "(min-width: 768px) 33vw, 100vw"}
+          sizes={hero ? "(min-width: 768px) 66vw, 100vw" : "(min-width: 768px) 33vw, 100vw"}
         />
       </Link>
     </li>
