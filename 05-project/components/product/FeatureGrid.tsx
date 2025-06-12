@@ -1,11 +1,7 @@
 import Product from "@/model/product";
 import ProductTile from "./ProductTile";
 
-export default function FeatureGrid({
-  products,
-}: {
-  products: [Product, Product, Product];
-}) {
+export default function FeatureGrid({ products }: { products: Product[] }) {
   return (
     <section
       className="
@@ -15,9 +11,9 @@ export default function FeatureGrid({
         md:grid-cols-6 md:grid-rows-2
       "
     >
-      <ProductTile {...products[0]} full />
-      <ProductTile {...products[1]} />
-      <ProductTile {...products[2]} />
+      {products.map((prod, i) => (
+        <ProductTile key={prod._id} {...prod} full={i === 0} />
+      ))}
     </section>
   );
 }

@@ -24,7 +24,7 @@ export default function ProductTile({
     >
       <label
         className="
-          max-w-2/3
+          max-w-3/4
           absolute z-10 left-6 bottom-6
           flex gap-2 items-center
           bg-white/70 dark:bg-black/70

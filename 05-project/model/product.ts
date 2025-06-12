@@ -5,35 +5,14 @@ type ProdImage = { src: string, color: string };
 type Category = "backpack" | "headphones" | "hoodie" | "jacket" | "coat" | "tshirt";
 
 export default class Product {
-       _id: string;
-      name: string;
-     price: number;
-      desc: string;
-  category: Category;
-    images: ProdImage[];
-
-  constructor({
-         _id,
-        name,
-       price,
-        desc,
-    category,
-      images,
-  }: {
-         _id: string;
-        name: string;
-       price: number;
-        desc: string;
-    category: Category;
-      images: ProdImage[];
-  }) {
-    this._id      = _id;
-    this.name     = name;
-    this.price    = price;
-    this.desc     = desc;
-    this.category = category;
-    this.images   = images;
-  }
+  readonly       _id: string      = '';
+  readonly      name: string      = '';
+  readonly     price: number      =  0;
+  readonly      desc: string      = '';
+  readonly  category: Category    = 'coat';
+  readonly    images: ProdImage[] = [];
+  readonly createdAt: string      = new Date().toISOString();
+               views: number      =  0;
 
   private static getDb() {
     return client.db().collection<Product>("products");
@@ -41,5 +20,9 @@ export default class Product {
 
   static async getAll() {
     return await this.getDb().find().toArray();
+  }
+
+  static async getFeatured() {
+    return await this.getDb().find().sort({ views: -1, createdAt: -1 }).limit(3).toArray();
   }
 }

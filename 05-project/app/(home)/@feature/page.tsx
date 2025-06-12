@@ -2,8 +2,7 @@ import Product from "@/model/product";
 import FeatureGrid from "@/components/product/FeatureGrid";
 
 export default async function FeaturePage() {
-  const products = await Product.getAll();
-  const [a, b, c] = products;
+  const products = await Product.getFeatured();
 
-  return <FeatureGrid products={[a, b, c]} />;
+  return <FeatureGrid products={products} />;
 }
