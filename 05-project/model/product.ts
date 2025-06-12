@@ -19,7 +19,7 @@ export default class Product {
   }
 
   static async getAll() {
-    return await this.getDb().find().toArray();
+    return await this.getDb().find().sort({ createdAt: -1 }).toArray();
   }
 
   static async getFeatured() {
