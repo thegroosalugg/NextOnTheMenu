@@ -33,7 +33,7 @@ export default function Header() {
           <span className="md:hidden lg:block -ml-0.25 text-accent uppercase">Shopify</span>
         </Link>
         <nav className="hidden md:flex gap-2">
-          <NavLink href="/">LinkOne</NavLink>
+          <NavLink href="/shop">Shop</NavLink>
           <NavLink href="/">LinkTwo</NavLink>
           <NavLink href="/">LinkThree</NavLink>
           <NavLink href="/">LinkFour</NavLink>

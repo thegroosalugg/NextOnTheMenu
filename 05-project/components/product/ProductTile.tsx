@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function ProductTile({
+     _id,
     name,
    price,
   images,
@@ -10,7 +11,7 @@ export default function ProductTile({
 }: Product & { full?: boolean }) {
   return (
     <Link
-      href="/"
+      href={`/shop/${_id}`}
       className={
         `relative
         aspect-square

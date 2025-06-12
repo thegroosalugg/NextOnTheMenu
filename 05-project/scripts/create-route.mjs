@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 // 0: Node, 1: Script, 2: args (anything written in CLI after script)
-const routeName = process.argv[2]?.toLowerCase();
+const routeName = process.argv[2];
 if (!routeName) {
   console.error('❌ Route name required');
   process.exit(1);
@@ -15,13 +15,22 @@ if (fs.existsSync(dir)) {
   process.exit(1);
 }
 
-let [async, params, getSlug, slugId] = ['', '', '', ''];
+let [metadata, async, params, getSlug, slugId] = ['', '', '', '', ''];
 if (dir.endsWith(']')) {
   const slug = dir.split('/').pop().slice(1, -1);
-    async = 'async '; // exact spacing for correct print
-   params = `{\n  params,\n}: {\n  params: Promise<{ ${slug}: string }>;\n}`;
-  getSlug = `\n  const { ${slug} } = await params;`;
-   slugId = `\n      <p>ID: {${slug}}</p>`;
+      async = 'async '; // exact spacing for correct print
+     params = `{ params }: Params`;
+    getSlug = `\n  const { ${slug} } = await params;`;
+     slugId = `\n      <p>${slug}: {${slug}}</p>`;
+   metadata = `\ntype Params = { params: Promise<{ ${slug}: string }> };
+
+export const generateMetadata = async ({ params }: Params) => {${getSlug}
+  return {
+          title: ${slug},
+    description: '',
+  };
+};
+`;
 }
 
 function pascalCase(str) {
@@ -32,7 +41,7 @@ function pascalCase(str) {
 }
 
 function kebabCase(str) { // replace [special chars] then collapse multiple --
-  return str.replace(/[_/@:]/g, '-').replace(/--+/g, '-');
+  return str.replace(/[_/@:]/g, '-').replace(/--+/g, '-').toLowerCase();
 }
 
 const  pagePath = path.join(dir, 'page.tsx');
@@ -51,7 +60,7 @@ fs.writeFileSync(cssPath, `.${className}-page {
 `);
 
 fs.writeFileSync(pagePath, `import styles from './page.module.css';
-
+${metadata}
 export default ${async}function ${component}Page(${params}) {${getSlug}
   return (
     <div className={styles['${className}-page']}>
