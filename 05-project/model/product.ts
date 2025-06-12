@@ -36,7 +36,7 @@ export default class Product {
   }
 
   private static getDb() {
-    return client.db().collection("products");
+    return client.db().collection<Product>("products");
   }
 
   static async getAll() {
