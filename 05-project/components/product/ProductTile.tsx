@@ -25,18 +25,18 @@ export default function ProductTile({
       <Link href={`/shop/${_id}`} className="absolute inset-0">
         <label
           className="
-            max-w-3/4
-            absolute z-10 left-6 bottom-6
+            max-w-[90%]
+            absolute z-10 left-[5%] bottom-[5%]
             flex gap-2 items-center
             bg-white/70 dark:bg-black/70
-            text-xs font-extrabold
+            text-xs md:text-sm font-extrabold
             leading-none tracking-tight
-            py-2 pl-4 pr-2 rounded-3xl
-            backdrop-blur-xl
+            py-1 pl-2 pr-1 md:py-2 md:pl-4 md:pr-2
+            backdrop-blur-xl rounded-3xl
           "
         >
           <span className="line-clamp-2">{name}</span>
-          <span className="bg-sky-700 text-white py-1 px-2 rounded-3xl">
+          <span className="bg-sky-700 text-white py-0.5 px-1 md:py-1 md:px-2 rounded-3xl">
             ${price}
             {hero && <span className="hidden md:inline"> USD</span>}
           </span>

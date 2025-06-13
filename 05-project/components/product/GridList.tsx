@@ -3,8 +3,8 @@ import ProductTile from "./ProductTile";
 
 interface GridProps {
   products: Product[];
-  scroll?: boolean;
-  hero?: boolean;
+   scroll?: boolean;
+     hero?: boolean;
 }
 
 export default function GridList({ products, scroll, hero }: GridProps) {
@@ -12,12 +12,20 @@ export default function GridList({ products, scroll, hero }: GridProps) {
 
   if (scroll) {
     styles += `
-      grid-flow-col auto-cols-[minmax(150px,_1fr)]
+      grid-flow-col auto-cols-[minmax(150px,1fr)]
       overflow-x-scroll [&>li]:animate-scroll
     `;
   } else {
-    styles += "mx-auto md:grid-cols-6 md:grid-rows-2 ";
-    styles += hero ? "max-w-screen-2xl" : "max-w-screen-md";
+    styles += "mx-auto ";
+    if (hero) {
+      styles += "md:grid-cols-6 md:grid-rows-2 max-w-screen-2xl";
+    } else {
+      styles += `
+        grid-cols-[repeat(auto-fit,minmax(160px,1fr))]
+        md:grid-cols-[repeat(auto-fit,minmax(200px,1fr))]
+        [&>li]:col-span-1 max-w-screen-md
+      `;
+    }
   }
 
   return (
