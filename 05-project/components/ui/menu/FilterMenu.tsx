@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function FilterMenu({ label, menu }: { label: string; menu: string[] }) {
   const router = useRouter();
   const pathname = usePathname();
-  const controlId = label.replace(/[\s_]+/g, '-');
+  const controlId = label.replace(/[\s_]+/g, "-");
 
   function navTo(e: React.ChangeEvent<HTMLSelectElement>) {
     const { value } = e.target;
@@ -14,7 +14,7 @@ export default function FilterMenu({ label, menu }: { label: string; menu: strin
 
   return (
     <>
-      <ul className="hidden md:flex flex-col py-4 px-2">
+      <ul className="hidden md:flex flex-col p-4">
         <h2>{label}</h2>
         {menu.map((item) => (
           <li key={item}>
@@ -22,9 +22,15 @@ export default function FilterMenu({ label, menu }: { label: string; menu: strin
           </li>
         ))}
       </ul>
-      <p className="flex md:hidden flex-col">
-        <label htmlFor={controlId}>{label}</label>
-        <select id={controlId} onChange={navTo}>
+      <p className="flex md:hidden flex-col w-[90%] mx-auto">
+        <label htmlFor={controlId} className="capitalize text-slate-400 font-bold">
+          {label}
+        </label>
+        <select
+          id={controlId}
+          onChange={navTo}
+          className="border border-zinc-500 bg-slate-100"
+        >
           {menu.map((item) => (
             <option key={item}>{item}</option>
           ))}

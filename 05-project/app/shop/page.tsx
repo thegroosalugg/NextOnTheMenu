@@ -1,4 +1,4 @@
-import GridList from "@/components/product/GridList";
+import TileList from "@/components/product/TileList";
 import FilterMenu from "@/components/ui/menu/FilterMenu";
 import Product from "@/model/product";
 import { Metadata } from "next";
@@ -14,13 +14,14 @@ export default async function ShopPage() {
   return (
     <section
       className="
-        grid grid-cols-1 md:grid-cols-[auto_1fr_auto] gap-2
-        max-w-screen-xl mx-auto
+        grid grid-cols-1 md:grid-cols-[auto_1fr_auto]
+        gap-2 md:gap-0
+        max-w-screen-xl mx-auto px-2
       "
     >
       <FilterMenu label="categories" menu={["hoodies", "coats"]} />
       <div className="order-last md:order-none min-w-0">
-        <GridList {...{ products }} />
+        <TileList {...{ products }} />
       </div>
       <FilterMenu
         label="sort by"

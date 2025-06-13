@@ -10,9 +10,9 @@ export default function NavLink({
   children: React.ReactNode;
 }) {
   const path = usePathname();
-  let classes = "transition-all hover:text-shadow-md text-shadow-sky-500";
+  let classes = "transition-all hover:text-shadow-sm text-shadow-sky-500";
   if (path.startsWith(href) && href.length > 1)
-    classes += " text-sky-600 underline underline-offset-3";
+    classes += " text-sky-600 dark:text-sky-300 underline underline-offset-3";
 
   return (
     <Link href={href} className={classes}>

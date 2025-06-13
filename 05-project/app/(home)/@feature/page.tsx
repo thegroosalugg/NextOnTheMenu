@@ -1,8 +1,8 @@
 import Product from "@/model/product";
-import GridList from "@/components/product/GridList";
+import TileList from "@/components/product/TileList";
 
 export default async function FeaturePage() {
   const products = await Product.getFeatured();
 
-  return <GridList hero {...{ products }} />;
+  return <TileList hero {...{ products }} />;
 }
