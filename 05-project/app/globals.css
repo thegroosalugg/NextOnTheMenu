@@ -24,6 +24,12 @@
     0%   { transform: translateX(0);     }
     100% { transform: translateX(-700%); }
   }
+
+  --animate-dropdown: dropdown 200ms ease-out forwards;
+  @keyframes dropdown {
+    0%   { opacity: 0; transform: scaleY(0.95); transform-origin: top; }
+    100% { opacity: 1; transform: scaleY(1);    transform-origin: top; }
+  }
 }
 
 @media (prefers-color-scheme: dark) {

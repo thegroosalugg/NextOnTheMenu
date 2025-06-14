@@ -15,7 +15,6 @@ export default async function ShopPage() {
     <section
       className="
         grid grid-cols-1 md:grid-cols-[auto_1fr_auto]
-        gap-2 md:gap-0
         max-w-screen-xl mx-auto px-2
       "
     >

@@ -7,6 +7,8 @@ export default class Icon {
   static ShoppingCart = 24;
   static    Hamburger = 24;
   static       Vercel = 24;
+  static  ChevronDown = 24;
+  static    ChevronUp = 24;
 }
 
 export type IconType = keyof Omit<typeof Icon, 'prototype'>

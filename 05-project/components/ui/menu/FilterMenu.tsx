@@ -1,41 +1,74 @@
 "use client";
-import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import Svg from "../icon/Svg";
 
 export default function FilterMenu({ label, menu }: { label: string; menu: string[] }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const controlId = label.replace(/[\s_]+/g, "-");
+  const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
-  function navTo(e: React.ChangeEvent<HTMLSelectElement>) {
-    const { value } = e.target;
-    router.push(`${pathname}?search=${value}`);
-  }
+  useEffect(() => {
+    const closeMenu = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowMenu(false);
+      }
+    };
+
+    window.addEventListener("click", closeMenu);
+    return () => window.removeEventListener("click", closeMenu);
+  }, []);
 
   return (
     <>
-      <ul className="hidden md:flex flex-col p-4">
-        <h2>{label}</h2>
+      <ul className="hidden md:flex flex-col p-4 capitalize">
+        <h2 className="text-slate-400 font-bold">{label}</h2>
         {menu.map((item) => (
           <li key={item}>
-            <Link href={`?search=${item}`}>{item}</Link>
+            <Link href={`?search=${item}`} className="hover:underline underline-offset-2">
+              {item.replace(/[-_]+/g, " ")}
+            </Link>
           </li>
         ))}
       </ul>
-      <p className="flex md:hidden flex-col w-[90%] mx-auto">
-        <label htmlFor={controlId} className="capitalize text-slate-400 font-bold">
-          {label}
-        </label>
-        <select
-          id={controlId}
-          onChange={navTo}
-          className="border border-zinc-500 bg-slate-100"
+      <div
+        ref={menuRef}
+        className="flex md:hidden flex-col w-[80%] relative mx-auto mt-4 capitalize"
+      >
+        <button
+          onClick={() => setShowMenu(!showMenu)}
+          className="
+            border rounded-sm
+            bg-stone-100 dark:bg-stone-600
+            capitalize
+            flex justify-between items-center
+            px-4 py-1
+          "
         >
-          {menu.map((item) => (
-            <option key={item}>{item}</option>
-          ))}
-        </select>
-      </p>
+          {label} <Svg icon={showMenu ? "ChevronUp" : "ChevronDown"} size={24} />
+        </button>
+        {showMenu && (
+          <ul
+            className="
+              absolute z-20 top-9 w-full
+              border rounded-sm px-4 py-1
+              bg-stone-100 dark:bg-stone-600
+              animate-dropdown
+            "
+          >
+            {menu.map((item) => (
+              <li key={item}>
+                <Link
+                  href={`?search=${item}`}
+                  onClick={() => setShowMenu(false)}
+                  className="hover:underline underline-offset-2"
+                >
+                  {item.replace(/[-_]+/g, " ")}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </>
   );
 }
