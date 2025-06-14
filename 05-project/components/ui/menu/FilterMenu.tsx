@@ -3,7 +3,32 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Svg from "../icon/Svg";
 
-export default function FilterMenu({ label, menu }: { label: string; menu: string[] }) {
+interface ItemProps {
+  params: string;
+    item: string;
+}
+
+function FilterItem({ params, item, ...props }: ItemProps) {
+  return (
+    <li key={item}>
+      <Link
+        {...props}
+        href={`${params}${item}`}
+        className="hover:underline underline-offset-2"
+      >
+        {item.replace(/[-_]+/g, " ")}
+      </Link>
+    </li>
+  );
+}
+
+interface MenuProps {
+  params: string;
+   label: string;
+    menu: string[];
+}
+
+export default function FilterMenu({ params, label, menu }: MenuProps) {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -23,11 +48,7 @@ export default function FilterMenu({ label, menu }: { label: string; menu: strin
       <ul className="hidden md:flex flex-col p-4 capitalize">
         <h2 className="text-slate-400 font-bold">{label}</h2>
         {menu.map((item) => (
-          <li key={item}>
-            <Link href={`?search=${item}`} className="hover:underline underline-offset-2">
-              {item.replace(/[-_]+/g, " ")}
-            </Link>
-          </li>
+          <FilterItem key={item} {...{ params, item }} />
         ))}
       </ul>
       <div
@@ -56,15 +77,10 @@ export default function FilterMenu({ label, menu }: { label: string; menu: strin
             "
           >
             {menu.map((item) => (
-              <li key={item}>
-                <Link
-                  href={`?search=${item}`}
-                  onClick={() => setShowMenu(false)}
-                  className="hover:underline underline-offset-2"
-                >
-                  {item.replace(/[-_]+/g, " ")}
-                </Link>
-              </li>
+              <FilterItem
+                key={item}
+                {...{ params, item, onClick: () => setShowMenu(false) }}
+              />
             ))}
           </ul>
         )}
