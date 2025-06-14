@@ -18,11 +18,17 @@ export default class Product {
     return client.db().collection<Product>("products");
   }
 
+  private static serialize(products: Product[]) {
+    return products.map((product) => ({ ...product, _id: product._id.toString() }));
+  }
+
   static async getAll() {
-    return await this.getDb().find().sort({ createdAt: -1 }).toArray();
+    const products = await this.getDb().find().sort({ createdAt: -1 }).toArray();
+    return this.serialize(products);
   }
 
   static async getFeatured() {
-    return await this.getDb().find().sort({ views: -1, createdAt: -1 }).limit(3).toArray();
+    const products = await this.getDb().find().sort({ views: -1, createdAt: -1 }).limit(3).toArray();
+    return this.serialize(products);
   }
 }

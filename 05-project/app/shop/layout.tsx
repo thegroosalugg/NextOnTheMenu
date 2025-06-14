@@ -1,12 +1,16 @@
 import FilterMenu from "@/components/ui/menu/FilterMenu";
+import Product from "@/model/product";
 import { Metadata } from "next";
+import { ShopProvider } from "./ShopContext";
 
 export const metadata: Metadata = {
         title: "Browse Shop",
   description: "All Products",
 };
 
-export default function ShopLayout({ children }: { children: React.ReactNode }) {
+export default async function ShopLayout({ children }: { children: React.ReactNode }) {
+  const products = await Product.getAll();
+
   return (
     <section
       className="
@@ -16,7 +20,9 @@ export default function ShopLayout({ children }: { children: React.ReactNode }) 
     >
       <FilterMenu label="categories" params="/shop/" menu={["hoodies", "coats"]} />
       <div className="order-last md:order-none min-w-0">
-        {children}
+        <ShopProvider {...{ products }}>
+          {children}
+        </ShopProvider>
       </div>
       <FilterMenu
         label="sort by"

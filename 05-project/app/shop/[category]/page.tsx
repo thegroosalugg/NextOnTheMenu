@@ -1,3 +1,5 @@
+import { ProductsByCategory } from "@/components/shop/Shop";
+
 type Params = { params: Promise<{ category: string }> };
 
 export const generateMetadata = async ({ params }: Params) => {
@@ -11,10 +13,5 @@ export const generateMetadata = async ({ params }: Params) => {
 export default async function ShopCategoryPage({ params }: Params) {
   const { category } = await params;
   console.log('SHOP SLUG', category)
-  return (
-    <div>
-      <h1>ShopCategoryPage</h1>
-      <p>ID: {category}</p>
-    </div>
-  );
+  return <ProductsByCategory {...{ category }} />
 }
