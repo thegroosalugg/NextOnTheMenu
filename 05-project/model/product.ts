@@ -20,13 +20,23 @@ export default class Product {
     return products.map((product) => ({ ...product, _id: product._id.toString() }));
   }
 
-  static async getAll() {
-    const products = await this.getDb().find().sort({ createdAt: -1 }).toArray();
+  private static sortBy(sort: string): Record<string, 1 | -1> {
+    if (sort ===  "price") return { price:  1 };
+    if (sort === "-price") return { price: -1 };
+    if (sort ===  "views") return { views: -1 };
+    if (sort ===   "name") return {  name:  1 };
+    return { createdAt: -1 };
+  }
+
+  static async getAll(sort: string = "") {
+    const sortBy = this.sortBy(sort);
+    const products = await this.getDb().find().sort(sortBy).toArray();
     return this.serialize(products);
   }
 
-  static async getByCategory(category: string) {
-    const products = await this.getDb().find({ category }).sort({ createdAt: -1 }).toArray();
+  static async getByCategory(category: string, sort: string) {
+    const sortBy = this.sortBy(sort);
+    const products = await this.getDb().find({ category }).sort(sortBy).toArray();
     return this.serialize(products);
   }
 

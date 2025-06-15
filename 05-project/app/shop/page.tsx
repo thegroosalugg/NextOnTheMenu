@@ -8,6 +8,7 @@ export default async function ShopPage({
   searchParams: Param<"sort">;
 }) {
   const { sort } = await searchParams;
-  const products = await Product.getAll();
+  const products = await Product.getAll(sort);
+
   return <TileList {...{ products }} />;
 }

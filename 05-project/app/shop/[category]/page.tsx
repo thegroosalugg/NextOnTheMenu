@@ -22,6 +22,6 @@ export default async function ShopCategoryPage({ params, searchParams }: Params)
   const isValid = await Category.isValid(category);
   if (!isValid) notFound();
   const { sort } = await searchParams;
-  const products = await Product.getByCategory(category);
+  const products = await Product.getByCategory(category, sort);
   return <TileList {...{ products }} />;
 }
