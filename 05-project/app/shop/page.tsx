@@ -1,6 +1,7 @@
 import TileList from "@/components/product/TileList";
 import { Param } from "@/lib/types/param";
 import Product from "@/model/product";
+import { notFound } from "next/navigation";
 
 export default async function ShopPage({
   searchParams,
@@ -9,6 +10,7 @@ export default async function ShopPage({
 }) {
   const { sort } = await searchParams;
   const products = await Product.getAll(sort);
+  if (!products) notFound();
 
   return <TileList {...{ products }} />;
 }

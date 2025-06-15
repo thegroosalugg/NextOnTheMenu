@@ -32,14 +32,22 @@ export default class Product {
 
   static async getAll(sort: string = "") {
     const sortBy = this.sortBy(sort);
-    const products = await this.getDb().find().sort(sortBy).toArray();
-    return this.serialize(products);
+    try {
+      const products = await this.getDb().find().sort(sortBy).toArray();
+      return this.serialize(products);
+    } catch (error) {
+      console.log("getAll", error);
+    }
   }
 
   static async getByCategory(category: string, sort: string) {
     const sortBy = this.sortBy(sort);
-    const products = await this.getDb().find({ category }).sort(sortBy).toArray();
-    return this.serialize(products);
+    try {
+      const products = await this.getDb().find({ category }).sort(sortBy).toArray();
+      return this.serialize(products);
+    } catch (error) {
+      console.log("getByCategory", error);
+    }
   }
 
   static async findById(prodId: string) {
@@ -48,17 +56,21 @@ export default class Product {
       const _id = new ObjectId(prodId);
       const product = await this.getDb().findOne({ _id });
       return product ? { ...product, _id: product._id.toString() } : null;
-    } catch {
-      return null;
+    } catch (error) {
+      console.log("findById", error);
     }
   }
 
   static async getFeatured() {
-    const products = await this.getDb()
-      .find()
-      .sort({ views: -1, createdAt: -1 })
-      .limit(3)
-      .toArray();
-    return this.serialize(products);
+    try {
+      const products = await this.getDb()
+        .find()
+        .sort({ views: -1, createdAt: -1 })
+        .limit(3)
+        .toArray();
+      return this.serialize(products);
+    } catch (error) {
+      console.log("getFeatured", error);
+    }
   }
 }

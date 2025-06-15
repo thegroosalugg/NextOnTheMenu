@@ -11,16 +11,30 @@ export default class Category extends SortFilter {
   }
 
   static async getAll() {
-    const categories = await this.getDb().find().toArray();
-    return this.serialize(categories);
+    try {
+      const categories = await this.getDb().find().toArray();
+      return this.serialize(categories);
+    } catch (error) {
+      console.log("getAll", error);
+      return [{ _id: "1", path: "/", name: "All" }]; // fallback remains on /shop
+    }
   }
 
   static async getLinks() {
-    const categories = await this.getDb().find().limit(3).toArray();
-    return this.serialize(categories);
+    try {
+      const categories = await this.getDb().find().limit(3).toArray();
+      return this.serialize(categories);
+    } catch (error) {
+      console.log("getLinks", error);
+      return []; // keep nav alive - show no links
+    }
   }
 
   static async isValid(path: string) {
-    return (await this.getDb().countDocuments({ path }, { limit: 1 })) > 0;
+    try {
+      return (await this.getDb().countDocuments({ path }, { limit: 1 })) > 0;
+    } catch (error) {
+      console.log("isValid", error);
+    }
   }
 }
