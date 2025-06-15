@@ -23,7 +23,7 @@ export default function ProductTile({
         (hero ? "md:col-span-4 md:row-span-2" : "md:col-span-2 md:row-span-1")
       }
     >
-      <Link href={`/shop/${_id}`} className="absolute inset-0">
+      <Link href={`/product/${_id}`} className="absolute inset-0">
         <label
           className="
             max-w-[90%]

@@ -1,6 +1,8 @@
 import client from "@/lib/mongo/mongodb";
+import { ObjectId } from "mongodb";
 
 type ProdImage = { src: string; color: string };
+type ProductDB = Omit<Product, "_id"> & { _id: ObjectId };
 
 export default class Product {
   readonly       _id: string      = '';
@@ -13,10 +15,10 @@ export default class Product {
                views: number      =  0;
 
   private static getDb() {
-    return client.db().collection<Product>("products");
+    return client.db().collection<ProductDB>("products");
   }
 
-  private static serialize(products: Product[]) {
+  private static serialize(products: ProductDB[]) {
     return products.map((product) => ({ ...product, _id: product._id.toString() }));
   }
 
@@ -38,6 +40,17 @@ export default class Product {
     const sortBy = this.sortBy(sort);
     const products = await this.getDb().find({ category }).sort(sortBy).toArray();
     return this.serialize(products);
+  }
+
+  static async findById(prodId: string) {
+    if (!ObjectId.isValid(prodId)) return null;
+    try {
+      const _id = new ObjectId(prodId);
+      const product = await this.getDb().findOne({ _id });
+      return product ? { ...product, _id: product._id.toString() } : null;
+    } catch {
+      return null;
+    }
   }
 
   static async getFeatured() {
