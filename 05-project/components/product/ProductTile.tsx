@@ -17,6 +17,7 @@ export default function ProductTile({
         aspect-square
         overflow-hidden
         border border-transparent rounded-xl
+        animate-fadeIn
         group
         hover:border-sky-600 ` +
         (hero ? "md:col-span-4 md:row-span-2" : "md:col-span-2 md:row-span-1")
