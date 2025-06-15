@@ -8,17 +8,18 @@ interface ListProps {
 }
 
 export default function TileList({ products, scroll, hero }: ListProps) {
-  let styles = "gap-4 p-4 mx-auto ";
+  let styles = "grid gap-4 p-4 mx-auto overflow-x-scroll ";
 
   if (hero) {
-    styles += "grid md:grid-cols-6 md:grid-rows-2 max-w-screen-2xl";
+    styles += "md:grid-cols-6 md:grid-rows-2 max-w-screen-2xl";
+  } else if (scroll) {
+    styles += "grid-flow-col auto-cols-[150px] [&>li]:animate-scroll";
   } else {
-    styles += "flex ";
-    if (scroll) {
-      styles += "overflow-x-scroll [&>li]:animate-scroll [&>li]:w-xs [&>li]:shrink-0";
-    } else {
-      styles += "flex-wrap justify-center px-0 [&>li]:basis-[clamp(160px,30%,300px)]";
-    }
+    styles += `
+      grid-cols-[repeat(auto-fill,minmax(160px,1fr))]
+      pointer-fine:grid-cols-[repeat(auto-fill,minmax(240px,1fr))]
+      [&>li]:col-span-1
+    `;
   }
 
   return (
