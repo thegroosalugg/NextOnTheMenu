@@ -1,5 +1,7 @@
-import { ShopProducts } from "@/components/shop/Shop";
+import TileList from "@/components/product/TileList";
+import Product from "@/model/product";
 
-export default function ShopPage() {
-  return <ShopProducts />;
+export default async function ShopPage() {
+  const products = await Product.getAll();
+  return <TileList {...{ products }} />;
 }

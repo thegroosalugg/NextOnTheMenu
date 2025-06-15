@@ -13,7 +13,7 @@ const sectionStyles = `
 
 export default function Footer() {
   return (
-    <footer className="mt-2 text-center md:text-start">
+    <footer className="mt-2 text-center md:text-start overflow-x-auto">
       <Hr />
       <section className={`${sectionStyles} md:items-start text-sm`}>
         <BrandLogo />

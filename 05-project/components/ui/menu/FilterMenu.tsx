@@ -10,7 +10,7 @@ interface ItemProps {
 
 function FilterItem({ params, item, ...props }: ItemProps) {
   return (
-    <li key={item}>
+    <li key={item} className="truncate">
       <Link
         {...props}
         href={`${params}${item}`}
@@ -60,7 +60,7 @@ export default function FilterMenu({ params, label, menu }: MenuProps) {
           className="
             border rounded-sm
             bg-stone-100 dark:bg-stone-600
-            capitalize
+            capitalize truncate
             flex justify-between items-center
             px-4 py-1
           "

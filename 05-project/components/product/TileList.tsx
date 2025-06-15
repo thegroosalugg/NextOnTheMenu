@@ -17,7 +17,7 @@ export default function TileList({ products, scroll, hero }: ListProps) {
     if (scroll) {
       styles += "overflow-x-scroll [&>li]:animate-scroll [&>li]:w-xs [&>li]:shrink-0";
     } else {
-      styles += "flex-wrap px-0 [&>li]:flex-auto [&>li]:basis-[clamp(160px,30%,300px)]";
+      styles += "flex-wrap justify-center px-0 [&>li]:basis-[clamp(160px,30%,300px)]";
     }
   }
 

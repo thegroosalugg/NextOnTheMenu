@@ -15,7 +15,7 @@ const categories = [
 const count = await collection.countDocuments();
 
 if (count === 0) {
-  await collection.insertMany(categories.map((name) => ({ name })));
+  await collection.insertMany(categories.map((category) => ({ category })));
 }
 
 const init = {};

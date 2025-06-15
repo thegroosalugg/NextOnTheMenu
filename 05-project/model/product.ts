@@ -1,6 +1,6 @@
 import client from "@/lib/mongo/mongodb";
 
-type ProdImage = { src: string, color: string };
+type ProdImage = { src: string; color: string };
 
 export default class Product {
   readonly       _id: string      = '';
@@ -20,19 +20,22 @@ export default class Product {
     return products.map((product) => ({ ...product, _id: product._id.toString() }));
   }
 
-  static async getCategories() {
-    const collection = client.db().collection<{ name: string }>("categories");
-    const categories = await collection.find().toArray();
-    return categories.map(({ name }) => name);
-  }
-
   static async getAll() {
     const products = await this.getDb().find().sort({ createdAt: -1 }).toArray();
     return this.serialize(products);
   }
 
+  static async getByCategory(category: string) {
+    const products = await this.getDb().find({ category }).sort({ createdAt: -1 }).toArray();
+    return this.serialize(products);
+  }
+
   static async getFeatured() {
-    const products = await this.getDb().find().sort({ views: -1, createdAt: -1 }).limit(3).toArray();
+    const products = await this.getDb()
+      .find()
+      .sort({ views: -1, createdAt: -1 })
+      .limit(3)
+      .toArray();
     return this.serialize(products);
   }
 }
