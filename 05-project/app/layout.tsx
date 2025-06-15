@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { Montserrat, Poiret_One } from 'next/font/google';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import "@/lib/mongo/initProducts"; // create dummy data if non existent
+import "@/lib/mongo/initCategories";
 
 const montserrat = Montserrat({
   variable: '--font-montserrat',

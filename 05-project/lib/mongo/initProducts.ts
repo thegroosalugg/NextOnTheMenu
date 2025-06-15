@@ -1,8 +1,8 @@
 import client from "@/lib/mongo/mongodb";
 const db = client.db();
-const products = db.collection("products");
+const collection = db.collection("products");
 
-const initialProducs = [
+const products = [
   {
          name: "Beige Urban Backpack",
         price: 39.99,
@@ -131,7 +131,7 @@ const initialProducs = [
          name: "Slim Fit Tee",
         price: 27.99,
          desc: "Streamlined athletic-style cotton T-shirt.",
-     category: "tshirt",
+     category: "t-shirt",
     createdAt: "2024-06-01",
         views: 450,
        images: [
@@ -144,7 +144,7 @@ const initialProducs = [
          name: "Everyday Tee",
         price: 22.99,
          desc: "Comfortable regular-fit tee for daily wear.",
-     category: "tshirt",
+     category: "t-shirt",
     createdAt: "2024-01-01",
         views: 350,
        images: [
@@ -156,9 +156,9 @@ const initialProducs = [
   },
 ];
 
-const count = await products.countDocuments();
+const count = await collection.countDocuments();
 
-if (count === 0) await products.insertMany(initialProducs);
+if (count === 0) await collection.insertMany(products);
 
 const init = {};
 export default init;

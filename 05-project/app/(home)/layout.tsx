@@ -1,4 +1,3 @@
-import "@/lib/mongo/initdb"; // create dummy data if non existent
 import { ReactNode } from "react";
 
 export default async function Home({

@@ -2,14 +2,12 @@ import client from "@/lib/mongo/mongodb";
 
 type ProdImage = { src: string, color: string };
 
-type Category = "backpack" | "headphones" | "hoodie" | "jacket" | "coat" | "tshirt";
-
 export default class Product {
   readonly       _id: string      = '';
   readonly      name: string      = '';
   readonly     price: number      =  0;
   readonly      desc: string      = '';
-  readonly  category: Category    = 'coat';
+  readonly  category: string      = '';
   readonly    images: ProdImage[] = [];
   readonly createdAt: string      = new Date().toISOString();
                views: number      =  0;
@@ -20,6 +18,12 @@ export default class Product {
 
   private static serialize(products: Product[]) {
     return products.map((product) => ({ ...product, _id: product._id.toString() }));
+  }
+
+  static async getCategories() {
+    const collection = client.db().collection<{ name: string }>("categories");
+    const categories = await collection.find().toArray();
+    return categories.map(({ name }) => name);
   }
 
   static async getAll() {
