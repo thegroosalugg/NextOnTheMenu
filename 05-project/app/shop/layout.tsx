@@ -1,4 +1,5 @@
 import FilterMenu from "@/components/ui/menu/FilterMenu";
+import { SortTypes } from "@/lib/sort_types";
 import Category from "@/model/category";
 import { Metadata } from "next";
 
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ShopLayout({ children }: { children: React.ReactNode }) {
-  const categories = await Category.getCategories();
+  const categories = await Category.getAll();
 
   return (
     <section
@@ -17,14 +18,14 @@ export default async function ShopLayout({ children }: { children: React.ReactNo
         max-w-screen-xl mx-auto px-2
       "
     >
-      <FilterMenu label="categories" params="/shop/" menu={categories} />
+      <FilterMenu label="Categories" params="/shop/" menu={categories} />
       <div className="order-last md:order-none min-w-0 min-h-screen">
         {children}
       </div>
       <FilterMenu
-        label="sort by"
-        params="?search="
-        menu={["latest", "name", "price-ascending", "price-descending"]}
+         label="Sort by"
+        params="?sort="
+          menu={SortTypes}
       />
     </section>
   );

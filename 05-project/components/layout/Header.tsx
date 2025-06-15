@@ -2,44 +2,45 @@ import BrandLogo from "../ui/logo/BrandLogo";
 import NavLink from "./NavLink";
 import MenuButton from "../ui/button/MenuButton";
 import SearchBar from "../form/SearchBar";
+import Category from "@/model/category";
 
-export default function Header() {
+export default async function Header() {
+  const links = await Category.getLinks();
+
   return (
     <header
       className="
-        flex
-        items-center
-        justify-between
-        gap-4
+        flex gap-4
+        items-center justify-between
         p-2 lg:p-4
         overflow-x-scroll
       "
     >
       <div className="md:hidden basis-1/3">
-        <MenuButton icon='Hamburger' />
+        <MenuButton icon="Hamburger" />
       </div>
       <section
         className="
-          flex
-          basis-1/3
+          flex basis-1/3 gap-2
           items-center
-          gap-2
           font-mono
         "
       >
         <BrandLogo compact />
-        <nav className="hidden md:flex gap-2">
-          <NavLink href="/shop">Shop</NavLink>
-          <NavLink href="/">LinkTwo</NavLink>
-          <NavLink href="/">LinkThree</NavLink>
-          <NavLink href="/">LinkFour</NavLink>
+        <nav className="hidden md:flex gap-2 capitalize">
+          <NavLink href="/shop">All</NavLink>
+          {links.map(({ _id, path, name }) => (
+            <NavLink key={_id} href={`/shop/${path}`}>
+              {name}
+            </NavLink>
+          ))}
         </nav>
       </section>
       <div className="hidden md:flex basis-1/3">
         <SearchBar />
       </div>
       <div className="flex basis-1/3 justify-end">
-        <MenuButton icon='ShoppingCart' />
+        <MenuButton icon="ShoppingCart" />
       </div>
     </header>
   );

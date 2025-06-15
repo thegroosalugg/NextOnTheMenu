@@ -4,18 +4,18 @@ const db = client.db();
 const collection = db.collection("categories");
 
 const categories = [
-  "backpack",
-  "headphones",
-  "hoodie",
-  "jacket",
-  "coat",
-  "t-shirt"
+  { path: "bags",       name: "Bags"       },
+  { path: "technology", name: "Technology" },
+  { path: "hoodies",    name: "Hoodies"    },
+  { path: "jackets",    name: "Jackets"    },
+  { path: "coats",      name: "Coats"      },
+  { path: "shirts",     name: "Shirts"     },
 ];
 
 const count = await collection.countDocuments();
 
 if (count === 0) {
-  await collection.insertMany(categories.map((category) => ({ category })));
+  await collection.insertMany(categories);
 }
 
 const init = {};

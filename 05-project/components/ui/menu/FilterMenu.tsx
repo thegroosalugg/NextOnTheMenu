@@ -1,22 +1,28 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { SortFilter } from "@/model/sort_filter";
 import Svg from "../icon/Svg";
 
 interface ItemProps {
   params: string;
-    item: string;
+    item: SortFilter;
 }
 
 function FilterItem({ params, item, ...props }: ItemProps) {
+  const { path, name, isDefault } = item;
+  const     pathname = usePathname();
+  const searchParams = useSearchParams();
+  const         sort = searchParams.get('sort')
+  const     isActive = pathname.endsWith(path) || sort === path || (!sort && isDefault);
+  let classes = "hover:underline underline-offset-2"
+  if (isActive) classes += " underline";
+
   return (
-    <li key={item} className="truncate">
-      <Link
-        {...props}
-        href={`${params}${item}`}
-        className="hover:underline underline-offset-2"
-      >
-        {item.replace(/[-_]+/g, " ")}
+    <li className="truncate">
+      <Link href={`${params}${path}`} className={classes} {...props}>
+        {name}
       </Link>
     </li>
   );
@@ -25,7 +31,7 @@ function FilterItem({ params, item, ...props }: ItemProps) {
 interface MenuProps {
   params: string;
    label: string;
-    menu: string[];
+    menu: SortFilter[];
 }
 
 export default function FilterMenu({ params, label, menu }: MenuProps) {
@@ -45,10 +51,10 @@ export default function FilterMenu({ params, label, menu }: MenuProps) {
 
   return (
     <>
-      <ul className="hidden md:flex flex-col p-4 capitalize">
+      <ul className="hidden md:flex flex-col p-4">
         <h2 className="text-slate-400 font-bold">{label}</h2>
         {menu.map((item) => (
-          <FilterItem key={item} {...{ params, item }} />
+          <FilterItem key={item._id} {...{ params, item }} />
         ))}
       </ul>
       <div
@@ -60,7 +66,7 @@ export default function FilterMenu({ params, label, menu }: MenuProps) {
           className="
             border rounded-sm
             bg-stone-100 dark:bg-stone-600
-            capitalize truncate
+            truncate
             flex justify-between items-center
             px-4 py-1
           "
@@ -78,7 +84,7 @@ export default function FilterMenu({ params, label, menu }: MenuProps) {
           >
             {menu.map((item) => (
               <FilterItem
-                key={item}
+                key={item._id}
                 {...{ params, item, onClick: () => setShowMenu(false) }}
               />
             ))}

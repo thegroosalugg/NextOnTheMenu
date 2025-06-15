@@ -11,7 +11,7 @@ export default function NavLink({
 }) {
   const path = usePathname();
   let classes = "transition-all hover:text-shadow-sm text-shadow-sky-500";
-  if (path.startsWith(href) && href.length > 1)
+  if (path === href && href.length > 1)
     classes += " text-sky-600 dark:text-sky-300 underline underline-offset-3";
 
   return (
