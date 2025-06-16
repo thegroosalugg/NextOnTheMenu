@@ -15,7 +15,7 @@ export const generateMetadata = async ({ params }: Params) => {
   };
 };
 
-export default async function ProductHandlePage({ params }: Params) {
+export default async function ProductDetails({ params }: Params) {
   const { handle } = await params;
   const product = await Product.findById(handle);
   if (!product) notFound();

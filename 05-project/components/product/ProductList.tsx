@@ -1,17 +1,15 @@
 import Product from "@/model/product";
-import Grid from "../ui/list/Grid";
+import Grid, { ListConfig } from "../ui/list/Grid";
 import ImageTile from "../ui/image/ImageTile";
 import FloatingTag from "../ui/label/FloatingTag";
 
-interface ListProps {
+interface ListProps extends ListConfig {
   products: Product[];
-   scroll?: boolean;
-     hero?: boolean;
 }
 
-export default function ProductList({ products, scroll, hero }: ListProps) {
+export default function ProductList({ products, hero, scroll, animate }: ListProps) {
   return (
-    <Grid<Product> {...{ scroll, hero, items: products }}>
+    <Grid<Product> {...{ hero, scroll, animate, items: products }}>
       {({ _id, name, price, images }, i) => (
         <ImageTile
               href={`/product/${_id}`}

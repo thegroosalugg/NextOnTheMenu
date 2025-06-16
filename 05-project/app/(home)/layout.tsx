@@ -1,16 +1,16 @@
 import { ReactNode } from "react";
 
-export default async function Home({
-  feature,
-   scroll,
+export default async function HomeLayout({
+   featured,
+  catalogue,
 }: {
-  feature: ReactNode;
-   scroll: ReactNode;
+   featured: ReactNode;
+  catalogue: ReactNode;
 }) {
   return (
     <>
-      {feature}
-      {scroll}
+      {featured}
+      {catalogue}
     </>
   );
 }

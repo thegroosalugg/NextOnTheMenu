@@ -1,16 +1,21 @@
 import { ReactNode } from "react";
 
-interface ListProps<T> {
-     items: T[];
-   scroll?: boolean;
+export interface ListConfig {
      hero?: boolean;
+   scroll?: boolean;
+  animate?: boolean;
+}
+
+interface ListProps<T> extends ListConfig {
+     items: T[];
   children: (item: T, index: number) => ReactNode;
 }
 
 export default function Grid<T extends { _id: string }>({
      items,
-    scroll,
       hero,
+    scroll,
+   animate,
   children,
 }: ListProps<T>) {
   let styles = "grid gap-4 p-4 mx-auto overflow-x-scroll ";
@@ -18,7 +23,8 @@ export default function Grid<T extends { _id: string }>({
   if (hero) {
     styles += "md:grid-cols-6 md:grid-rows-2 max-w-screen-2xl";
   } else if (scroll) {
-    styles += "grid-flow-col auto-cols-[280px] [&>li]:animate-scroll";
+    styles += "grid-flow-col auto-cols-[280px]";
+    if (animate) styles += " [&>li]:animate-scroll";
   } else {
     styles += `
       grid-cols-[repeat(auto-fill,minmax(160px,1fr))]
