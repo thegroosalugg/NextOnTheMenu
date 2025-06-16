@@ -1,7 +1,7 @@
 import client from "@/lib/mongo/mongodb";
+import { ProdImage } from "@/lib/types/prod_image";
 import { ObjectId } from "mongodb";
 
-type ProdImage = { src: string; color: string };
 type ProductDB = Omit<Product, "_id"> & { _id: ObjectId };
 
 export default class Product {
