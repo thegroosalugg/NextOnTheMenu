@@ -10,7 +10,7 @@ const products = [
      category: "bags",
     createdAt: "2024-03-15",
         views: 1000,
-       images: [{ src: "/backpack_beige.png", color: "beige" }],
+       images: [{ src: "backpack_beige.png", color: "beige" }],
   },
 
   {
@@ -20,7 +20,7 @@ const products = [
      category: "bags",
     createdAt: "2024-09-15",
         views: 200,
-       images: [{ src: "/backpack_black_01.png", color: "black" }],
+       images: [{ src: "backpack_black_01.png", color: "black" }],
   },
 
   {
@@ -30,7 +30,7 @@ const products = [
      category: "bags",
     createdAt: "2024-06-15",
         views: 50,
-       images: [{ src: "/backpack_black_02.png", color: "black" }],
+       images: [{ src: "backpack_black_02.png", color: "black" }],
   },
 
   {
@@ -40,7 +40,7 @@ const products = [
      category: "bags",
     createdAt: "2024-01-15",
         views: 500,
-       images: [{ src: "/backpack_leather_black.png", color: "black" }],
+       images: [{ src: "backpack_leather_black.png", color: "black" }],
   },
   {
          name: "Tweed Overcoat",
@@ -49,7 +49,7 @@ const products = [
      category: "coats",
     createdAt: "2024-12-01",
         views: 550,
-       images: [{ src: "/coat_tweed_grey.png", color: "grey" }],
+       images: [{ src: "coat_tweed_grey.png", color: "grey" }],
   },
   {
          name: "Pro Headphones",
@@ -59,9 +59,9 @@ const products = [
     createdAt: "2024-05-01",
         views: 900,
        images: [
-      { src: "/headphones_black_01.png", color: "black" },
-      { src: "/headphones_blue.png",     color: "blue"  },
-      { src: "/headphones_green.png",    color: "green" },
+      { src: "headphones_black_01.png", color: "black" },
+      { src: "headphones_blue.png",     color: "blue"  },
+      { src: "headphones_green.png",    color: "green" },
     ],
   },
   {
@@ -71,7 +71,7 @@ const products = [
      category: "technology",
     createdAt: "2024-11-01",
         views: 400,
-       images: [{ src: "/headphones_black_02.png", color: "black" }],
+       images: [{ src: "headphones_black_02.png", color: "black" }],
   },
   {
          name: "Classic Hoodie",
@@ -81,10 +81,10 @@ const products = [
     createdAt: "2024-04-01",
         views: 600,
        images: [
-      { src: "/hoodie_black.png",  color: "black"  },
-      { src: "/hoodie_beige.png",  color: "beige"  },
-      { src: "/hoodie_yellow.png", color: "yellow" },
-      { src: "/hoodie_green.png",  color: "green"  },
+      { src: "hoodie_black.png",  color: "black"  },
+      { src: "hoodie_beige.png",  color: "beige"  },
+      { src: "hoodie_yellow.png", color: "yellow" },
+      { src: "hoodie_green.png",  color: "green"  },
     ],
   },
 
@@ -95,7 +95,7 @@ const products = [
      category: "jackets",
     createdAt: "2024-09-01",
         views: 300,
-       images: [{ src: "/jacket_sport_black.png", color: "black" }],
+       images: [{ src: "jacket_sport_black.png", color: "black" }],
   },
 
   {
@@ -105,7 +105,7 @@ const products = [
      category: "jackets",
     createdAt: "2024-03-01",
         views: 150,
-       images: [{ src: "/jacket_sport_white.png", color: "white" }],
+       images: [{ src: "jacket_sport_white.png", color: "white" }],
   },
 
   {
@@ -115,7 +115,7 @@ const products = [
      category: "jackets",
     createdAt: "2024-02-01",
         views: 100,
-       images: [{ src: "/jacket_denim_blue.png", color: "blue" }],
+       images: [{ src: "jacket_denim_blue.png", color: "blue" }],
   },
 
   {
@@ -125,7 +125,7 @@ const products = [
      category: "jackets",
     createdAt: "2024-07-01",
         views: 250,
-       images: [{ src: "/jacket_denim_black.png", color: "black" }],
+       images: [{ src: "jacket_denim_black.png", color: "black" }],
   },
   {
          name: "Slim Fit Tee",
@@ -135,8 +135,8 @@ const products = [
     createdAt: "2024-06-01",
         views: 350,
        images: [
-      { src: "/tshirt_black_01.png", color: "black" },
-      { src: "/tshirt_green.png",    color: "green" },
+      { src: "tshirt_black_01.png", color: "black" },
+      { src: "tshirt_green.png",    color: "green" },
     ],
   },
 
@@ -148,10 +148,10 @@ const products = [
     createdAt: "2024-01-01",
         views: 450,
        images: [
-      { src: "/tshirt_white.png",    color: "white" },
-      { src: "/tshirt_beige.png",    color: "beige" },
-      { src: "/tshirt_red.png",      color: "red"   },
-      { src: "/tshirt_black_02.png", color: "black" },
+      { src: "tshirt_white.png",    color: "white" },
+      { src: "tshirt_beige.png",    color: "beige" },
+      { src: "tshirt_red.png",      color: "red"   },
+      { src: "tshirt_black_02.png", color: "black" },
     ],
   },
 ];

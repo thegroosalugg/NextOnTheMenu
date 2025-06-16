@@ -1,4 +1,4 @@
-import TileList from "@/components/product/TileList";
+import ProductList from "@/components/product/ProductList";
 import { Param } from "@/lib/types/param";
 import Product from "@/model/product";
 import { notFound } from "next/navigation";
@@ -12,5 +12,5 @@ export default async function ShopPage({
   const products = await Product.getAll(sort);
   if (!products) notFound();
 
-  return <TileList {...{ products }} />;
+  return <ProductList {...{ products }} />;
 }

@@ -1,4 +1,4 @@
-import TileList from "@/components/product/TileList";
+import ProductList from "@/components/product/ProductList";
 import { Param } from "@/lib/types/param";
 import Category from "@/model/category";
 import Product from "@/model/product";
@@ -26,6 +26,6 @@ export default async function ShopCategoryPage({ params, searchParams }: Params)
   const { sort } = await searchParams;
   const products = await Product.getByCategory(category, sort);
   if (!products) notFound();
-  
-  return <TileList {...{ products }} />;
+
+  return <ProductList {...{ products }} />;
 }
