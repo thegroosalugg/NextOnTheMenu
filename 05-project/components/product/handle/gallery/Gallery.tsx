@@ -1,6 +1,6 @@
 import { ProdImage } from "@/lib/types/prod_image";
 import Image from "next/image";
-import ImageTile from "../ui/image/ImageTile";
+import ImageTile from "@/components/ui/image/ImageTile";
 
 export default function Gallery({ images, name }: { images: ProdImage[]; name: string }) {
   return (

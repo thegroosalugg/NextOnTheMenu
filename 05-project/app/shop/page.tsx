@@ -1,4 +1,4 @@
-import ProductList from "@/components/product/ProductList";
+import ProductList from "@/components/product/list/ProductList";
 import { Param } from "@/lib/types/param";
 import Product from "@/model/product";
 import { notFound } from "next/navigation";

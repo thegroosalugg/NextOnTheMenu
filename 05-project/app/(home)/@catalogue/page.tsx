@@ -1,4 +1,4 @@
-import ProductList from "@/components/product/ProductList";
+import ProductList from "@/components/product/list/ProductList";
 import Product from "@/model/product";
 
 export default async function ProductCatalogue() {

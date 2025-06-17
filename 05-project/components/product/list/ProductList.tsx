@@ -1,7 +1,7 @@
 import Product from "@/model/product";
-import Grid, { ListConfig } from "../ui/list/Grid";
-import ImageTile from "../ui/image/ImageTile";
-import FloatingTag from "../ui/label/FloatingTag";
+import Grid, { ListConfig } from "@/components/ui/list/Grid";
+import ImageTile from "@/components/ui/image/ImageTile";
+import FloatingTag from "@/components/ui/label/FloatingTag";
 
 interface ListProps extends ListConfig {
   products: Product[];

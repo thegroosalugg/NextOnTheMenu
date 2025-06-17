@@ -1,5 +1,5 @@
 import Product from "@/model/product";
-import ProductList from "@/components/product/ProductList";
+import ProductList from "@/components/product/list/ProductList";
 
 export default async function FeaturedProducts() {
   const products = await Product.getFeatured();
