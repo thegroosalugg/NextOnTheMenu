@@ -8,11 +8,11 @@ export default function ProductDescription({ name, price, desc, images, sizes }:
       <span className="w-fit my-4 bg-sky-700 text-white py-0.5 px-1 md:py-1 md:px-2 rounded-3xl">
         ${price}USD
       </span>
-      <ButtonRow items={images.map(({ color }) => color)} params="?color=">
+      <ButtonRow items={images.map(({ color }) => color)} query="color">
         Color
       </ButtonRow>
       {sizes && (
-        <ButtonRow items={sizes} params="?size=" font="uppercase">
+        <ButtonRow items={sizes} query="size" font="uppercase">
           Size
         </ButtonRow>
       )}

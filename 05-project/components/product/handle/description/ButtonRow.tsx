@@ -3,12 +3,12 @@ import { ReactNode } from "react";
 
 export default function ButtonRow({
      items,
-    params,
+     query,
       font = "capitalize",
   children,
 }: {
      items: string[];
-    params: string;
+     query: "size" | "color";
      font?: "uppercase" | "capitalize";
   children: ReactNode;
 }) {
@@ -18,7 +18,7 @@ export default function ButtonRow({
       <ul className="flex flex-wrap gap-2 mt-1 mb-4">
         {items.map((item) => (
           <li key={item}>
-            <VariantButton {...{ font, href: `${params}${item}` }}>{item}</VariantButton>
+            <VariantButton {...{ font, query, value: item }}>{item}</VariantButton>
           </li>
         ))}
       </ul>

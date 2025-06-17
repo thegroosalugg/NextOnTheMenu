@@ -4,8 +4,8 @@ import ImageTile from "@/components/ui/image/ImageTile";
 
 export default function Gallery({ images, name }: { images: ProdImage[]; name: string }) {
   return (
-    <div className="flex-[0_1_560] min-w-0 max-w-full mx-auto">
-      <div className="relative aspect-square h-140 max-w-full mx-auto">
+    <div className="flex-auto min-w-0 max-w-full mx-auto">
+      <div className="relative aspect-square min-h-120 max-w-full md:max-w-4/5 mx-auto">
         <Image
           className="object-cover shadow-xl"
           src={"/shop/" + images[0].src}
