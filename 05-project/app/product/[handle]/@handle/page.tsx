@@ -29,8 +29,8 @@ export default async function ProductDetails({ params }: Params) {
       className="
         flex flex-col md:flex-row
         items-center md:items-start
-        mx-auto my-6 px-2 py-4 md:p-6 gap-6
-        max-w-md md:max-w-screen-md
+        mx-auto my-6 px-2 py-4 md:p-12 gap-2
+        max-w-md md:max-w-screen-xl
         shadow-xl
         border border-stone-700 dark:border-stone-400
         bg-stone-100 dark:bg-stone-700

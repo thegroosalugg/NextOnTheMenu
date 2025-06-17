@@ -11,6 +11,7 @@ const products = [
     createdAt: "2024-03-15",
         views: 1000,
        images: [{ src: "backpack_beige.png", color: "beige" }],
+        sizes: ['18l', '28l'],
   },
 
   {
@@ -21,6 +22,7 @@ const products = [
     createdAt: "2024-09-15",
         views: 200,
        images: [{ src: "backpack_black_01.png", color: "black" }],
+        sizes: ['20l', '32l'],
   },
 
   {
@@ -31,6 +33,7 @@ const products = [
     createdAt: "2024-06-15",
         views: 50,
        images: [{ src: "backpack_black_02.png", color: "black" }],
+        sizes: ['16l', '26l'],
   },
 
   {
@@ -41,6 +44,7 @@ const products = [
     createdAt: "2024-01-15",
         views: 500,
        images: [{ src: "backpack_leather_black.png", color: "black" }],
+        sizes: ['20l'],
   },
   {
          name: "Tweed Overcoat",
@@ -50,6 +54,7 @@ const products = [
     createdAt: "2024-12-01",
         views: 550,
        images: [{ src: "coat_tweed_grey.png", color: "grey" }],
+        sizes: ['s', 'm', 'l', 'xl', '2xl', '3xl'],
   },
   {
          name: "Pro Headphones",
@@ -80,6 +85,7 @@ const products = [
      category: "hoodies",
     createdAt: "2024-04-01",
         views: 600,
+        sizes: ['s', 'm', 'l', 'xl', '2xl', '3xl'],
        images: [
       { src: "hoodie_black.png",  color: "black"  },
       { src: "hoodie_beige.png",  color: "beige"  },
@@ -96,6 +102,7 @@ const products = [
     createdAt: "2024-09-01",
         views: 300,
        images: [{ src: "jacket_sport_black.png", color: "black" }],
+        sizes: ['s', 'm', 'l', 'xl', '2xl'],
   },
 
   {
@@ -106,6 +113,7 @@ const products = [
     createdAt: "2024-03-01",
         views: 150,
        images: [{ src: "jacket_sport_white.png", color: "white" }],
+        sizes: ['xs', 's', 'm', 'l', 'xl', '2xl'],
   },
 
   {
@@ -116,6 +124,7 @@ const products = [
     createdAt: "2024-02-01",
         views: 100,
        images: [{ src: "jacket_denim_blue.png", color: "blue" }],
+        sizes: ['s', 'm', 'l', 'xl', '2xl', '3xl'],
   },
 
   {
@@ -126,6 +135,7 @@ const products = [
     createdAt: "2024-07-01",
         views: 250,
        images: [{ src: "jacket_denim_black.png", color: "black" }],
+        sizes: ['xs', 's', 'm', 'l', 'xl', '2xl'],
   },
   {
          name: "Slim Fit Tee",
@@ -134,6 +144,7 @@ const products = [
      category: "shirts",
     createdAt: "2024-06-01",
         views: 350,
+        sizes: ['xs', 's', 'm', 'l', 'xl', '2xl'],
        images: [
       { src: "tshirt_black_01.png", color: "black" },
       { src: "tshirt_green.png",    color: "green" },
@@ -147,6 +158,7 @@ const products = [
      category: "shirts",
     createdAt: "2024-01-01",
         views: 450,
+        sizes: ['xs', 's', 'm', 'l', 'xl', '2xl', '3xl'],
        images: [
       { src: "tshirt_white.png",    color: "white" },
       { src: "tshirt_beige.png",    color: "beige" },

@@ -1,18 +1,20 @@
 import client from "@/lib/mongo/mongodb";
 import { ProdImage } from "@/lib/types/prod_image";
+import { Size } from "@/lib/types/size";
 import { ObjectId } from "mongodb";
 
 type ProductDB = Omit<Product, "_id"> & { _id: ObjectId };
 
 export default class Product {
-  readonly       _id: string      = '';
-  readonly      name: string      = '';
-  readonly     price: number      =  0;
-  readonly      desc: string      = '';
-  readonly  category: string      = '';
-  readonly    images: ProdImage[] = [];
-  readonly createdAt: string      = new Date().toISOString();
-               views: number      =  0;
+  readonly       _id!: string;
+  readonly      name!: string;
+  readonly     price!: number;
+  readonly      desc!: string;
+  readonly  category!: string;
+  readonly    images!: ProdImage[];
+  readonly     sizes?: Size[]
+  readonly createdAt!: string;
+               views!: number;
 
   private static getDb() {
     return client.db().collection<ProductDB>("products");

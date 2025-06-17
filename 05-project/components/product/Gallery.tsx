@@ -1,12 +1,11 @@
-"use client";
 import { ProdImage } from "@/lib/types/prod_image";
 import Image from "next/image";
 import ImageTile from "../ui/image/ImageTile";
 
 export default function Gallery({ images, name }: { images: ProdImage[]; name: string }) {
   return (
-    <div className="flex-[1_1_50%] min-w-0 max-w-full">
-      <div className="relative aspect-square h-100 max-w-full mx-auto">
+    <div className="flex-[0_1_560] min-w-0 max-w-full mx-auto">
+      <div className="relative aspect-square h-140 max-w-full mx-auto">
         <Image
           className="object-cover shadow-xl"
           src={"/shop/" + images[0].src}
