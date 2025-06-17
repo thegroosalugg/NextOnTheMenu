@@ -4,24 +4,26 @@ import { useSearchParams } from "next/navigation";
 import { ReactNode } from "react";
 
 export default function VariantButton({
-     query,
-     value,
-      font = "capitalize",
-  children,
+      query,
+      value,
+       font = "capitalize",
+  isDefault,
+   children,
 }: {
-     query: string;
-     value: string;
-     font?: "uppercase" | "capitalize";
-  children: ReactNode;
+       query: string;
+       value: string;
+       font?: "uppercase" | "capitalize";
+  isDefault?: boolean;
+    children: ReactNode;
 }) {
   const searchParams = useSearchParams();
   const newParams = new URLSearchParams(searchParams.toString());
   newParams.set(query, value);
 
+  const current = searchParams.get(query);
   const isActive =
-    searchParams.get(query) === value
-      ? `border-sky-700 dark:border-sky-400
-           text-sky-700   dark:text-sky-400`
+    current === value || (isDefault && !current)
+      ? `border-sky-700 dark:border-sky-400 text-sky-700 dark:text-sky-400`
       : "border-transparent";
 
   return (
