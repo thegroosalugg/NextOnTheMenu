@@ -1,8 +1,8 @@
 import MobileMenu from "./MobileMenu";
-import BrandLogo from "../ui/logo/BrandLogo";
-import NavLink from "./NavLink";
-import MenuButton from "../ui/button/MenuButton";
+import NavGroup from "./NavGroup";
 import SearchBar from "../form/SearchBar";
+import BrandLogo from "../ui/logo/BrandLogo";
+import MenuButton from "../ui/button/MenuButton";
 import Category from "@/model/category";
 
 export default async function Header() {
@@ -28,14 +28,7 @@ export default async function Header() {
         "
       >
         <BrandLogo compact />
-        <nav className="hidden md:flex gap-2 capitalize">
-          <NavLink href="/shop">All</NavLink>
-          {links.map(({ _id, path, name }) => (
-            <NavLink key={_id} href={`/shop/${path}`}>
-              {name}
-            </NavLink>
-          ))}
-        </nav>
+        <NavGroup {...{ links }} />
       </section>
       <div className="hidden md:flex basis-1/3">
         <SearchBar />

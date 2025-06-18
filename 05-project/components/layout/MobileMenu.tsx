@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import MenuButton from "../ui/button/MenuButton";
 import Category from "@/model/category";
-import NavLink from "./NavLink";
+import MenuButton from "../ui/button/MenuButton";
+import NavGroup from "./NavGroup";
 import SearchBar from "../form/SearchBar";
 
 export default function MobileMenu({ links }: { links: Category[] }) {
@@ -27,14 +27,7 @@ export default function MobileMenu({ links }: { links: Category[] }) {
       >
         <MenuButton icon="Cross" onClick={closeMenu} />
         <SearchBar />
-        <nav className="flex flex-col gap-2 capitalize overflow-y-scroll">
-          <NavLink href="/shop" onClick={closeMenu}>All</NavLink>
-          {links.map(({ _id, path, name }) => (
-            <NavLink key={_id} href={`/shop/${path}`} onClick={closeMenu}>
-              {name}
-            </NavLink>
-          ))}
-        </nav>
+        <NavGroup {...{ links, onClick: closeMenu, col: true }} />
       </dialog>
     </>
   );
