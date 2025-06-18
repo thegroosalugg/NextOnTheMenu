@@ -1,7 +1,7 @@
 "use client";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { ReactNode } from "react";
+import { useSetQueryParams } from "@/lib/hooks/useSetQueryParams";
+import Link from "next/link";
 
 export default function VariantButton({
       query,
@@ -16,19 +16,11 @@ export default function VariantButton({
   isDefault?: boolean;
     children: ReactNode;
 }) {
-  const searchParams = useSearchParams();
-  const newParams = new URLSearchParams(searchParams.toString());
-  newParams.set(query, value);
-
-  const current = searchParams.get(query);
-  const isActive =
-    current === value || (isDefault && !current)
-      ? `border-sky-700 dark:border-sky-400 text-sky-700 dark:text-sky-400`
-      : "border-transparent";
+  const { queryParams, isActive } = useSetQueryParams({ query, value, isDefault });
 
   return (
     <Link
-      href={`?${newParams.toString()}`}
+      href={`?${queryParams}`}
       className={`
         border-2 rounded-2xl
         bg-neutral-200 dark:bg-neutral-600

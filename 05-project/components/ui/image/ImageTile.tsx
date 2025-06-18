@@ -1,32 +1,38 @@
+'use client';
+import { QueryConfig, useSetQueryParams } from "@/lib/hooks/useSetQueryParams";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
 
 export default function ImageTile({
-      href,
-      hero,
-       src,
-       alt,
-  priority,
-  children = null,
+        href,
+        hero,
+         src,
+         alt,
+    priority,
+    children = null,
 }: {
-       href: string;
-        src: string;
-        alt: string;
-      hero?: boolean;
-  priority?: boolean;
-  children?: ReactNode;
+         href: string | QueryConfig;
+          src: string;
+          alt: string;
+        hero?: boolean;
+    priority?: boolean;
+    children?: ReactNode;
 }) {
+  const isQuery = typeof href === "object";
+  const hookConfig = isQuery ? href : new QueryConfig();
+  const { queryParams, isActive } = useSetQueryParams(hookConfig);
+
   return (
     <Link
-      href={href}
-      className="
+      href={isQuery ? `?${queryParams}` : href}
+      className={`
         block relative aspect-square
-        border border-transparent rounded-xl
+        border rounded-xl ${isActive}
         overflow-hidden
         animate-fadeIn
-        group hover:border-sky-600
-      "
+        group hover:border-sky-700 dark:hover:border-sky-400
+      `}
     >
       {children}
       <Image

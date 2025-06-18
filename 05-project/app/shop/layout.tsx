@@ -1,5 +1,5 @@
 import FilterMenu from "@/components/ui/menu/FilterMenu";
-import { SortTypes } from "@/lib/sort_types";
+import { SortTypes } from "@/lib/types/sort_types";
 import Category from "@/model/category";
 import { Metadata } from "next";
 

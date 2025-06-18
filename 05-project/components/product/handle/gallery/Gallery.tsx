@@ -22,10 +22,10 @@ export default function Gallery({ images, name }: { images: ProdImage[]; name: s
           overflow-x-scroll w-fit max-w-full
         "
       >
-        {images.map(({ src, color }) => (
+        {images.map(({ src, color }, i) => (
           <li key={color} className="h-20 w-20 shrink-0">
             <ImageTile
-              href={`?color=${color}`}
+              href={{ query: "color", value: color, isDefault: i === 0 }}
                src={`/shop/${src}`}
                alt={`${name}${color}`}
               priority
