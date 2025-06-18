@@ -24,6 +24,11 @@ export default class Product {
     return products.map((product) => ({ ...product, _id: product._id.toString() }));
   }
 
+  private static toObjectId(_id: string) {
+    if (!ObjectId.isValid(_id)) throw new Error('Invalid ID');
+    return new ObjectId(_id);
+  }
+
   private static sortBy(sort: string): Record<string, 1 | -1> {
     if (sort ===  "price") return { price:  1 };
     if (sort === "-price") return { price: -1 };
@@ -53,9 +58,8 @@ export default class Product {
   }
 
   static async findById(prodId: string) {
-    if (!ObjectId.isValid(prodId)) return null;
     try {
-      const _id = new ObjectId(prodId);
+      const _id = this.toObjectId(prodId);
       const product = await this.getDb().findOne({ _id });
       return product ? { ...product, _id: product._id.toString() } : null;
     } catch (error) {
@@ -73,6 +77,15 @@ export default class Product {
       return this.serialize(products);
     } catch (error) {
       console.log("getFeatured", error);
+    }
+  }
+
+  static async updateViews(prodId: string) {
+    try {
+      const _id = this.toObjectId(prodId);
+      await this.getDb().updateOne({ _id }, { $inc: { views: 1 } });
+    } catch (error) {
+      console.log("updateViews", error);
     }
   }
 }

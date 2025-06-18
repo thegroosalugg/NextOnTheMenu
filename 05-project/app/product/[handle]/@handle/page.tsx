@@ -22,6 +22,7 @@ export default async function ProductDetails({ params }: Params) {
   const product = await Product.findById(handle);
   if (!product) notFound();
 
+  Product.updateViews(product._id); // non blocking
   const { name, images } = product;
 
   return (
