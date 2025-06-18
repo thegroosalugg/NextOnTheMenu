@@ -15,10 +15,12 @@ export default function ButtonRow({
   return (
     <>
       <h2 className="uppercase font-bold text-lg">{children}</h2>
-      <ul className="flex flex-wrap gap-2 mt-1 mb-4">
+      <ul className="flex flex-wrap gap-3 mt-1 mb-4">
         {items.map((item, i) => (
           <li key={item}>
-            <VariantButton {...{ font, query, value: item, isDefault: i === 0 }}>{item}</VariantButton>
+            <VariantButton {...{ font, query, value: item, isDefault: i === 0 }}>
+              {item}
+            </VariantButton>
           </li>
         ))}
       </ul>

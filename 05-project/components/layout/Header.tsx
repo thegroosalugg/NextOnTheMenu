@@ -1,3 +1,4 @@
+import MobileMenu from "./MobileMenu";
 import BrandLogo from "../ui/logo/BrandLogo";
 import NavLink from "./NavLink";
 import MenuButton from "../ui/button/MenuButton";
@@ -17,7 +18,7 @@ export default async function Header() {
       "
     >
       <div className="md:hidden basis-1/3">
-        <MenuButton icon="Hamburger" />
+        <MobileMenu {...{ links }} />
       </div>
       <section
         className="

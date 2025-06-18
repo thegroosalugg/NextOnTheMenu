@@ -9,6 +9,7 @@ export default class Icon {
   static       Vercel = 24;
   static  ChevronDown = 24;
   static    ChevronUp = 24;
+  static        Cross = 24;
 }
 
 export type IconType = keyof Omit<typeof Icon, 'prototype'>
