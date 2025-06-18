@@ -1,9 +1,9 @@
+import Category from "@/model/category";
 import MobileMenu from "./MobileMenu";
+import BrandLogo from "../ui/logo/BrandLogo";
 import NavGroup from "./NavGroup";
 import SearchBar from "../form/SearchBar";
-import BrandLogo from "../ui/logo/BrandLogo";
-import MenuButton from "../ui/button/MenuButton";
-import Category from "@/model/category";
+import CartModal from "../cart/CartModal";
 
 export default async function Header() {
   const links = await Category.getLinks();
@@ -34,7 +34,7 @@ export default async function Header() {
         <SearchBar />
       </div>
       <div className="flex basis-1/3 justify-end">
-        <MenuButton icon="ShoppingCart" />
+        <CartModal />
       </div>
     </header>
   );
