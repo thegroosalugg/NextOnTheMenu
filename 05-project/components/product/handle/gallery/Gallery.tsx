@@ -1,15 +1,26 @@
+"use client";
 import { ProdImage } from "@/lib/types/prod_image";
 import Image from "next/image";
 import ImageTile from "@/components/ui/image/ImageTile";
+import { useSearchParams } from "next/navigation";
 
 export default function Gallery({ images, name }: { images: ProdImage[]; name: string }) {
+  const searchParams = useSearchParams().get('color');
+
+  let activeImg = images[0];
+  if (searchParams) {
+    const selectedImg = images.find(({ color }) => searchParams === color);
+    if (selectedImg) activeImg = selectedImg;
+  }
+  const { src, color } = activeImg;
+
   return (
     <div className="flex-auto min-w-0 max-w-full mx-auto">
       <div className="relative aspect-square min-h-120 max-w-full md:max-w-4/5 mx-auto">
         <Image
           className="object-cover shadow-xl"
-          src={"/shop/" + images[0].src}
-          alt={name + images[0].color}
+          src={"/shop/" + src}
+          alt={`${name} ${color}`}
           priority
           fill
           sizes="(min-width: 768px) 33vw, 100vw"
