@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes } from "react";
 import { IconType } from "../icon/icon.model";
 import Svg from "../icon/Svg";
 
-export default function MenuButton({
+export default function IconButton({
      icon,
   ...props
 }: { icon: IconType } & ButtonHTMLAttributes<HTMLButtonElement>) {

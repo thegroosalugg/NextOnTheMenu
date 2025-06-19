@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import { useSetQueryParams } from "@/lib/hooks/useSetQueryParams";
 import Link from "next/link";
 
-export default function VariantButton({
+export default function QueryLink({
       query,
       value,
        font = "capitalize",

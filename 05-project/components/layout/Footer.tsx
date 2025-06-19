@@ -1,4 +1,4 @@
-import NavLink from "./NavLink";
+import PathLink from "../ui/button/PathLink";
 import BrandLogo from "../ui/logo/BrandLogo";
 import VercelLogo from "../ui/logo/VercelLogo";
 
@@ -18,16 +18,16 @@ export default function Footer() {
       <section className={`${sectionStyles} md:items-start text-sm`}>
         <BrandLogo />
         <nav className="flex flex-col gap-1 md:gap-4">
-          <NavLink href="/">Home</NavLink>
-          <NavLink href="/">About</NavLink>
-          <NavLink href="/">Terms & Conditions</NavLink>
+          <PathLink href="/">Home</PathLink>
+          <PathLink href="/">About</PathLink>
+          <PathLink href="/">Terms & Conditions</PathLink>
         </nav>
         <VercelLogo />
       </section>
       <Hr />
       <section className={`${sectionStyles} justify-between text-xs`}>
         <p>© 2025 Shopify Demo — Built for educational purposes. All rights reserved.</p>
-        <NavLink href="/">View Source Code</NavLink>
+        <PathLink href="/">View Source Code</PathLink>
         <p>Designed with Next 15, MongoDb & Tailwind 4.</p>
       </section>
     </footer>

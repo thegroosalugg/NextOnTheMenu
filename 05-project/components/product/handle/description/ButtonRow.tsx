@@ -1,4 +1,4 @@
-import VariantButton from "@/components/ui/button/VariantButton";
+import QueryLink from "@/components/ui/button/QueryLink";
 import { ReactNode } from "react";
 
 export default function ButtonRow({
@@ -18,9 +18,9 @@ export default function ButtonRow({
       <ul className="flex flex-wrap gap-3 mt-1 mb-4">
         {items.map((item, i) => (
           <li key={item}>
-            <VariantButton {...{ font, query, value: item, isDefault: i === 0 }}>
+            <QueryLink {...{ font, query, value: item, isDefault: i === 0 }}>
               {item}
-            </VariantButton>
+            </QueryLink>
           </li>
         ))}
       </ul>

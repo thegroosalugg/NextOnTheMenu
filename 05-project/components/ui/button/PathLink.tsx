@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnchorHTMLAttributes } from "react";
 
-export default function NavLink({
+export default function PathLink({
       href,
   children,
   ...props

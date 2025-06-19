@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import MenuButton from "../ui/button/MenuButton";
+import IconButton from "../ui/button/IconButton";
 
 const visible = { menu: "translate-x-0",    backdrop: "opacity-70 pointer-events-auto" };
 const  hidden = { menu: "translate-x-full", backdrop: "opacity-0 pointer-events-none"  };
@@ -12,7 +12,7 @@ export default function CartModal() {
 
   return (
     <>
-      <MenuButton icon="ShoppingCart" onClick={openMenu} />
+      <IconButton icon="ShoppingCart" onClick={openMenu} />
       <div
         onClick={closeMenu}
         className={`
@@ -38,7 +38,7 @@ export default function CartModal() {
       >
         <div className="flex justify-between items-center">
           <h2 className="font-mono text-xl pl-6 md:pl-3">Your Cart</h2>
-          <MenuButton icon="Cross" onClick={closeMenu} />
+          <IconButton icon="Cross" onClick={closeMenu} />
         </div>
       </dialog>
     </>

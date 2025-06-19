@@ -1,5 +1,5 @@
 import Category from "@/model/category";
-import NavLink from "./NavLink";
+import PathLink from "../ui/button/PathLink";
 
 interface NavProps {
      links: Category[];
@@ -14,11 +14,11 @@ export default function NavGroup({ links, onClick, col }: NavProps) {
 
   return (
     <nav className={styles}>
-      <NavLink href="/shop" {...{ onClick }}>All</NavLink>
+      <PathLink href="/shop" {...{ onClick }}>All</PathLink>
       {links.map(({ _id, path, name }) => (
-        <NavLink key={_id} href={`/shop/${path}`} {...{ onClick }}>
+        <PathLink key={_id} href={`/shop/${path}`} {...{ onClick }}>
           {name}
-        </NavLink>
+        </PathLink>
       ))}
     </nav>
   );

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Category from "@/model/category";
-import MenuButton from "../ui/button/MenuButton";
+import IconButton from "../ui/button/IconButton";
 import NavGroup from "./NavGroup";
 import SearchBar from "../form/SearchBar";
 
@@ -12,7 +12,7 @@ export default function MobileMenu({ links }: { links: Category[] }) {
 
   return (
     <>
-      <MenuButton icon="Hamburger" onClick={openMenu} />
+      <IconButton icon="Hamburger" onClick={openMenu} />
       <dialog
         open
         className={`
@@ -25,7 +25,7 @@ export default function MobileMenu({ links }: { links: Category[] }) {
           ${showMenu}
         `}
       >
-        <MenuButton icon="Cross" onClick={closeMenu} />
+        <IconButton icon="Cross" onClick={closeMenu} />
         <SearchBar />
         <NavGroup {...{ links, onClick: closeMenu, col: true }} />
       </dialog>
