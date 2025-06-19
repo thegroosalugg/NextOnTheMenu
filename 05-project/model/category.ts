@@ -15,7 +15,7 @@ export default class Category extends SortFilter {
       const categories = await this.getDb().find().toArray();
       return this.serialize(categories);
     } catch (error) {
-      console.log("getAll", error);
+      console.log("Category.getAll", error);
       return [{ _id: "1", path: "/", name: "All" }]; // fallback remains on /shop
     }
   }
@@ -25,7 +25,7 @@ export default class Category extends SortFilter {
       const categories = await this.getDb().find().limit(3).toArray();
       return this.serialize(categories);
     } catch (error) {
-      console.log("getLinks", error);
+      console.log("Category.getLinks", error);
       return []; // keep nav alive - show no links
     }
   }
@@ -34,7 +34,7 @@ export default class Category extends SortFilter {
     try {
       return (await this.getDb().countDocuments({ path }, { limit: 1 })) > 0;
     } catch (error) {
-      console.log("isValid", error);
+      console.log("Category.isValid", error);
     }
   }
 }

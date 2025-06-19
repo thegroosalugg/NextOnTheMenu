@@ -1,9 +1,10 @@
 import client from "@/lib/mongo/mongodb";
 import { ProdImage } from "@/lib/types/prod_image";
 import { Size } from "@/lib/types/size";
+import { WithObjectId } from "@/lib/types/with_object_id";
 import { ObjectId } from "mongodb";
 
-type ProductDB = Omit<Product, "_id"> & { _id: ObjectId };
+type ProductDB = WithObjectId<Product>;
 
 export default class Product {
   readonly       _id!: string;
@@ -43,7 +44,7 @@ export default class Product {
       const products = await this.getDb().find().sort(sortBy).toArray();
       return this.serialize(products);
     } catch (error) {
-      console.log("getAll", error);
+      console.log("Product.getAll", error);
     }
   }
 
@@ -53,7 +54,7 @@ export default class Product {
       const products = await this.getDb().find({ category }).sort(sortBy).toArray();
       return this.serialize(products);
     } catch (error) {
-      console.log("getByCategory", error);
+      console.log("Product.getByCategory", error);
     }
   }
 
@@ -63,7 +64,7 @@ export default class Product {
       const product = await this.getDb().findOne({ _id });
       return product ? { ...product, _id: product._id.toString() } : null;
     } catch (error) {
-      console.log("findById", error);
+      console.log("Product.findById", error);
     }
   }
 
@@ -76,7 +77,7 @@ export default class Product {
         .toArray();
       return this.serialize(products);
     } catch (error) {
-      console.log("getFeatured", error);
+      console.log("Product.getFeatured", error);
     }
   }
 
@@ -85,7 +86,7 @@ export default class Product {
       const _id = this.toObjectId(prodId);
       await this.getDb().updateOne({ _id }, { $inc: { views: 1 } });
     } catch (error) {
-      console.log("updateViews", error);
+      console.log("Product.updateViews", error);
     }
   }
 }
