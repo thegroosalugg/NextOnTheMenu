@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Montserrat, Poiret_One } from 'next/font/google';
+import { CartProvider } from '@/components/cart/CartContext';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import "@/lib/mongo/initProducts"; // create dummy data if non existent
@@ -30,9 +31,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${montserrat.variable} ${poiret_one.variable} antialiased`}>
-        <Header />
-        <main className='flex-1'>{children}</main>
-        <Footer />
+        <CartProvider cart={{ _id: "", products: [] }}>
+          <Header />
+          <main className='flex-1'>{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

@@ -1,14 +1,9 @@
 "use client";
-import { useState } from "react";
 import IconButton from "../ui/button/IconButton";
-
-const visible = { menu: "translate-x-0",    backdrop: "opacity-70 pointer-events-auto" };
-const  hidden = { menu: "translate-x-full", backdrop: "opacity-0 pointer-events-none"  };
+import { useCart } from "./CartContext";
 
 export default function CartModal() {
-  const [show, setShow] = useState(hidden);
-  const  openMenu = () => setShow(visible);
-  const closeMenu = () => setShow(hidden);
+  const { ui, openMenu, closeMenu } = useCart();
 
   return (
     <>
@@ -21,7 +16,7 @@ export default function CartModal() {
           w-screen h-screen
           bg-black/70 cursor-pointer
           transition-opacity duration-500 ease-in-out
-          ${show.backdrop}
+          ${ui.backdrop}
         `}
       />
       <dialog
@@ -33,7 +28,7 @@ export default function CartModal() {
           p-2 lg:p-4
           bg-white/90 dark:bg-black/90
           transition-transform duration-500 ease-in-out
-          ${show.menu}
+          ${ui.menu}
         `}
       >
         <div className="flex justify-between items-center">

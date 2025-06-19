@@ -1,7 +1,8 @@
 import Product from "@/model/product";
 import ButtonRow from "./ButtonRow";
+import CartAddButton from "./CartAddButton";
 
-export default function ProductDescription({ name, price, desc, images, sizes }: Product) {
+export default function ProductDescription({ _id, name, price, desc, images, sizes }: Product) {
   return (
     <div className="flex flex-col flex-[0_1_40%] p-6 wrap-break-word max-w-full overflow-x-scroll">
       <h1 className="text-5xl font-mono">{name}</h1>
@@ -24,15 +25,7 @@ export default function ProductDescription({ name, price, desc, images, sizes }:
           </li>
         ))}
       </ul>
-      <button
-        className="
-          bg-sky-700 text-white
-          w-2/3 mx-auto py-1 px-2
-          rounded-2xl hover:opacity-90
-        "
-      >
-        + Add to Cart
-      </button>
+      <CartAddButton {...{ _id }} />
     </div>
   );
 }
