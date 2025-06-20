@@ -4,7 +4,7 @@ import { createContext, useContext, useState, ReactNode } from "react";
 
 type CartContext = {
         _id: Cart["_id"];
-   products: Cart["products"];
+      items: Cart["items"];
          ui: { menu: string; backdrop: string };
    openMenu: () => void;
   closeMenu: () => void;
@@ -31,11 +31,11 @@ export function CartProvider({ cart, children }: CartProviderProps) {
   const  openMenu = () => setUi(visible);
   const closeMenu = () => setUi(hidden);
 
-  const { _id, products } = cart;
+  const { _id, items } = cart;
 
   const cartValue = {
     _id,
-    products,
+    items,
     ui,
     openMenu,
     closeMenu,

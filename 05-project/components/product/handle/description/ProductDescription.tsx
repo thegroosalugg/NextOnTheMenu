@@ -25,7 +25,7 @@ export default function ProductDescription({ _id, name, price, desc, images, siz
           </li>
         ))}
       </ul>
-      <CartAddButton {...{ _id }} />
+      <CartAddButton prodId={_id} />
     </div>
   );
 }

@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${montserrat.variable} ${poiret_one.variable} antialiased`}>
-        <CartProvider cart={{ _id: "", products: [] }}>
+        <CartProvider cart={{ _id: "", items: [] }}>
           <Header />
           <main className='flex-1'>{children}</main>
           <Footer />

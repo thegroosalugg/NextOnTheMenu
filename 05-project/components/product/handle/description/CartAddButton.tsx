@@ -1,12 +1,16 @@
 "use client";
 import { useCart } from "@/components/cart/CartContext";
 import { addToCart } from "@/lib/actions/cart";
+import { useSearchParams } from "next/navigation";
 
-export default function CartAddButton({ _id }: { _id: string }) {
+export default function CartAddButton({ prodId }: { prodId: string }) {
   const { openMenu } = useCart();
+  const searchParams = useSearchParams();
+  const size  = searchParams.get("size");
+  const color = searchParams.get("color");
 
   async function clickHandler() {
-    await addToCart(_id);
+    await addToCart({ prodId, size, color });
     openMenu();
   }
 

@@ -1,18 +1,15 @@
 import client from "@/lib/mongo/mongodb";
 import { ObjectId } from "mongodb";
-import Product from "./product";
-import { WithObjectId } from "@/lib/types/with_object_id";
-import { AdjustByOne } from "@/lib/types/adjust_by_one";
+import CartItem from "./cart_item";
 
-type CartItem = { _id: Product["_id"]; quantity: number };
 type CartDB = {
-       _id: ObjectId;
-  products: WithObjectId<CartItem>[];
+    _id: ObjectId;
+  items: CartItem[];
 };
 
 export default class Cart {
-       _id!: string;
-  products!: CartItem[];
+    _id!: string;
+  items!: CartItem[];
 
   private static getDb() {
     return client.db().collection<CartDB>("cart");
@@ -20,60 +17,48 @@ export default class Cart {
 
   private static serialize(cart: CartDB) {
     const _id = cart._id.toString();
-    const products = cart.products.map((product) => ({
-      ...product,
-             _id: product._id.toString(),
-    }));
-    return { _id, products };
+    const items = cart.items.map((item) => ({ ...item, _id: item._id.toString() }));
+    return { _id, items };
   }
 
-  private static async createCart(product: Product, quantity: AdjustByOne ) {
-    const products = [];           // ObjId pre-validated by Product.findById()
-    if (quantity > 0) products.push({ _id: new ObjectId(product._id), quantity: 1 });
-    const cart = { _id: new ObjectId(), products };
+  private static async createCart(item?: CartItem) {
+    const items = [];
+    if (item) items.push(item);
+    const cart = { _id: new ObjectId(), items };
     await this.getDb().insertOne(cart);
     return this.serialize(cart);
   }
 
-  static async update(
-      prodId: string,
-     cartId?: string,
-    quantity: AdjustByOne = 1
-  ): Promise<Cart | void> {
+  static async AddItem({ item, cartId }: { item: CartItem; cartId?: string }) {
     try {
-      const product = await Product.findById(prodId); // throws if prodId invalid as ObjId
-      if (!product) return;
-      if (!cartId || !ObjectId.isValid(cartId)) return await this.createCart(product, quantity);
+      if (!cartId || !ObjectId.isValid(cartId)) return await this.createCart(item);
 
       const _id = new ObjectId(cartId);
       const cart = await this.getDb().findOne({ _id });
-      if (!cart) return await this.createCart(product, quantity);
+      if (!cart) return await this.createCart(item);
 
-      const index = cart.products.findIndex(({ _id }) => _id.toString() === product._id);
-      let cartItem = cart.products[index];
-      const prodObjId = new ObjectId(prodId);
+      const index = cart.items.findIndex(
+        ({ _id, image, size }) =>
+          _id.toString() === item._id.toString() &&
+             image.color === item.image.color    &&
+                    size === item.size
+      );
 
-      if (cartItem) {
-        cartItem.quantity += quantity;
-        if (cartItem.quantity <= 0) {
-          await this.getDb().updateOne({ _id }, { $pull: { products: cartItem } });
-          cart.products.splice(index, 1);
-        } else {
-          await this.getDb().updateOne(
-            { _id, "products._id": prodObjId },
-            { $inc: { "products.$.quantity": quantity } }
-          );
-          cart.products[index] = cartItem;
-        }
-      } else if (quantity > 0) {
-        cartItem = { _id: prodObjId, quantity: 1 };
-        await this.getDb().updateOne({ _id }, { $push: { products: cartItem } });
-        cart.products.unshift(cartItem);
+      const foundItem = cart.items[index];
+      if (foundItem) {
+        await this.getDb().updateOne(
+          { _id, "items._id": foundItem._id  },
+          { $inc: { "items.$.quantity": 1 } }
+        );
+        cart.items[index].quantity += 1;
+      } else {
+        await this.getDb().updateOne({ _id }, { $push: { items: item } });
+        cart.items.unshift(item);
       }
 
       return this.serialize(cart);
     } catch (error) {
-      console.log("Cart.update", error);
+      console.log("Cart.AddItem", error);
     }
   }
 }
