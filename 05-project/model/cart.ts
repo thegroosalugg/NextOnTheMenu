@@ -36,12 +36,10 @@ export default class Cart {
     return { _id, items };
   }
 
-  private static async createCart(delta: Delta, item?: CartItemDB) {
-    const cart: CartDB = { _id: new ObjectId(), items: [] };
-    if (delta === 1 && item) {
-      cart.items.push(item);
-      await this.getDb().insertOne(cart);
-    }
+  private static async createCart(delta: Delta, item: CartItemDB) {
+    if (delta !== 1) return;
+    const cart: CartDB = { _id: new ObjectId(), items: [item] };
+    await this.getDb().insertOne(cart);
     return this.serialize(cart);
   }
 
@@ -90,6 +88,18 @@ export default class Cart {
       return this.serialize(cart);
     } catch (error) {
       console.log("Cart.update", error);
+    }
+  }
+
+  static async load(cartId?: string): Promise<Cart| void> {
+    try {
+      if (!cartId || !ObjectId.isValid(cartId)) return;
+      const _id = new ObjectId(cartId);
+      const cart = await this.getDb().findOne({ _id });
+      if (!cart) return;
+      return this.serialize(cart);
+    } catch (error) {
+      console.log("Cart.load", error);
     }
   }
 }

@@ -12,12 +12,13 @@ interface CartItemInput {
      delta: Delta;
 }
 
-export async function updateCart({
-   prodId,
-     size,
-    color,
-    delta,
-}: CartItemInput) {
+export async function loadCart() {
+  const cartId = (await cookies()).get("cartId")?.value;
+  const cart = await Cart.load(cartId);
+  return cart;
+}
+
+export async function updateCart({ prodId, size, color, delta }: CartItemInput) {
   const cartId = (await cookies()).get("cartId")?.value;
 
   const product = await Product.findById(prodId);
@@ -26,9 +27,8 @@ export async function updateCart({
   const item = CartItem.create({ product, size, color });
   const cart = await Cart.update({ cartId, item, delta });
 
-  if (cart) {
-    (await cookies()).set("cartId", cart._id);
-  }
+  if (cart) (await cookies()).set("cartId", cart._id);
+  else      (await cookies()).delete("cartId");
 
   return cart;
 }

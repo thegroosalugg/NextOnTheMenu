@@ -19,7 +19,7 @@ export function useCart() {
 }
 
 interface CartProviderProps {
-       cart: Cart;
+       cart: Cart | void;
    children: ReactNode;
 }
 
@@ -27,7 +27,7 @@ const  hidden = { menu: "translate-x-full", backdrop: "opacity-0 pointer-events-
 const visible = { menu: "translate-x-0",    backdrop: "opacity-70 pointer-events-auto" };
 
 export function CartProvider({ cart: initCart, children }: CartProviderProps) {
-  const [cart, setCart] = useState<Cart | void>(initCart);
+  const [cart, setCart] = useState(initCart);
   const [ui, setUi] = useState(hidden);
   const  openMenu = () => setUi(visible);
   const closeMenu = () => setUi(hidden);
