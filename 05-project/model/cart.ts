@@ -1,6 +1,7 @@
 import client from "@/lib/mongo/mongodb";
 import { ObjectId } from "mongodb";
 import CartItem from "./cart_item";
+import { Delta } from "@/lib/types/delta";
 
 type CartDB = {
     _id: ObjectId;
@@ -15,85 +16,80 @@ export default class Cart {
     return client.db().collection<CartDB>("cart");
   }
 
+  private static async updateDbQuantity(cartId: ObjectId, item: CartItem, delta: Delta) {
+    const { _id, image, size } = item;
+    await this.getDb().updateOne(
+      // must match all 3 props - mongo can match image objects directly
+      { _id: cartId, items: { $elemMatch: { _id, image, size } } },
+      { $inc: { "items.$.quantity": delta } }
+    );
+  }
+
+  private static async patchDbItems(_id: ObjectId, item: CartItem, delta: Delta) {
+    const action = delta === 1 ? "$push" : "$pull";
+    await this.getDb().updateOne({ _id }, { [action]: { items: item } });
+  }
+
   private static serialize(cart: CartDB) {
     const _id = cart._id.toString();
     const items = cart.items.map((item) => ({ ...item, _id: item._id.toString() }));
     return { _id, items };
   }
 
-  private static async createCart(item?: CartItem) {
-    const items = [];
-    if (item) items.push(item);
-    const cart = { _id: new ObjectId(), items };
-    await this.getDb().insertOne(cart);
+  private static async createCart(delta: Delta, item?: CartItem) {
+    const cart: CartDB = { _id: new ObjectId(), items: [] };
+    if (delta === 1 && item) {
+      cart.items.push(item);
+      await this.getDb().insertOne(cart);
+    }
     return this.serialize(cart);
   }
 
-  static async AddItem({ item, cartId }: { item: CartItem; cartId?: string }) {
+  private static getItemIndex(cart: CartDB, item: CartItem): number {
+    return cart.items.findIndex(
+      ({ _id, image, size }) =>
+        _id.toString() === item._id.toString() &&
+           image.color === item.image.color    &&
+                  size === item.size
+    );
+  }
+
+  static async update({
+    cartId,
+      item,
+     delta,
+  }: {
+    cartId?: string;
+       item: CartItem;
+      delta: Delta;
+  }) {
     try {
-      if (!cartId || !ObjectId.isValid(cartId)) return await this.createCart(item);
+      if (!cartId || !ObjectId.isValid(cartId)) return await this.createCart(delta, item);
 
       const _id = new ObjectId(cartId);
       const cart = await this.getDb().findOne({ _id });
-      if (!cart) return await this.createCart(item);
+      if (!cart) return await this.createCart(delta, item);
 
-      const index = cart.items.findIndex(
-        ({ _id, image, size }) =>
-          _id.toString() === item._id.toString() &&
-             image.color === item.image.color    &&
-                    size === item.size
-      );
-
+      const index = this.getItemIndex(cart, item);
       const foundItem = cart.items[index];
+
       if (foundItem) {
-        await this.getDb().updateOne(
-          { _id, "items._id": foundItem._id  },
-          { $inc: { "items.$.quantity": 1 } }
-        );
-        cart.items[index].quantity += 1;
+        cart.items[index].quantity += delta;
+
+        if (cart.items[index].quantity <= 0) {
+          await this.patchDbItems(cart._id, item, delta);
+          cart.items.splice(index, 1);
+        } else {
+          await this.updateDbQuantity(cart._id, item, delta);
+        }
       } else {
-        await this.getDb().updateOne({ _id }, { $push: { items: item } });
+        await this.patchDbItems(cart._id, item, delta);
         cart.items.unshift(item);
       }
 
       return this.serialize(cart);
     } catch (error) {
-      console.log("Cart.AddItem", error);
-    }
-  }
-
-  static async RemoveItem({ item, cartId }: { item: CartItem; cartId?: string }) {
-    try {
-      if (!cartId || !ObjectId.isValid(cartId)) return;
-
-      const _id = new ObjectId(cartId);
-      const cart = await this.getDb().findOne({ _id });
-      if (!cart) return;
-
-      const index = cart.items.findIndex(
-        ({ _id, image, size }) =>
-          _id.toString() === item._id.toString() &&
-             image.color === item.image.color    &&
-                    size === item.size
-      );
-
-      const foundItem = cart.items[index];
-      if (foundItem) {
-        cart.items[index].quantity -= 1;
-        if (cart.items[index].quantity <= 0) {
-          await this.getDb().updateOne({ _id }, { $pull: { items: foundItem } });
-          cart.items.splice(index, 1);
-        } else {
-          await this.getDb().updateOne(
-            { _id, "items._id": foundItem._id },
-            { $inc: { "items.$.quantity": -1 } }
-          );
-        }
-      }
-
-      return this.serialize(cart);
-    } catch (error) {
-      console.log("Cart.RemoveItem", error);
+      console.log("Cart.update", error);
     }
   }
 }

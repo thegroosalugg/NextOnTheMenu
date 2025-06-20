@@ -1,6 +1,6 @@
 "use client";
 import { useCart } from "@/components/cart/CartContext";
-import { addToCart } from "@/lib/actions/cart";
+import { updateCart } from "@/lib/actions/cart";
 import { useSearchParams } from "next/navigation";
 
 export default function CartAddButton({ prodId }: { prodId: string }) {
@@ -10,7 +10,7 @@ export default function CartAddButton({ prodId }: { prodId: string }) {
   const color = searchParams.get("color");
 
   async function clickHandler() {
-    await addToCart({ prodId, size, color });
+    await updateCart({ prodId, size, color, delta: 1 });
     openMenu();
   }
 

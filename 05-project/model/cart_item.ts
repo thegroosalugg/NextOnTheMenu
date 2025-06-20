@@ -3,14 +3,14 @@ import Product from "./product";
 import { ObjectId } from "mongodb";
 import { ProdImage } from "@/lib/types/prod_image";
 
-export interface CartItemInput {
+interface CartItemInput {
    product: Product;
     color?: string | null;
      size?: string | null;
 }
 
 export default class CartItem {
-       _id!: Product["_id"] | ObjectId;
+       _id!: ObjectId;
      image!: ProdImage;
       size?: Size;
   quantity!: number;
