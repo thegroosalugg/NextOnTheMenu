@@ -1,10 +1,10 @@
 'use client';
 import Cart from "@/model/cart";
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode, SetStateAction, Dispatch } from "react";
 
 type CartContext = {
-        _id: Cart["_id"];
-      items: Cart["items"];
+       cart: Cart | void;
+    setCart: Dispatch<SetStateAction<Cart | void>>;
          ui: { menu: string; backdrop: string };
    openMenu: () => void;
   closeMenu: () => void;
@@ -19,23 +19,22 @@ export function useCart() {
 }
 
 interface CartProviderProps {
-      cart: Cart;
-  children: ReactNode;
+       cart: Cart;
+   children: ReactNode;
 }
 
 const  hidden = { menu: "translate-x-full", backdrop: "opacity-0 pointer-events-none"  };
 const visible = { menu: "translate-x-0",    backdrop: "opacity-70 pointer-events-auto" };
 
-export function CartProvider({ cart, children }: CartProviderProps) {
+export function CartProvider({ cart: initCart, children }: CartProviderProps) {
+  const [cart, setCart] = useState<Cart | void>(initCart);
   const [ui, setUi] = useState(hidden);
   const  openMenu = () => setUi(visible);
   const closeMenu = () => setUi(hidden);
 
-  const { _id, items } = cart;
-
   const cartValue = {
-    _id,
-    items,
+    cart,
+    setCart,
     ui,
     openMenu,
     closeMenu,

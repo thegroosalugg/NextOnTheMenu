@@ -1,11 +1,11 @@
 import client from "@/lib/mongo/mongodb";
 import { ObjectId } from "mongodb";
-import CartItem from "./cart_item";
+import CartItem, { CartItemDB } from "./cart_item";
 import { Delta } from "@/lib/types/delta";
 
 type CartDB = {
     _id: ObjectId;
-  items: CartItem[];
+  items: CartItemDB[];
 };
 
 export default class Cart {
@@ -16,7 +16,7 @@ export default class Cart {
     return client.db().collection<CartDB>("cart");
   }
 
-  private static async updateDbQuantity(cartId: ObjectId, item: CartItem, delta: Delta) {
+  private static async updateDbQuantity(cartId: ObjectId, item: CartItemDB, delta: Delta) {
     const { _id, image, size } = item;
     await this.getDb().updateOne(
       // must match all 3 props - mongo can match image objects directly
@@ -25,7 +25,7 @@ export default class Cart {
     );
   }
 
-  private static async patchDbItems(_id: ObjectId, item: CartItem, delta: Delta) {
+  private static async patchDbItems(_id: ObjectId, item: CartItemDB, delta: Delta) {
     const action = delta === 1 ? "$push" : "$pull";
     await this.getDb().updateOne({ _id }, { [action]: { items: item } });
   }
@@ -36,7 +36,7 @@ export default class Cart {
     return { _id, items };
   }
 
-  private static async createCart(delta: Delta, item?: CartItem) {
+  private static async createCart(delta: Delta, item?: CartItemDB) {
     const cart: CartDB = { _id: new ObjectId(), items: [] };
     if (delta === 1 && item) {
       cart.items.push(item);
@@ -45,7 +45,7 @@ export default class Cart {
     return this.serialize(cart);
   }
 
-  private static getItemIndex(cart: CartDB, item: CartItem): number {
+  private static getItemIndex(cart: CartDB, item: CartItemDB): number {
     return cart.items.findIndex(
       ({ _id, image, size }) =>
         _id.toString() === item._id.toString() &&
@@ -60,9 +60,9 @@ export default class Cart {
      delta,
   }: {
     cartId?: string;
-       item: CartItem;
+       item: CartItemDB;
       delta: Delta;
-  }) {
+  }): Promise<Cart | void> {
     try {
       if (!cartId || !ObjectId.isValid(cartId)) return await this.createCart(delta, item);
 

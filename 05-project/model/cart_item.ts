@@ -2,6 +2,7 @@ import { Size } from "@/lib/types/size";
 import Product from "./product";
 import { ObjectId } from "mongodb";
 import { ProdImage } from "@/lib/types/prod_image";
+import { WithObjectId } from "@/lib/types/with_object_id";
 
 interface CartItemInput {
    product: Product;
@@ -9,8 +10,10 @@ interface CartItemInput {
      size?: string | null;
 }
 
+export type CartItemDB = WithObjectId<CartItem>;
+
 export default class CartItem {
-       _id!: ObjectId;
+       _id!: string;
      image!: ProdImage;
       size?: Size;
   quantity!: number;
@@ -19,7 +22,7 @@ export default class CartItem {
     product,
     color,
     size: selected,
-  }: CartItemInput) {
+  }: CartItemInput): CartItemDB {
     const   _id = new ObjectId(product._id);
     const image = product.images.find((  img   ) => img.color === color) ?? product.images[0];
     const  size = product.sizes?.find((prodSize) => prodSize === selected) ?? product.sizes?.[0];
