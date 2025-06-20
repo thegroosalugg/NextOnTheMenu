@@ -61,4 +61,39 @@ export default class Cart {
       console.log("Cart.AddItem", error);
     }
   }
+
+  static async RemoveItem({ item, cartId }: { item: CartItem; cartId?: string }) {
+    try {
+      if (!cartId || !ObjectId.isValid(cartId)) return;
+
+      const _id = new ObjectId(cartId);
+      const cart = await this.getDb().findOne({ _id });
+      if (!cart) return;
+
+      const index = cart.items.findIndex(
+        ({ _id, image, size }) =>
+          _id.toString() === item._id.toString() &&
+             image.color === item.image.color    &&
+                    size === item.size
+      );
+
+      const foundItem = cart.items[index];
+      if (foundItem) {
+        cart.items[index].quantity -= 1;
+        if (cart.items[index].quantity <= 0) {
+          await this.getDb().updateOne({ _id }, { $pull: { items: foundItem } });
+          cart.items.splice(index, 1);
+        } else {
+          await this.getDb().updateOne(
+            { _id, "items._id": foundItem._id },
+            { $inc: { "items.$.quantity": -1 } }
+          );
+        }
+      }
+
+      return this.serialize(cart);
+    } catch (error) {
+      console.log("Cart.RemoveItem", error);
+    }
+  }
 }
