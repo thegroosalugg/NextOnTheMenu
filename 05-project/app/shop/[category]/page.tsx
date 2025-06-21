@@ -24,7 +24,7 @@ export default async function ShopCategoryPage({ params, searchParams }: Params)
   if (!isValid) notFound();
 
   const { sort } = await searchParams;
-  const products = await Product.getByCategory(category, sort);
+  const products = await Product.getAll({ category, sort });
   if (!products) notFound();
 
   return <ProductList {...{ products }} />;

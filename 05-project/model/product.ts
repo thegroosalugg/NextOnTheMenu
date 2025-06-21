@@ -39,32 +39,21 @@ export default class Product {
   }
 
   static async getAll({
-     sort,
-    match,
-  }: { sort?: string; match?: { _id: ObjectId }[] } = {}) {
+        sort,
+       match,
+    category,
+  }: { sort?: string; match?: { _id: ObjectId }[]; category?: string } = {}) {
     const sortBy = this.sortBy(sort);
     let query = {};
 
-    if (match) {
-      const ids = match.map(({ _id }) => _id);
-      query = { _id: { $in: ids } };
-    }
+         if (category) query = { category };
+    else if  (match)   query = { _id: { $in: match.map(({ _id }) => _id) } };
 
     try {
       const products = await this.getDb().find(query).sort(sortBy).toArray();
       return this.serialize(products);
     } catch (error) {
       console.log("Product.getAll", error);
-    }
-  }
-
-  static async getByCategory(category: string, sort: string) {
-    const sortBy = this.sortBy(sort);
-    try {
-      const products = await this.getDb().find({ category }).sort(sortBy).toArray();
-      return this.serialize(products);
-    } catch (error) {
-      console.log("Product.getByCategory", error);
     }
   }
 

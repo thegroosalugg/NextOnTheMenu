@@ -15,7 +15,7 @@ export type CartItemDB = WithObjectId<CartItem>;
 export default class CartItem {
        _id!: string;
      color!: string;
-      size?: Size;
+      size?: Size | null;
   quantity!: number;
      image?: ProdImage;
       name?: string;
@@ -35,7 +35,7 @@ export default class CartItem {
     const { images, sizes } = product;
 
     const color = this.getValue(images, $color, "color").color;
-    const size = sizes && this.getValue(sizes, $size);
+    const size = sizes ? this.getValue(sizes, $size) : null;
     return { _id, color, size, quantity: 1 };
   }
 
