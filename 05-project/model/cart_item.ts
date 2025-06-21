@@ -1,8 +1,8 @@
 import { Size } from "@/lib/types/size";
 import Product from "./product";
 import { ObjectId } from "mongodb";
-import { ProdImage } from "@/lib/types/prod_image";
 import { WithObjectId } from "@/lib/types/with_object_id";
+import { ProdImage } from "@/lib/types/prod_image";
 
 interface CartItemInput {
    product: Product;
@@ -14,18 +14,34 @@ export type CartItemDB = WithObjectId<CartItem>;
 
 export default class CartItem {
        _id!: string;
-     image!: ProdImage;
+     color!: string;
       size?: Size;
   quantity!: number;
+     image?: ProdImage;
+      name?: string;
+     price?: number;
+  category?: string;
+
+  private static getValue<T>(arr: T[], match: unknown, key?: keyof T): T {
+    return arr.find((item) => (key ? item[key] : item) === match) ?? arr[0];
+  }
 
   static create({
     product,
-    color,
-    size: selected,
+      color: $color,
+       size: $size,
   }: CartItemInput): CartItemDB {
-    const   _id = new ObjectId(product._id);
-    const image = product.images.find((  img   ) => img.color === color) ?? product.images[0];
-    const  size = product.sizes?.find((prodSize) => prodSize === selected) ?? product.sizes?.[0];
-    return { _id, image, size, quantity: 1 };
+    const _id = new ObjectId(product._id);
+    const { images, sizes } = product;
+
+    const color = this.getValue(images, $color, "color").color;
+    const size = sizes && this.getValue(sizes, $size);
+    return { _id, color, size, quantity: 1 };
+  }
+
+  static populate(item: CartItemDB, product: Product) {
+    const { name, price, images, category } = product;
+    const image = this.getValue(images, item.color, "color");
+    return { ...item, name, price, image, category };
   }
 }

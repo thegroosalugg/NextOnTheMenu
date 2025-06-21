@@ -17,10 +17,9 @@ export default class Cart {
   }
 
   private static async updateDbQuantity(cartId: ObjectId, item: CartItemDB, delta: Delta) {
-    const { _id, image, size } = item;
+    const { _id, color, size } = item;
     await this.getDb().updateOne(
-      // must match all 3 props - mongo can match image objects directly
-      { _id: cartId, items: { $elemMatch: { _id, image, size } } },
+      { _id: cartId, items: { $elemMatch: { _id, color, size } } }, // must match all 3 props
       { $inc: { "items.$.quantity": delta } }
     );
   }
@@ -31,8 +30,9 @@ export default class Cart {
   }
 
   private static serialize(cart: CartDB) {
-    const _id = cart._id.toString();
-    const items = cart.items.map((item) => ({ ...item, _id: item._id.toString() }));
+    const str = <T>(item: T & { _id: ObjectId }) => item._id.toString();
+    const _id = str(cart);
+    const items = cart.items.map((item) => ({ ...item, _id: str(item) }));
     return { _id, items };
   }
 
@@ -45,9 +45,9 @@ export default class Cart {
 
   private static getItemIndex(cart: CartDB, item: CartItemDB): number {
     return cart.items.findIndex(
-      ({ _id, image, size }) =>
+      ({ _id, color, size }) =>
         _id.toString() === item._id.toString() &&
-           image.color === item.image.color    &&
+                 color === item.color          &&
                   size === item.size
     );
   }
