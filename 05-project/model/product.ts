@@ -42,12 +42,24 @@ export default class Product {
         sort,
        match,
     category,
-  }: { sort?: string; match?: { _id: ObjectId }[]; category?: string } = {}) {
+      search,
+  }: {
+        sort?: string;
+       match?: { _id: ObjectId }[];
+    category?: string;
+      search?: string;
+  } = {}) {
     const sortBy = this.sortBy(sort);
     let query = {};
 
          if (category) query = { category };
-    else if  (match)   query = { _id: { $in: match.map(({ _id }) => _id) } };
+    else if ( match  ) query = { _id: { $in: match.map(({ _id }) => _id) } };
+    else if ( search ) {
+      const regex = new RegExp(search, "i");
+      query = {
+        $or: [{ name: regex }, { description: regex }, { category: regex }],
+      };
+    }
 
     try {
       const products = await this.getDb().find(query).sort(sortBy).toArray();

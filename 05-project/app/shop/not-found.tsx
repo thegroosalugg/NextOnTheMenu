@@ -1,12 +1,9 @@
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-        title: "Category not listed",
-  description: "No products listed in this category",
-};
+const description = "No products found for this search.";
+
+export const metadata: Metadata = { title: "Category not listed", description };
 
 export default function NotFound() {
-  return (
-    <h1 className="text-center mt-[5%]">No products listed in this category</h1>
-  );
+  return <h1 className="text-center mt-[5%]">{description}</h1>;
 }

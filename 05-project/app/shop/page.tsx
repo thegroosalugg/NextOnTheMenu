@@ -6,11 +6,11 @@ import { notFound } from "next/navigation";
 export default async function ShopPage({
   searchParams,
 }: {
-  searchParams: Param<"sort">;
+  searchParams: Param<"sort"> & Param<"q">;
 }) {
-  const { sort } = await searchParams;
-  const products = await Product.getAll({ sort });
-  if (!products) notFound();
+  const { sort, q } = await searchParams;
+  const products = await Product.getAll({ sort, search: q });
+  if (!products?.length) notFound();
 
   return <ProductList {...{ products }} />;
 }
