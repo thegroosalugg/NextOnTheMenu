@@ -7,6 +7,7 @@ type CartContext = {
          ui: { menu: string; backdrop: string };
    openMenu: () => void;
   closeMenu: () => void;
+   getTotal: () => string;
 };
 
 export const CartContext = createContext<CartContext | null>(null);
@@ -29,7 +30,13 @@ export function CartProvider({ cart, children }: CartProviderProps) {
   const [ui, setUi] = useState(hidden);
   const  openMenu = () => setUi(visible);
   const closeMenu = () => setUi(hidden);
-  const cartValue = { cart, ui, openMenu, closeMenu };
+  const  getTotal = () => {
+    return cart?.items
+      .reduce((total, { price, quantity }) => (total += price * quantity), 0)
+      .toFixed(2) ?? "0.00";
+  }
+
+  const cartValue = { cart, ui, openMenu, closeMenu, getTotal };
 
   return <CartContext.Provider value={cartValue}>{children}</CartContext.Provider>;
 }

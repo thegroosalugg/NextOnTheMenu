@@ -4,7 +4,7 @@ import CartActions from "./CartActions";
 
 export default function CartItems({ cart }: { cart: Cart }) {
   return (
-    <ul className="flex flex-col gap-2 overflow-y-scroll p-6">
+    <ul className="flex flex-col flex-auto gap-2 overflow-y-scroll py-2 px-6">
       {cart.items.map((cartItem) => {
         const { _id, name, size, color, image, price, quantity } = cartItem;
         return (

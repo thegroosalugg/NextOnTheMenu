@@ -1,8 +1,7 @@
 import PathLink from "../ui/button/PathLink";
+import Hr from "../ui/layout/Hr";
 import BrandLogo from "../ui/logo/BrandLogo";
 import VercelLogo from "../ui/logo/VercelLogo";
-
-const Hr = () => <hr className="border-t border-gray-300 shadow-sm" />;
 
 const sectionStyles = `
   flex flex-col md:flex-row

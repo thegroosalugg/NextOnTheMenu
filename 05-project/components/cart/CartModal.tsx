@@ -2,10 +2,12 @@
 import IconButton from "../ui/button/IconButton";
 import { useCart } from "./CartContext";
 import CartItems from "./CartItems";
+import Hr from "../ui/layout/Hr";
+import PillButton from "../ui/button/PillButton";
 
 export default function CartModal() {
-  const { cart, ui, openMenu, closeMenu } = useCart();
-
+  const { cart, ui, openMenu, closeMenu, getTotal } = useCart();
+  const cartTotal = getTotal();
   return (
     <>
       <IconButton icon="ShoppingCart" onClick={openMenu} />
@@ -24,10 +26,10 @@ export default function CartModal() {
         open
         className={`
           fixed inset-0 left-auto right-0 z-100
-          flex flex-col gap-3
+          flex flex-col gap-1
           h-screen w-screen md:w-2/5
           p-2 lg:p-4
-          bg-white/90 dark:bg-black/90
+          bg-white/92 dark:bg-black/92
           transition-transform duration-500 ease-in-out
           ${ui.menu}
         `}
@@ -37,6 +39,12 @@ export default function CartModal() {
           <IconButton icon="Cross" onClick={closeMenu} />
         </div>
         {cart && <CartItems {...{ cart }} />}
+        <Hr />
+        <div className="flex justify-between gap-2 px-2">
+          <p className="text-lg text-zinc-500 font-medium">Total</p>
+          <p>${cartTotal} USD</p>
+        </div>
+        {+cartTotal > 0 && <PillButton>Proceed to Checkout</PillButton>}
       </dialog>
     </>
   );
