@@ -10,7 +10,7 @@ export default function CartAddButton({ prodId }: { prodId: string }) {
   const color = searchParams.get("color");
 
   async function clickHandler() {
-    await updateCart({ prodId, size, color, delta: 1 });
+    await updateCart({ prodId, size, color, $delta: "1" });
     openMenu();
   }
 

@@ -10,6 +10,8 @@ export default class Icon {
   static  ChevronDown = 24;
   static    ChevronUp = 24;
   static        Cross = 24;
+  static         Plus = 24;
+  static        Minus = 24;
 }
 
 export type IconType = keyof Omit<typeof Icon, 'prototype'>

@@ -16,7 +16,7 @@ export default function ProductList({ products, hero, scroll, animate }: ListPro
                src={`/shop/${images[0].src}`}
                alt={name}
               hero={hero && i === 0}
-          priority={hero}
+          priority={i < 7}
         >
           <FloatingTag>
             <span className="line-clamp-2">{name}</span>
