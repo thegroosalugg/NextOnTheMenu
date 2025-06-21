@@ -9,7 +9,7 @@ export default async function ShopPage({
   searchParams: Param<"sort">;
 }) {
   const { sort } = await searchParams;
-  const products = await Product.getAll(sort);
+  const products = await Product.getAll({ sort });
   if (!products) notFound();
 
   return <ProductList {...{ products }} />;

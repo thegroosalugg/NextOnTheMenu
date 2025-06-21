@@ -30,7 +30,7 @@ export default class Product {
     return new ObjectId(_id);
   }
 
-  private static sortBy(sort: string): Record<string, 1 | -1> {
+  private static sortBy(sort?: string): Record<string, 1 | -1> {
     if (sort ===  "price") return { price:  1 };
     if (sort === "-price") return { price: -1 };
     if (sort ===  "views") return { views: -1 };
@@ -38,10 +38,20 @@ export default class Product {
     return { createdAt: -1 };
   }
 
-  static async getAll(sort: string = "") {
+  static async getAll({
+     sort,
+    match,
+  }: { sort?: string; match?: { _id: ObjectId }[] } = {}) {
     const sortBy = this.sortBy(sort);
+    let query = {};
+
+    if (match) {
+      const ids = match.map(({ _id }) => _id);
+      query = { _id: { $in: ids } };
+    }
+
     try {
-      const products = await this.getDb().find().sort(sortBy).toArray();
+      const products = await this.getDb().find(query).sort(sortBy).toArray();
       return this.serialize(products);
     } catch (error) {
       console.log("Product.getAll", error);

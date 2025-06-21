@@ -15,7 +15,10 @@ interface CartItemInput {
 export async function loadCart() {
   const cartId = (await cookies()).get("cartId")?.value;
   const cart = await Cart.load(cartId);
-  return cart;
+  if (!cart) return;
+
+  const products = await Product.getAll({ match: cart.items });
+  return Cart.merge(cart, products);
 }
 
 export async function updateCart({ prodId, size, color, delta }: CartItemInput) {

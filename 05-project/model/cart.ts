@@ -2,6 +2,7 @@ import client from "@/lib/mongo/mongodb";
 import { ObjectId } from "mongodb";
 import CartItem, { CartItemDB } from "./cart_item";
 import { Delta } from "@/lib/types/delta";
+import Product from "./product";
 
 type CartDB = {
     _id: ObjectId;
@@ -91,15 +92,26 @@ export default class Cart {
     }
   }
 
-  static async load(cartId?: string): Promise<Cart| void> {
+  static async load(cartId?: string) {
     try {
       if (!cartId || !ObjectId.isValid(cartId)) return;
       const _id = new ObjectId(cartId);
-      const cart = await this.getDb().findOne({ _id });
-      if (!cart) return;
-      return this.serialize(cart);
+      return await this.getDb().findOne({ _id });
     } catch (error) {
       console.log("Cart.load", error);
     }
+  }
+
+  static async merge(cart: CartDB, products?: Product[]) {
+    const productMap = new Map(
+      products?.map((product) => [product._id.toString(), product])
+    );
+
+    cart.items = cart.items.map((item) => {
+      const product = productMap.get(item._id.toString());
+      return product ? CartItem.populate(item, product) : item;
+    });
+
+    return this.serialize(cart);
   }
 }

@@ -4,14 +4,13 @@ import { updateCart } from "@/lib/actions/cart";
 import { useSearchParams } from "next/navigation";
 
 export default function CartAddButton({ prodId }: { prodId: string }) {
-  const { openMenu, setCart } = useCart();
+  const { openMenu } = useCart();
   const searchParams = useSearchParams();
   const size  = searchParams.get("size");
   const color = searchParams.get("color");
 
   async function clickHandler() {
-    const cart = await updateCart({ prodId, size, color, delta: 1 });
-    setCart(cart);
+    await updateCart({ prodId, size, color, delta: 1 });
     openMenu();
   }
 
