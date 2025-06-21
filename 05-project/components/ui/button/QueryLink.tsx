@@ -1,21 +1,15 @@
 "use client";
 import { ReactNode } from "react";
-import { useSetQueryParams } from "@/lib/hooks/useSetQueryParams";
+import { QueryConfig, useSetQueryParams } from "@/lib/hooks/useSetQueryParams";
 import Link from "next/link";
 
 export default function QueryLink({
       query,
       value,
-       font = "capitalize",
   isDefault,
+       font = "capitalize",
    children,
-}: {
-       query: string;
-       value: string;
-       font?: "uppercase" | "capitalize";
-  isDefault?: boolean;
-    children: ReactNode;
-}) {
+}: QueryConfig & { font?: "uppercase" | "capitalize"; children: ReactNode }) {
   const { queryParams, isActive } = useSetQueryParams({ query, value, isDefault });
 
   return (

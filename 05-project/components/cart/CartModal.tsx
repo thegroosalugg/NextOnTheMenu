@@ -1,9 +1,10 @@
 "use client";
 import IconButton from "../ui/button/IconButton";
 import { useCart } from "./CartContext";
+import CartItems from "./CartItems";
 
 export default function CartModal() {
-  const { ui, openMenu, closeMenu } = useCart();
+  const { cart, ui, openMenu, closeMenu } = useCart();
 
   return (
     <>
@@ -35,6 +36,7 @@ export default function CartModal() {
           <h2 className="font-mono text-xl pl-6 md:pl-3">Your Cart</h2>
           <IconButton icon="Cross" onClick={closeMenu} />
         </div>
+        {cart && <CartItems {...{ cart }} />}
       </dialog>
     </>
   );

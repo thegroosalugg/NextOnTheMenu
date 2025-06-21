@@ -107,11 +107,12 @@ export default class Cart {
       products?.map((product) => [product._id.toString(), product])
     );
 
-    cart.items = cart.items.map((item) => {
+    const items = cart.items.reduce<CartItem[]>((acc, item) => {
       const product = productMap.get(item._id.toString());
-      return product ? CartItem.populate(item, product) : item;
-    });
+      if (product) acc.push(CartItem.populate(item, product));
+      return acc;
+    }, []).reverse();
 
-    return this.serialize(cart);
+    return { _id: cart._id.toString(), items };
   }
 }

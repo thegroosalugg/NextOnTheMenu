@@ -39,9 +39,9 @@ export default class CartItem {
     return { _id, color, size, quantity: 1 };
   }
 
-  static populate(item: CartItemDB, product: Product) {
-    const { name, price, images, category } = product;
+  static populate(item: CartItemDB, product: Product): CartItem {
+    const { _id, name, price, images, category } = product;
     const image = this.getValue(images, item.color, "color");
-    return { ...item, name, price, image, category };
+    return { ...item, name, price, image, category, _id: _id.toString() };
   }
 }

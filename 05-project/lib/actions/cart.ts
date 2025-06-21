@@ -15,7 +15,7 @@ interface CartItemInput {
 export async function loadCart() {
   const cartId = (await cookies()).get("cartId")?.value;
   const cart = await Cart.load(cartId);
-  if (!cart) return;
+  if (!cart) return null;
 
   const products = await Product.getAll({ match: cart.items });
   return Cart.merge(cart, products);

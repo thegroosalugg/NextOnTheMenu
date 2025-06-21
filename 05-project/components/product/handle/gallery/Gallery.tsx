@@ -38,7 +38,7 @@ export default function Gallery({ images, name }: { images: ProdImage[]; name: s
             <ImageTile
               href={{ query: "color", value: color, isDefault: i === 0 }}
                src={`/shop/${src}`}
-               alt={`${name}${color}`}
+               alt={`${name} ${color}`}
               priority
             />
           </li>

@@ -1,7 +1,7 @@
 import { useSearchParams } from "next/navigation";
 
 export class QueryConfig {
-       query = "";
+       query: "size" | "color" = "color";
        value = "";
   isDefault? = false;
 };
