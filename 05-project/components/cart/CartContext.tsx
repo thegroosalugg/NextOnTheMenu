@@ -18,8 +18,8 @@ export function useCart() {
 }
 
 interface CartProviderProps {
-       cart: Cart | null;
-   children: ReactNode;
+      cart: Cart | null;
+  children: ReactNode;
 }
 
 const  hidden = { menu: "translate-x-full", backdrop: "opacity-0 pointer-events-none"  };
@@ -29,13 +29,7 @@ export function CartProvider({ cart, children }: CartProviderProps) {
   const [ui, setUi] = useState(hidden);
   const  openMenu = () => setUi(visible);
   const closeMenu = () => setUi(hidden);
-
-  const cartValue = {
-    cart,
-    ui,
-    openMenu,
-    closeMenu,
-  };
+  const cartValue = { cart, ui, openMenu, closeMenu };
 
   return <CartContext.Provider value={cartValue}>{children}</CartContext.Provider>;
 }

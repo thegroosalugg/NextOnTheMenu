@@ -8,7 +8,7 @@ export default function CartItems({ cart }: { cart: Cart }) {
         <li key={`${_id}${color}${size}`}>
           <ImageTile
             href={`/product/${_id}`}
-            src={`/shop/${image?.src}`}
+            src={`/shop/${image.src}`}
             alt={`${name} ${color}`}
           />
         </li>

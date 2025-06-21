@@ -28,10 +28,10 @@ export async function updateCart({ prodId, size, color, delta }: CartItemInput) 
   if (!product) return;
 
   const item = CartItem.create({ product, size, color });
-  const cart = await Cart.update({ cartId, item, delta });
+  const successId = await Cart.update({ cartId, item, delta });
 
-  if (cart) (await cookies()).set("cartId", cart._id);
-  else      (await cookies()).delete("cartId");
+  if (successId) (await cookies()).set("cartId", successId);
+  else           (await cookies()).delete("cartId");
 
-  return cart;
+  return successId;
 }

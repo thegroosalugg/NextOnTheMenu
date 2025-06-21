@@ -4,6 +4,12 @@ import CartItem, { CartItemDB } from "./cart_item";
 import { Delta } from "@/lib/types/delta";
 import Product from "./product";
 
+interface CartUpdateInput<T> {
+  cartId: T;
+    item: CartItemDB;
+   delta: Delta;
+}
+
 type CartDB = {
     _id: ObjectId;
   items: CartItemDB[];
@@ -17,7 +23,7 @@ export default class Cart {
     return client.db().collection<CartDB>("cart");
   }
 
-  private static async updateDbQuantity(cartId: ObjectId, item: CartItemDB, delta: Delta) {
+  private static async updateDbQuantity({ cartId, item, delta }: CartUpdateInput<ObjectId>) {
     const { _id, color, size } = item;
     await this.getDb().updateOne(
       { _id: cartId, items: { $elemMatch: { _id, color, size } } }, // must match all 3 props
@@ -25,27 +31,20 @@ export default class Cart {
     );
   }
 
-  private static async patchDbItems(_id: ObjectId, item: CartItemDB, delta: Delta) {
+  private static async patchDbItems({ cartId, item, delta }: CartUpdateInput<ObjectId>) {
     const action = delta === 1 ? "$push" : "$pull";
-    await this.getDb().updateOne({ _id }, { [action]: { items: item } });
-  }
-
-  private static serialize(cart: CartDB) {
-    const str = <T>(item: T & { _id: ObjectId }) => item._id.toString();
-    const _id = str(cart);
-    const items = cart.items.map((item) => ({ ...item, _id: str(item) }));
-    return { _id, items };
+    await this.getDb().updateOne({ _id: cartId }, { [action]: { items: item } });
   }
 
   private static async createCart(delta: Delta, item: CartItemDB) {
     if (delta !== 1) return;
     const cart: CartDB = { _id: new ObjectId(), items: [item] };
     await this.getDb().insertOne(cart);
-    return this.serialize(cart);
+    return cart._id.toString();
   }
 
-  private static getItemIndex(cart: CartDB, item: CartItemDB): number {
-    return cart.items.findIndex(
+  private static matchItem(cart: CartDB, item: CartItemDB) {
+    return cart.items.find(
       ({ _id, color, size }) =>
         _id.toString() === item._id.toString() &&
                  color === item.color          &&
@@ -57,36 +56,27 @@ export default class Cart {
     cartId,
       item,
      delta,
-  }: {
-    cartId?: string;
-       item: CartItemDB;
-      delta: Delta;
-  }): Promise<Cart | void> {
+  }: CartUpdateInput<string | undefined>): Promise<Cart["_id"] | void> {
     try {
-      if (!cartId || !ObjectId.isValid(cartId)) return await this.createCart(delta, item);
+      const createCart = async () => this.createCart(delta, item);
+      if (!cartId || !ObjectId.isValid(cartId)) return await createCart();
 
-      const _id = new ObjectId(cartId);
-      const cart = await this.getDb().findOne({ _id });
-      if (!cart) return await this.createCart(delta, item);
+      const cart = await this.getDb().findOne({ _id: new ObjectId(cartId) });
+      if (!cart) return await createCart();
 
-      const index = this.getItemIndex(cart, item);
-      const foundItem = cart.items[index];
+      const  foundItem = this.matchItem(cart, item);
+      const updateData = { cartId: cart._id, item, delta };
+      const patchItems = async () => this.patchDbItems(updateData);
 
       if (foundItem) {
-        cart.items[index].quantity += delta;
+        foundItem.quantity += delta;
 
-        if (cart.items[index].quantity <= 0) {
-          await this.patchDbItems(cart._id, item, delta);
-          cart.items.splice(index, 1);
-        } else {
-          await this.updateDbQuantity(cart._id, item, delta);
-        }
-      } else {
-        await this.patchDbItems(cart._id, item, delta);
-        cart.items.unshift(item);
-      }
+        if (foundItem.quantity <= 0) await patchItems(); // remove
+        else await this.updateDbQuantity(updateData); // quantity +1|-1
 
-      return this.serialize(cart);
+      } else await patchItems(); // add
+
+      return cart._id.toString();
     } catch (error) {
       console.log("Cart.update", error);
     }

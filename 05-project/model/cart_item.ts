@@ -9,18 +9,19 @@ interface CartItemInput {
     color?: string | null;
      size?: string | null;
 }
+type ProductKeys = "name" | "price" | "category";
+type ProductSnapshot = Pick<Product, ProductKeys>;
+export type CartItemDB = Omit<WithObjectId<CartItem>, ProductKeys | "image">;
 
-export type CartItemDB = WithObjectId<CartItem>;
-
-export default class CartItem {
+export default class CartItem implements ProductSnapshot {
        _id!: string;
      color!: string;
       size?: Size | null;
   quantity!: number;
-     image?: ProdImage;
-      name?: string;
-     price?: number;
-  category?: string;
+     image!: ProdImage;
+      name!: string;
+     price!: number;
+  category!: string;
 
   private static getValue<T>(arr: T[], match: unknown, key?: keyof T): T {
     return arr.find((item) => (key ? item[key] : item) === match) ?? arr[0];
