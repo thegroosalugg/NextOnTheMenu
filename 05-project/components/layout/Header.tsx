@@ -13,7 +13,7 @@ export default async function Header() {
       className="
         flex gap-4
         items-center justify-between
-        p-2 lg:p-4
+        p-4 lg:p-6
         overflow-x-scroll
       "
     >

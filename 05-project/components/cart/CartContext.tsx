@@ -2,12 +2,14 @@
 import Cart from "@/model/cart";
 import { createContext, useContext, useState, ReactNode } from "react";
 
+type CartMetrics = "price" | "quantity";
+
 type CartContext = {
        cart: Cart | null;
          ui: { menu: string; backdrop: string };
    openMenu: () => void;
   closeMenu: () => void;
-   getTotal: () => string;
+   getTotal: (type: CartMetrics) => number;
 };
 
 export const CartContext = createContext<CartContext | null>(null);
@@ -30,11 +32,12 @@ export function CartProvider({ cart, children }: CartProviderProps) {
   const [ui, setUi] = useState(hidden);
   const  openMenu = () => setUi(visible);
   const closeMenu = () => setUi(hidden);
-  const  getTotal = () => {
-    return cart?.items
-      .reduce((total, { price, quantity }) => (total += price * quantity), 0)
-      .toFixed(2) ?? "0.00";
-  }
+
+  const getTotal = (type = "quantity") =>
+    cart?.items.reduce(
+      (total, { price, quantity }) => total + quantity * (type === "price" ? price : 1),
+      0
+    ) ?? 0;
 
   const cartValue = { cart, ui, openMenu, closeMenu, getTotal };
 

@@ -19,7 +19,7 @@ export default function MobileMenu({ links }: { links: Category[] }) {
           fixed inset-0 z-100
           flex flex-col gap-3
           w-screen h-screen
-          p-2 lg:p-4
+          p-4 lg:p-6
           bg-white/90 dark:bg-black/90
           transition-transform duration-500 ease-in-out
           ${showMenu}

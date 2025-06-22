@@ -2,14 +2,16 @@
 import IconButton from "../ui/button/IconButton";
 import { useCart } from "./CartContext";
 import CartBody from "./CartBody";
+import CartOpenButton from "./CartOpenButton";
 
 export default function CartModal() {
   const { cart, ui, openMenu, closeMenu, getTotal } = useCart();
-  const total = getTotal();
+  const total = getTotal("price").toFixed(2);
+  const totalQty = getTotal("quantity");
 
   return (
     <>
-      <IconButton icon="ShoppingCart" onClick={openMenu} />
+      <CartOpenButton total={totalQty} onClick={openMenu} />
       <div
         onClick={closeMenu}
         className={`
@@ -34,10 +36,10 @@ export default function CartModal() {
           ${ui.menu}
         `}
       >
-        <div className="flex justify-between items-center">
-          <h2 className="font-mono text-xl pl-6 md:pl-3">Your Cart</h2>
+        <header className="flex justify-between items-center p-2">
+          <h2 className="font-mono text-xl pl-2">Your Cart</h2>
           <IconButton icon="Cross" onClick={closeMenu} />
-        </div>
+        </header>
         <CartBody {...{ cart, total }} />
       </dialog>
     </>

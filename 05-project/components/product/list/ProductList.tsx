@@ -22,7 +22,7 @@ export default function ProductList({ products, hero, scroll, animate }: ListPro
             <span className="line-clamp-2">{name}</span>
             <span className="bg-sky-700 text-white py-0.5 px-1 md:py-1 md:px-2 rounded-3xl">
               ${price}
-              {hero && <span className="hidden md:inline"> USD</span>}
+              {hero && i === 0 && <span className="hidden md:inline"> USD</span>}
             </span>
           </FloatingTag>
         </ImageTile>
