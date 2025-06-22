@@ -11,7 +11,7 @@ export default function CartOpenButton({
       {total > 0 && (
         <span
           className="
-            absolute -top-2.5 -right-2
+            absolute -top-2 -right-2
             bg-accent text-white text-center
             w-[20px] text-[10px]
             border rounded-lg

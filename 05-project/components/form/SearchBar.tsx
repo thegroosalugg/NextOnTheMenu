@@ -7,7 +7,7 @@ export default function SearchBar() {
         name="q"
         className="
           border rounded-lg
-          w-full pl-2 py-1 pr-5
+          w-full pl-2 py-1 pr-7
           text-sm bg-white
           placeholder:text-neutral-500
         "
@@ -15,12 +15,12 @@ export default function SearchBar() {
       />
       <button
         className="
-          absolute top-1.5 right-1
+          absolute top-0.5 right-1
           [&>svg]:fill-neutral-500
           [&>svg]:hover:stroke-neutral-500
         "
       >
-        <Svg icon="Search" />
+        <Svg icon="Search" size={24} />
       </button>
     </form>
   );
