@@ -17,7 +17,7 @@ export default function CartBody({ cart, total }: { cart: Cart | null; total: st
       )}
       <Hr />
       <div className="flex justify-between gap-2 px-2">
-        <p className="text-lg text-zinc-500 font-medium">Total</p>
+        <p className="text-lg text-zinc-500 dark:text-zinc-400 font-medium">Total</p>
         <p>${total} USD</p>
       </div>
       {+total > 0 && <PillButton>Proceed to Checkout</PillButton>}

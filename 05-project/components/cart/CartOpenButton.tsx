@@ -12,7 +12,7 @@ export default function CartOpenButton({
         <span
           className="
             absolute -top-2 -right-2
-            bg-accent text-white text-center
+            bg-accent text-bg text-center
             w-[20px] text-[10px]
             border rounded-lg
           "

@@ -18,7 +18,7 @@ export function useSetQueryParams({ query, value, isDefault }: QueryConfig) {
   const current = searchParams.get(query);
   const isActive =
     current === value || (isDefault && !current)
-      ? `border-sky-700 dark:border-sky-400 text-sky-700 dark:text-sky-400`
+      ? `border-sky-700 dark:border-sky-400 text-sky-700 dark:text-sky-400 dark:bg-stone-700`
       : "border-transparent";
 
   return { queryParams: newParams?.toString(), isActive };
