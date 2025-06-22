@@ -4,13 +4,6 @@ import Cart from "@/model/cart";
 import CartItem from "@/model/cart_item";
 import Product from "@/model/product";
 
-interface CartItemInput {
-    prodId: string;
-    color?: string | null;
-     size?: string | null;
-    $delta: string;
-}
-
 export async function loadCart() {
   const cartId = (await cookies()).get("cartId")?.value;
   const cart = await Cart.load(cartId);
@@ -18,6 +11,13 @@ export async function loadCart() {
 
   const products = await Product.getAll({ match: cart.items });
   return Cart.merge(cart, products);
+}
+
+export interface CartItemInput {
+    prodId: string;
+    color?: string | null;
+     size?: string | null;
+    $delta: string;
 }
 
 const deltaMap = { "1": 1, "-1": -1 } as const;
