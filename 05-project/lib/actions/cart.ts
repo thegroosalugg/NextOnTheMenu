@@ -57,13 +57,15 @@ export async function goToCheckout() {
     },
   }));
 
+  const   token = crypto.randomUUID(); // success token
   const     url = process.env.SITE_URL;
   const session = await stripe.checkout.sessions.create({
            mode: 'payment',
      line_items,
-    success_url: `${url}success`,
-     cancel_url: `${url}cancel`,
+    success_url: `${url}success?token=${token}`,
+     cancel_url: `${url}shop`,
   });
 
+  Cart.token({ cartId: cart._id, token }); // no await - go straight to redirect
   redirect(session.url!);
 }
