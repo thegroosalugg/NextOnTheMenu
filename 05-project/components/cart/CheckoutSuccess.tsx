@@ -8,5 +8,9 @@ export default function CheckoutSuccess() {
     deleteCookie();
   }, []);
 
-  return <p className="text-center mt-[5%]">Order successfully placed</p>;
+  return (
+    <p className="mt-[5%] text-center text-2xl font-mono wrap-break-word">
+      Order placed successfully.
+    </p>
+  );
 }

@@ -7,14 +7,27 @@ import { notFound } from "next/navigation";
 export default async function CheckoutSuccessPage({
   searchParams,
 }: {
-  searchParams: Param<"token">;
+  searchParams: Param<"token"> & Param<"confirmation">;
 }) {
-  const { token } = await searchParams;
-  const cartId = (await cookies()).get("cartId")?.value;
-  if (!token || !cartId) notFound();
+  const { token, confirmation } = await searchParams;
+  const cookieStore = await cookies();
+  const confirmId   = cookieStore.get("confirmId")?.value;
+  const cartId      = cookieStore.get("cartId")?.value;
 
-  const res = await Cart.token({ cartId, token, deleteCart: true });
-  if (res?.deletedCount === 0) notFound();
+  const badRequest =
+    // neither a first-time token nor a follow-up confirm
+    (!confirmId && !token) ||
+    // a stale or mismatched confirmation
+    (confirmId && confirmId !== confirmation);
+
+  if (badRequest) notFound();
+
+  if (!confirmId) {
+    if (!cartId) notFound();
+
+    const res = await Cart.token({ cartId, token, deleteCart: true });
+    if (!res?.deletedCount) notFound();
+  }
 
   return <CheckoutSuccess />;
 }

@@ -25,10 +25,12 @@ export interface CartItemInput {
 const deltaMap = { "1": 1, "-1": -1 } as const;
 
 export async function updateCart({ prodId, size, color, $delta }: CartItemInput) {
+  const cookieStore = await cookies();
+  cookieStore.delete("confirmId"); // destroy old success page tokens on new cart interaction
   const delta = deltaMap[$delta as keyof typeof deltaMap];
   if (!delta) return console.log('Invalid Delta');
 
-  const cartId = (await cookies()).get("cartId")?.value;
+  const cartId = cookieStore.get("cartId")?.value;
 
   const product = await Product.findById(prodId);
   if (!product) return;
@@ -37,8 +39,8 @@ export async function updateCart({ prodId, size, color, $delta }: CartItemInput)
   const revalidateCartId = await Cart.update({ cartId, item, delta }); // ID only returned on success
 
   // re-triggers loadCart at root - gets latest data
-  if (revalidateCartId) (await cookies()).set("cartId", revalidateCartId);
-  else                  (await cookies()).delete("cartId");
+  if (revalidateCartId) cookieStore.set("cartId", revalidateCartId);
+  else                  cookieStore.delete("cartId");
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET!);
@@ -70,5 +72,9 @@ export async function goToCheckout() {
 }
 
 export async function deleteCookie() {
-  (await cookies()).delete("cartId");
+  const confirmId = crypto.randomUUID();
+  const cookieStore = await cookies();
+  cookieStore.delete("cartId"); // cart deleted => triggers cart refetch
+  cookieStore.set("confirmId", confirmId); // keeps user on success page
+  redirect(`/success?confirmation=${confirmId}`);
 }
