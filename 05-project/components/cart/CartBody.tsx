@@ -1,8 +1,8 @@
 import Cart from "@/model/cart";
 import CartItems from "./CartItems";
+import CartCheckoutButton from "./CartCheckoutButton";
 import Svg from "../ui/icon/Svg";
 import Hr from "../ui/layout/Hr";
-import PillButton from "../ui/button/PillButton";
 
 export default function CartBody({ cart, total }: { cart: Cart | null; total: string }) {
   return (
@@ -20,7 +20,7 @@ export default function CartBody({ cart, total }: { cart: Cart | null; total: st
         <p className="text-lg text-zinc-500 dark:text-zinc-400 font-medium">Total</p>
         <p>${total} USD</p>
       </div>
-      {+total > 0 && <PillButton>Proceed to Checkout</PillButton>}
+      {+total > 0 && <CartCheckoutButton />}
     </>
   );
 }

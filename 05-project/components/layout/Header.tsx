@@ -2,7 +2,7 @@ import Category from "@/model/category";
 import MobileMenu from "./MobileMenu";
 import BrandLogo from "../ui/logo/BrandLogo";
 import NavGroup from "./NavGroup";
-import SearchBar from "../form/SearchBar";
+import SearchBar from "./SearchBar";
 import CartModal from "../cart/CartModal";
 
 export default async function Header() {

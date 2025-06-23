@@ -3,7 +3,7 @@ import { useState } from "react";
 import Category from "@/model/category";
 import IconButton from "../ui/button/IconButton";
 import NavGroup from "./NavGroup";
-import SearchBar from "../form/SearchBar";
+import SearchBar from "./SearchBar";
 
 export default function MobileMenu({ links }: { links: Category[] }) {
   const [showMenu, setShowMenu] = useState("-translate-x-full");
