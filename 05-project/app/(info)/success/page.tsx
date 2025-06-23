@@ -1,3 +1,4 @@
+import CheckoutSuccess from "@/components/cart/CheckoutSuccess";
 import { Param } from "@/lib/types/param";
 import Cart from "@/model/cart";
 import { cookies } from "next/headers";
@@ -15,5 +16,5 @@ export default async function CheckoutSuccessPage({
   const res = await Cart.token({ cartId, token, deleteCart: true });
   if (res?.deletedCount === 0) notFound();
 
-  return <p className="text-center mt-[5%]">Order successfully placed</p>;
+  return <CheckoutSuccess />;
 }

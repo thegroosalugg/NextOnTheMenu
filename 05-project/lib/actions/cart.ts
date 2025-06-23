@@ -34,12 +34,11 @@ export async function updateCart({ prodId, size, color, $delta }: CartItemInput)
   if (!product) return;
 
   const item = CartItem.create({ product, size, color });
-  const successId = await Cart.update({ cartId, item, delta });
+  const revalidateCartId = await Cart.update({ cartId, item, delta }); // ID only returned on success
 
-  if (successId) (await cookies()).set("cartId", successId);
-  else           (await cookies()).delete("cartId");
-
-  return successId;
+  // re-triggers loadCart at root - gets latest data
+  if (revalidateCartId) (await cookies()).set("cartId", revalidateCartId);
+  else                  (await cookies()).delete("cartId");
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET!);
@@ -68,4 +67,8 @@ export async function goToCheckout() {
 
   Cart.token({ cartId: cart._id, token }); // no await - go straight to redirect
   redirect(session.url!);
+}
+
+export async function deleteCookie() {
+  (await cookies()).delete("cartId");
 }

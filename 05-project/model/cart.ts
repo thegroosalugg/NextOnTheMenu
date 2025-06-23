@@ -100,9 +100,9 @@ export default class Cart {
 
     const items = cart.items.reduce<CartItem[]>((acc, item) => {
       const product = productMap.get(item._id.toString());
-      if (product) acc.push(CartItem.populate(item, product));
+      if (product) acc.unshift(CartItem.populate(item, product));
       return acc;
-    }, []).reverse();
+    }, []);
 
     return { _id: cart._id.toString(), items };
   }
