@@ -38,6 +38,9 @@
     --size-spinner: 32px;
     --border: 4px;
   }
+
+  &.bg    { --color: var(--bg); }
+  &.white { --color: #fff;    }
 }
 
 @keyframes loader {
