@@ -40,7 +40,7 @@ export default function CartItems({ cart }: { cart: Cart }) {
             </div>
             <div className="flex-auto p-1 min-w-0">
               <h2 className="line-clamp-2">{name}</h2>
-              <p className="truncate text-zinc-500 text-sm">
+              <p className="truncate text-zinc-500 dark:text-zinc-400 text-sm">
                 {size && <span className="uppercase">{`${size} | `}</span>}
                 <span className="capitalize">{color}</span>
               </p>

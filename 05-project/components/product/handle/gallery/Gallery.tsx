@@ -18,7 +18,7 @@ export default function Gallery({ images, name }: { images: ProdImage[]; name: s
     <div className="flex-auto min-w-0 max-w-full mx-auto">
       <div className="relative aspect-square min-h-120 max-w-full md:max-w-4/5 mx-auto">
         <Image
-          className="object-cover shadow-xl"
+          className="object-cover shadow-xl animate-fadeIn"
           src={"/shop/" + src}
           alt={`${name} ${color}`}
           priority

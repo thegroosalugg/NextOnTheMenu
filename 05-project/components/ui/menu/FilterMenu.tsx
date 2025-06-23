@@ -51,12 +51,14 @@ export default function FilterMenu({ params, label, menu }: MenuProps) {
 
   return (
     <>
-      <ul className="hidden md:flex flex-col p-4">
+      <div className="hidden md:block p-4">
         <h2 className="text-slate-400 font-bold">{label}</h2>
-        {menu.map((item) => (
-          <FilterItem key={item._id} {...{ params, item }} />
-        ))}
-      </ul>
+        <ul className="flex flex-col">
+          {menu.map((item) => (
+            <FilterItem key={item._id} {...{ params, item }} />
+          ))}
+        </ul>
+      </div>
       <div
         ref={menuRef}
         className="flex md:hidden flex-col w-[80%] relative mx-auto mt-4 capitalize"

@@ -17,6 +17,7 @@ type CartDB = {
 
 export default class Cart {
     _id!: string;
+  token?: string;
   items!: CartItem[];
 
   private static getDb() {
@@ -99,10 +100,33 @@ export default class Cart {
 
     const items = cart.items.reduce<CartItem[]>((acc, item) => {
       const product = productMap.get(item._id.toString());
-      if (product) acc.push(CartItem.populate(item, product));
+      if (product) acc.unshift(CartItem.populate(item, product));
       return acc;
-    }, []).reverse();
+    }, []);
 
     return { _id: cart._id.toString(), items };
+  }
+
+  static async token({
+        cartId,
+         token,
+    deleteCart,
+  }: {
+         cartId: string;
+          token: string;
+    deleteCart?: boolean;
+  }) {
+    try {
+      if (!cartId || !ObjectId.isValid(cartId)) return;
+      const _id = new ObjectId(cartId);
+
+      if (deleteCart) {
+        return await this.getDb().deleteOne({ _id, token });
+      } else {
+        await this.getDb().updateOne({ _id }, { $set: { token } });
+      }
+    } catch (error) {
+      console.log("Cart.token", error);
+    }
   }
 }

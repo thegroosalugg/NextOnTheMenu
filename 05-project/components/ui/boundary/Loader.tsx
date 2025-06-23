@@ -1,8 +1,14 @@
-import styles from './Loader.module.css';
+import styles from "./Loader.module.css";
 
-export default function Loader({ size }: { size?: 'xs' | 'sm' }) {
-  let classes = styles['loader'];
-  if (size) classes += ` ${styles[size]}`;
+interface LoaderProps {
+   size?: "xs" | "sm";
+  color?: "bg" | "white";
+}
+
+export default function Loader({ size, color }: LoaderProps) {
+  let classes = styles["loader"];
+  if (size)  classes += ` ${styles[size]}`;
+  if (color) classes += ` ${styles[color]}`;
 
   return (
     <div className={classes}>

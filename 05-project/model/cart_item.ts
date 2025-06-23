@@ -9,7 +9,7 @@ interface CartItemInput {
     color?: string | null;
      size?: string | null;
 }
-type ProductKeys = "name" | "price" | "category";
+type ProductKeys = "name" | "desc" | "price" | "category";
 type ProductSnapshot = Pick<Product, ProductKeys>;
 export type CartItemDB = Omit<WithObjectId<CartItem>, ProductKeys | "image">;
 
@@ -20,6 +20,7 @@ export default class CartItem implements ProductSnapshot {
   quantity!: number;
      image!: ProdImage;
       name!: string;
+      desc!: string;
      price!: number;
   category!: string;
 
@@ -41,8 +42,8 @@ export default class CartItem implements ProductSnapshot {
   }
 
   static populate(item: CartItemDB, product: Product): CartItem {
-    const { _id, name, price, images, category } = product;
+    const { _id, name, desc, price, images, category } = product;
     const image = this.getValue(images, item.color, "color");
-    return { ...item, name, price, image, category, _id: _id.toString() };
+    return { ...item, name, desc, price, image, category, _id: _id.toString() };
   }
 }

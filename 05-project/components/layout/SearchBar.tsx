@@ -8,8 +8,7 @@ export default function SearchBar() {
         className="
           border rounded-lg
           w-full pl-2 py-1 pr-7
-          text-sm bg-white
-          placeholder:text-neutral-500
+          text-sm text-black bg-white
         "
         placeholder="Search..."
       />
