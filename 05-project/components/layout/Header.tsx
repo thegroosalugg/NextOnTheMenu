@@ -1,4 +1,4 @@
-import Category from "@/model/category";
+import { getLinks } from "@/lib/actions/category";
 import MobileMenu from "./MobileMenu";
 import BrandLogo from "../ui/logo/BrandLogo";
 import NavGroup from "./NavGroup";
@@ -6,7 +6,7 @@ import SearchBar from "./SearchBar";
 import CartModal from "../cart/CartModal";
 
 export default async function Header() {
-  const links = await Category.getLinks();
+  const links = await getLinks();
 
   return (
     <header

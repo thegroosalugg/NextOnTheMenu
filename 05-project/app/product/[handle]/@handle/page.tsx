@@ -1,4 +1,5 @@
 import Product from '@/model/product';
+import { findProduct } from '@/lib/actions/product';
 import { notFound } from 'next/navigation';
 import { Param } from '@/lib/types/param';
 import Gallery from '@/components/product/handle/gallery/Gallery';
@@ -8,7 +9,7 @@ type Params = { params: Param<"handle"> };
 
 export const generateMetadata = async ({ params }: Params) => {
   const { handle } = await params;
-  const product = await Product.findById(handle);
+  const product = await findProduct(handle);
   if (!product) notFound();
 
   return {
@@ -19,7 +20,7 @@ export const generateMetadata = async ({ params }: Params) => {
 
 export default async function ProductDetails({ params }: Params) {
   const { handle } = await params;
-  const product = await Product.findById(handle);
+  const product = await findProduct(handle);
   if (!product) notFound();
 
   Product.updateViews(product._id); // non blocking
