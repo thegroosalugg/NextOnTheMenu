@@ -14,7 +14,7 @@ export default function CartCheckoutButton() {
   }
 
   return (
-    <PillButton onClick={clickHandler}>
+    <PillButton onClick={clickHandler} classes="mb-2 md:mb-1 text-sm lg:text-base">
       {pending ? <Loader size="xs" color="bg" /> : "Proceed to Checkout"}
     </PillButton>
   );

@@ -28,7 +28,7 @@ export default function CartModal() {
         className={`
           fixed inset-0 left-auto right-0 z-100
           flex flex-col gap-1
-          h-screen w-screen md:w-2/5
+          h-full w-screen md:w-2/5
           overflow-y-scroll
           p-2 lg:p-4
           bg-white/92 dark:bg-black/92

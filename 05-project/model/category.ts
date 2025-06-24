@@ -11,6 +11,7 @@ export default class Category extends SortFilter {
   }
 
   static async getAll() {
+    console.log("Fetching Categories"); // **LOGGING
     try {
       const categories = await this.getDb().find().toArray();
       return this.serialize(categories);
@@ -21,6 +22,7 @@ export default class Category extends SortFilter {
   }
 
   static async getLinks() {
+    console.log("Fetching Links"); // **LOGGING
     try {
       const categories = await this.getDb().find().limit(3).toArray();
       return this.serialize(categories);
@@ -31,6 +33,7 @@ export default class Category extends SortFilter {
   }
 
   static async isValid(path: string) {
+    console.log("Checking Category is valid"); // **LOGGING
     try {
       return (await this.getDb().countDocuments({ path }, { limit: 1 })) > 0;
     } catch (error) {

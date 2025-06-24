@@ -18,15 +18,17 @@ export default function Footer() {
         <BrandLogo />
         <nav className="flex flex-col gap-1 md:gap-4">
           <PathLink href="/">Home</PathLink>
-          <PathLink href="/">About</PathLink>
-          <PathLink href="/">Terms & Conditions</PathLink>
+          <PathLink href="/about">About</PathLink>
+          <PathLink href="/terms-conditions">Terms & Conditions</PathLink>
         </nav>
         <VercelLogo />
       </section>
       <Hr />
       <section className={`${sectionStyles} justify-between text-xs`}>
         <p>© 2025 Shopify Demo — Built for educational purposes. All rights reserved.</p>
-        <PathLink href="/">View Source Code</PathLink>
+        <PathLink href="https://github.com/thegroosalugg/NextOnTheMenu/tree/main/05-project">
+          View Source Code
+        </PathLink>
         <p>Designed with Next 15, MongoDb & Tailwind 4.</p>
       </section>
     </footer>

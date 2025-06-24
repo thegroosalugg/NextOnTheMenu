@@ -51,6 +51,7 @@ export default class Product {
     category,
       search,
   }: FetchProdOptions = {}) {
+    console.log('Fetching Products...'); // **LOGGING
     const sortBy = this.sortBy(sort);
     let query = {};
 
@@ -72,6 +73,7 @@ export default class Product {
   }
 
   static async findById(prodId: string) {
+    console.log('Fetching single product...'); // **LOGGING
     try {
       const _id = this.toObjectId(prodId);
       const product = await this.getDb().findOne({ _id });
@@ -82,6 +84,7 @@ export default class Product {
   }
 
   static async getFeatured() {
+    console.log('Fetching Featured Products...'); // **LOGGING
     try {
       const products = await this.getDb()
         .find()
