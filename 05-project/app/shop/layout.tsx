@@ -1,6 +1,6 @@
 import FilterMenu from "@/components/ui/menu/FilterMenu";
+import { getCategories } from "@/lib/actions/category";
 import { SortTypes } from "@/lib/types/sort_types";
-import Category from "@/model/category";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ShopLayout({ children }: { children: React.ReactNode }) {
-  const categories = await Category.getAll();
+  const categories = await getCategories();
 
   return (
     <section
