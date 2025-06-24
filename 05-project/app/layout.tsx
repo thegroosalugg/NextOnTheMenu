@@ -20,7 +20,7 @@ const poiret_one = Poiret_One({
 });
 
 export const metadata: Metadata = {
-        title: 'Shopify',
+        title: 'Shopify | Home',
   description: 'Next JS project',
 };
 

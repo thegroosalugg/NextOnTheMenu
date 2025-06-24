@@ -1,8 +1,14 @@
 import CheckoutSuccess from "@/components/cart/CheckoutSuccess";
 import { Param } from "@/lib/types/param";
 import Cart from "@/model/cart";
+import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+
+export const metadata: Metadata = {
+        title: 'Order Confirmed',
+  description: 'Order success page',
+};
 
 export default async function CheckoutSuccessPage({
   searchParams,
