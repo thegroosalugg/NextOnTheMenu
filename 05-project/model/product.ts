@@ -4,6 +4,13 @@ import { Size } from "@/lib/types/size";
 import { WithObjectId } from "@/lib/types/with_object_id";
 import { ObjectId } from "mongodb";
 
+export interface FetchProdOptions {
+      sort?: string;
+     match?: { _id: ObjectId }[];
+  category?: string;
+    search?: string;
+}
+
 type ProductDB = WithObjectId<Product>;
 
 export default class Product {
@@ -43,12 +50,7 @@ export default class Product {
        match,
     category,
       search,
-  }: {
-        sort?: string;
-       match?: { _id: ObjectId }[];
-    category?: string;
-      search?: string;
-  } = {}) {
+  }: FetchProdOptions = {}) {
     const sortBy = this.sortBy(sort);
     let query = {};
 

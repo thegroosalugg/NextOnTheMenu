@@ -1,5 +1,5 @@
 "use server";
-import Product from "@/model/product";
+import Product, { FetchProdOptions } from "@/model/product";
 import { unstable_cache } from "next/cache";
 import { cache } from "react";
 
@@ -21,4 +21,12 @@ export const findProduct = cached(
   ["product"]
 );
 
-export async function getProducts() {}
+export const getProducts = cached(
+  async (options?: FetchProdOptions) => await Product.getAll(options),
+  ["products"]
+);
+
+export const getFeatured = cached(
+  async () => await Product.getFeatured(),
+  ["featured"]
+);

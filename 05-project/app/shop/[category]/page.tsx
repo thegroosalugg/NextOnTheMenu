@@ -1,7 +1,7 @@
 import ProductList from "@/components/product/list/ProductList";
+import { getProducts } from "@/lib/actions/product";
 import { Param } from "@/lib/types/param";
 import Category from "@/model/category";
-import Product from "@/model/product";
 import { notFound } from "next/navigation";
 
 type Params = {
@@ -24,7 +24,7 @@ export default async function ShopCategoryPage({ params, searchParams }: Params)
   if (!isValid) notFound();
 
   const { sort } = await searchParams;
-  const products = await Product.getAll({ category, sort });
+  const products = await getProducts({ category, sort });
   if (!products) notFound();
 
   return <ProductList {...{ products }} />;
