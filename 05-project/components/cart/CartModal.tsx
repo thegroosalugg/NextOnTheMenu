@@ -24,8 +24,7 @@ export default function CartModal() {
         open
         className={`
           fixed inset-0 left-auto right-0 z-100
-          h-screen w-screen md:w-2/5
-          p-2 lg:p-4
+          h-dvh w-screen md:w-2/5
           bg-white/92 dark:bg-black/92
           transition-transform duration-500 ease-in-out
           ${ui.menu}

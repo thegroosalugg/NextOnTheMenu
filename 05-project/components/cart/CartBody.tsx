@@ -10,9 +10,9 @@ export default function CartBody() {
   const totalPrice = cart.total.price;
 
   return (
-    <div className="flex flex-col gap-1 h-full overflow-y-scroll">
-      <header className="flex justify-between items-center p-2">
-        <h2 className="font-mono text-xl pl-2">Your Cart</h2>
+    <div className="flex flex-col gap-1 h-full p-4 lg:p-6 overflow-auto">
+      <header className="flex justify-between items-start">
+        <h2 className="font-mono text-xl truncate">Your Cart</h2>
         <IconButton icon="Cross" onClick={closeMenu} />
       </header>
       {cart.items.length ? (
@@ -23,12 +23,14 @@ export default function CartBody() {
           <p className="mt-2 font-mono">Your cart is empty.</p>
         </div>
       )}
-      <Hr />
       <div className="flex flex-col shrink-0 overflow-x-scroll p-0.5">
-        <div className="flex justify-between gap-2 px-2">
-          <p className="text-lg text-zinc-500 dark:text-zinc-400 font-medium">Total</p>
-          <p>${totalPrice.toFixed(2)} USD</p>
-        </div>
+        <Hr />
+        <p className="flex flex-wrap items-center justify-between min-w-fit px-2">
+          <span className="text-lg text-zinc-500 dark:text-zinc-400 font-medium">
+            Total
+          </span>
+          <span>${totalPrice.toFixed(2)} USD</span>
+        </p>
         {totalPrice > 0 && <CartCheckoutButton />}
       </div>
     </div>
