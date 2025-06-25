@@ -1,4 +1,4 @@
-import { randomParagraph } from "@/components/util/word_generator";
+import { randomParagraph } from "@/lib/util/word_generator";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
