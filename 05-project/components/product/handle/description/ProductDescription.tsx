@@ -1,6 +1,7 @@
 import Product from "@/model/product";
 import ButtonRow from "./ButtonRow";
 import CartAddButton from "./CartAddButton";
+import { randomParagraph } from "@/components/util/word_generator";
 
 export default function ProductDescription({ _id, name, price, desc, images, sizes }: Product) {
   return (
@@ -17,11 +18,13 @@ export default function ProductDescription({ _id, name, price, desc, images, siz
           Size
         </ButtonRow>
       )}
-      <p className="max-h-40 overflow-y-scroll">{`${desc} `.repeat(100)}</p>
+      <p className="max-h-40 overflow-y-scroll">
+        <span className="font-medium">{desc}</span> <em>{randomParagraph(100)}</em>
+      </p>
       <ul className="list-disc marker:text-stone-400 pl-8 my-4">
         {Array.from({ length: 4 }, (_, i) => (
           <li key={i} className="leading-relaxed">
-            {"Lorem Ipsum ".repeat(i + 1)}
+            {randomParagraph(3)}
           </li>
         ))}
       </ul>
