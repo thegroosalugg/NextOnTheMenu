@@ -10,7 +10,7 @@ export default function PillButton({
       {...props}
       className={`
         bg-sky-700 text-white
-        w-2/3 mx-auto py-1 px-2
+        w-2/3 min-w-fit mx-auto py-1 px-2
         rounded-2xl hover:opacity-90
         ${classes}
       `}

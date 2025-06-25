@@ -1,14 +1,14 @@
-import { ButtonHTMLAttributes } from "react";
 import IconButton from "../ui/button/IconButton";
+import { useCart } from "./CartContext";
 
-export default function CartOpenButton({
-     total,
-  ...props
-}: { total: number } & ButtonHTMLAttributes<HTMLButtonElement>) {
+export default function CartOpenButton() {
+  const { cart, openMenu } = useCart();
+  const totalQty = cart.total.quantity;
+
   return (
     <div className="relative">
-      <IconButton icon="ShoppingCart" {...props} />
-      {total > 0 && (
+      <IconButton icon="ShoppingCart" onClick={openMenu} />
+      {totalQty > 0 && (
         <span
           className="
             absolute -top-2 -right-2
@@ -17,7 +17,7 @@ export default function CartOpenButton({
             border rounded-lg
           "
         >
-          {total}
+          {totalQty}
         </span>
       )}
     </div>

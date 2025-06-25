@@ -1,17 +1,14 @@
 "use client";
-import IconButton from "../ui/button/IconButton";
 import { useCart } from "./CartContext";
 import CartBody from "./CartBody";
 import CartOpenButton from "./CartOpenButton";
 
 export default function CartModal() {
-  const { cart, ui, openMenu, closeMenu, getTotal } = useCart();
-  const total = getTotal("price").toFixed(2);
-  const totalQty = getTotal("quantity");
+  const { ui, closeMenu } = useCart();
 
   return (
     <>
-      <CartOpenButton total={totalQty} onClick={openMenu} />
+      <CartOpenButton />
       <div
         onClick={closeMenu}
         className={`
@@ -27,20 +24,13 @@ export default function CartModal() {
         open
         className={`
           fixed inset-0 left-auto right-0 z-100
-          flex flex-col gap-1
-          h-full w-screen md:w-2/5
-          overflow-y-scroll
-          p-2 lg:p-4
+          h-dvh w-screen md:w-2/5
           bg-white/92 dark:bg-black/92
           transition-transform duration-500 ease-in-out
           ${ui.menu}
         `}
       >
-        <header className="flex justify-between items-center p-2">
-          <h2 className="font-mono text-xl pl-2">Your Cart</h2>
-          <IconButton icon="Cross" onClick={closeMenu} />
-        </header>
-        <CartBody {...{ cart, total }} />
+        <CartBody />
       </dialog>
     </>
   );
