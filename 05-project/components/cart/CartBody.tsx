@@ -10,7 +10,7 @@ export default function CartBody() {
   const totalPrice = cart.total.price;
 
   return (
-    <div className="flex flex-col gap-1 h-full p-4 lg:p-6 overflow-auto">
+    <div className="flex flex-col gap-1 h-dvh p-4 lg:p-6 overflow-auto">
       <header className="flex justify-between items-start">
         <h2 className="font-mono text-xl truncate">Your Cart</h2>
         <IconButton icon="Cross" onClick={closeMenu} />
