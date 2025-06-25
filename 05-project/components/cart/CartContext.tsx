@@ -1,7 +1,7 @@
 "use client";
 import Cart from "@/model/cart";
 import { createContext, useContext, useState, ReactNode, useOptimistic } from "react";
-import { calcTotal } from "./calcTotal";
+import { calcTotal } from "../util/calc_total";
 import { CartItemInput } from "@/lib/actions/cart";
 
 type CartTotal = { total: { price: number; quantity: number } };
