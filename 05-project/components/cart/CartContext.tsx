@@ -1,15 +1,17 @@
-'use client';
+"use client";
 import Cart from "@/model/cart";
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode, useOptimistic } from "react";
+import { calcTotal } from "./calcTotal";
+import { CartItemInput } from "@/lib/actions/cart";
 
-type CartMetrics = "price" | "quantity";
+type CartTotal = { total: { price: number; quantity: number } };
 
 type CartContext = {
-       cart: Cart | null;
-         ui: { menu: string; backdrop: string };
-   openMenu: () => void;
-  closeMenu: () => void;
-   getTotal: (type: CartMetrics) => number;
+           cart: Cart & CartTotal;
+  updateOptCart: (action: CartItemInput) => void;
+             ui: { menu: string; backdrop: string };
+       openMenu: () => void;
+      closeMenu: () => void;
 };
 
 export const CartContext = createContext<CartContext | null>(null);
@@ -33,13 +35,33 @@ export function CartProvider({ cart, children }: CartProviderProps) {
   const  openMenu = () => setUi(visible);
   const closeMenu = () => setUi(hidden);
 
-  const getTotal = (type = "quantity") =>
-    cart?.items.reduce(
-      (total, { price, quantity }) => total + quantity * (type === "price" ? price : 1),
-      0
-    ) ?? 0;
+  const total = calcTotal(cart?.items);
+  const initialCart = cart ? { ...cart, total } : { _id: "", items: [], total };
 
-  const cartValue = { cart, ui, openMenu, closeMenu, getTotal };
+  const [optimisticCart, updateOptCart] = useOptimistic(
+    initialCart,
+    (cart, { prodId, size, color, $delta }: CartItemInput) => {
+      if (!["1", "-1"].includes($delta)) return cart;
+
+      const items = [...cart.items];
+      const index = items.findIndex(
+        (item) => item._id === prodId && item.size === size && item.color === color
+      );
+
+      if (index === -1) return cart;
+
+      const item = { ...items[index] };
+      item.quantity += +$delta;
+
+      if (item.quantity <= 0) items.splice(index, 1);
+      else items[index] = item;
+
+      const total = calcTotal(items);
+      return { ...cart, items, total };
+    }
+  );
+
+  const cartValue = { cart: optimisticCart, updateOptCart, ui, openMenu, closeMenu };
 
   return <CartContext.Provider value={cartValue}>{children}</CartContext.Provider>;
 }
