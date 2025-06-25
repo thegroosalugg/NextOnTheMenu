@@ -1,7 +1,7 @@
 import Product from "@/model/product";
 import ButtonRow from "./ButtonRow";
 import CartAddButton from "./CartAddButton";
-import { randomParagraph } from "@/components/util/word_generator";
+import { randomParagraph } from "@/lib/util/word_generator";
 
 export default function ProductDescription({ _id, name, price, desc, images, sizes }: Product) {
   return (
