@@ -20,15 +20,9 @@ export default async function Header() {
       <div className="md:hidden basis-1/3">
         <MobileMenu {...{ links }} />
       </div>
-      <section
-        className="
-          flex basis-1/3 gap-2
-          items-center
-          font-mono
-        "
-      >
+      <section className="flex basis-1/3 gap-2 items-center font-mono">
         <BrandLogo compact />
-        <NavGroup {...{ links }} />
+        <NavGroup {...{ links, hover: "hover:text-shadow-lg" }} />
       </section>
       <div className="hidden md:flex basis-1/3">
         <SearchBar />
