@@ -1,13 +1,13 @@
-import { ButtonHTMLAttributes } from "react";
 import IconButton from "../ui/button/IconButton";
+import { useCart } from "./CartContext";
 
-export default function CartOpenButton({
-     total,
-  ...props
-}: { total: number } & ButtonHTMLAttributes<HTMLButtonElement>) {
+export default function CartOpenButton() {
+  const { openMenu, getTotal } = useCart();
+
+  const total = getTotal("quantity");
   return (
     <div className="relative">
-      <IconButton icon="ShoppingCart" {...props} />
+      <IconButton icon="ShoppingCart" onClick={openMenu} />
       {total > 0 && (
         <span
           className="

@@ -30,7 +30,7 @@ export default function CartItems({ cart }: { cart: Cart }) {
       {optimisticItems.map((cartItem) => {
         const { _id, name, size, color, image, price, quantity } = cartItem;
         return (
-          <li key={`${_id}${color}${size}`} className="flex">
+          <li key={`${_id}${color}${size}`} className="flex mx-auto w-full">
             <div className="h-20 w-20 shrink-0">
               <ImageTile
                 href={`/product/${_id}?color=${color}&size=${size}`}
