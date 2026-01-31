@@ -26,9 +26,13 @@ export default function Footer() {
       <Hr />
       <section className={`${sectionStyles} justify-between text-xs`}>
         <p>© 2025 Shopify Demo — Built for educational purposes. All rights reserved.</p>
-        <PathLink href="https://github.com/thegroosalugg/NextOnTheMenu/tree/main/05-project">
+        <a
+          href="https://github.com/thegroosalugg/NextOnTheMenu/tree/main/05-project"
+          target="_blank"
+          className="block text-center hover:text-sky-500 transition-all duration-500 ease-in-out"
+        >
           View Source Code
-        </PathLink>
+        </a>
         <p>Designed with Next 15, MongoDb & Tailwind 4.</p>
       </section>
     </footer>

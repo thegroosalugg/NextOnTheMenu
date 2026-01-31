@@ -6,21 +6,21 @@ import { AnchorHTMLAttributes } from "react";
 export default function PathLink({
       href,
   children,
-     hover = "hover:text-shadow-xs",
+   classes = "hover:font-bold hover:text-sky-600 dark:hover-text-sky-500",
   ...props
 }: {
       href: string;
-    hover?: string;
+  classes?: string;
   children: React.ReactNode;
 } & AnchorHTMLAttributes<HTMLAnchorElement>) {
   const path = usePathname();
-  let classes = `transition-all text-shadow-sky-500 ${hover}`;
-  if (path === href && href.length > 1)
-    classes +=
-      " text-sky-600 dark:text-sky-300 hover:text-shadow-xs underline underline-offset-3";
+
+  let styles = `transition-all duration-500 ease-in-out text-shadow-sky-500 ${classes}`
+  if (path === href && href.length > 1) // active class
+    styles += " text-sky-700 dark:text-sky-300 underline underline-offset-3"
 
   return (
-    <Link href={href} className={classes} {...props}>
+    <Link href={href} className={styles} {...props}>
       {children}
     </Link>
   );

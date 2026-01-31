@@ -52,7 +52,7 @@ export default function FilterMenu({ params, label, menu }: MenuProps) {
   return (
     <>
       <div className="hidden md:block p-4">
-        <h2 className="text-slate-400 font-bold">{label}</h2>
+        <h2 className="text-zinc-600 dark:text-zinc-300 font-bold">{label}</h2>
         <ul className="flex flex-col">
           {menu.map((item) => (
             <FilterItem key={item._id} {...{ params, item }} />
@@ -85,10 +85,7 @@ export default function FilterMenu({ params, label, menu }: MenuProps) {
             "
           >
             {menu.map((item) => (
-              <FilterItem
-                key={item._id}
-                {...{ params, item, onClick: () => setShowMenu(false) }}
-              />
+              <FilterItem key={item._id} {...{ params, item, onClick: () => setShowMenu(false) }} />
             ))}
           </ul>
         )}
