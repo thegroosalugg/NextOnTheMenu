@@ -17,9 +17,9 @@ export default function Footer() {
       <section className={`${sectionStyles} md:items-start text-sm`}>
         <BrandLogo />
         <nav className="flex flex-col gap-1 md:gap-4">
-          <PathLink href="/">Home</PathLink>
           <PathLink href="/about">About</PathLink>
           <PathLink href="/terms-conditions">Terms & Conditions</PathLink>
+          <PathLink href="/privacy">Privacy Policy</PathLink>
         </nav>
         <VercelLogo />
       </section>
