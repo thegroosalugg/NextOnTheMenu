@@ -7,6 +7,7 @@ import "@/lib/mongo/initProducts"; // create dummy data if non existent
 import "@/lib/mongo/initCategories";
 import { loadCart } from '@/lib/actions/cart';
 import { CartProvider } from '@/components/cart/CartContext';
+import Analytics from '@/components/analytics/Analytics';
 
 const montserrat = Montserrat({
   variable: '--font-montserrat',
@@ -33,6 +34,7 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body className={`${montserrat.variable} ${poiret_one.variable} antialiased`}>
+        <Analytics />
         <CartProvider {...{ cart }}>
           <Header />
           <main className='flex-1'>{children}</main>
