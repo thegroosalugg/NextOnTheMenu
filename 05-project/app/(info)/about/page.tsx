@@ -39,7 +39,7 @@ export default function AboutPage() {
 
       <a
         className="block my-4 font-bold hover:font-black transition-all duration-500"
-        href="https://victor-loginov.vercel.app/"
+        href={process.env.VITE_PORTFOLIO_URL}
         target="_blank"
       >
         More from me
