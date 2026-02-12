@@ -27,7 +27,7 @@ export default function Footer() {
       <section className={`${sectionStyles} justify-between text-xs`}>
         <p>© 2025 Shopify Demo — Built for educational purposes. All rights reserved.</p>
         <a
-          href="https://github.com/thegroosalugg/NextOnTheMenu/tree/main/05-project"
+          href={process.env.VITE_SOURCE_URL}
           target="_blank"
           className="block text-center hover:text-sky-500 transition-all duration-500 ease-in-out"
         >
