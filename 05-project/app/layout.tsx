@@ -21,9 +21,10 @@ const poiret_one = Poiret_One({
 });
 
 export const metadata: Metadata = {
-        title: 'Shopify | Home',
+  title: 'Shopify | Home',
   description: 'Next JS project',
-};
+  icons: { icon: '/icon.svg' },
+}
 
 export default async function RootLayout({
   children,
